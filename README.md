@@ -1,3 +1,4 @@
+![DIADEM banner](images/toplogo-diadem.png)
 # PaNRAID school materials
 ### PHOTONS AND NEUTRONS REALISTIC ARTIFICIAL INTELLIGENCE DATASETS
 ## TIME/VENUE:
@@ -19,3 +20,4 @@ This training course is intended for:
 processing tools: numerical computation (Python, etc.) / simulation
 * Personal laptop for practical sessions with software pre-installed McStas [https://mcstas.org/] and
 McXtrace [https://mcxtrace.org/].
+![Footer, partner logo banner](images/footer-partners.png)
