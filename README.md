@@ -1,4 +1,7 @@
-# PHOTONS AND NEUTRONS REALISTIC ARTIFICIAL INTELLIGENCE DATASETS (PaNRAID)
+# PaNRAID school materials
+### PHOTONS AND NEUTRONS REALISTIC ARTIFICIAL INTELLIGENCE DATASETS
+## Time and Venue
+21–25 September 2026, CNRS CAES Village (St-Pierre d’Oléron)
 ## OBJECTIVE:
 This course aims to develop an integrated approach to generating synthetic data for supervised learning,
 based on the combination of multi-scale material simulations (DFT, MD, XAS spectroscopy) and
