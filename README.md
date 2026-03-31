@@ -1,6 +1,7 @@
 ![DIADEM banner](images/toplogo-diadem.png)
 # PaNRAID school materials
 ### PHOTONS AND NEUTRONS REALISTIC ARTIFICIAL INTELLIGENCE DATASETS
+![PaNRAID logo](images/panraid_small.png)
 ## TIME/VENUE:
 21–25 September 2026, CNRS CAES Village (St-Pierre d’Oléron)
 ## OBJECTIVE:
