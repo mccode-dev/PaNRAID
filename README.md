@@ -22,3 +22,7 @@ processing tools: numerical computation (Python, etc.) / simulation
 * Personal laptop for practical sessions with software pre-installed McStas [https://mcstas.org/] and
 McXtrace [https://mcxtrace.org/].
 ![Footer, partner logo banner](images/footer-partners.png)
+
+## CREDITS:
+This traning is partly supported by the PEPR DIADEM Academy
+- https://formation.pepr-diadem.fr/formation-panraid
