@@ -25,14 +25,14 @@ This course develops an integrated approach to generating synthetic data for sup
 
 | Day | Date | Session | Topic |
 |-----|------|---------|-------|
-| 1 | Mon 21 Sep | Afternoon | [Introduction](./day1_monday_sep21/) |
-| 2 | Tue 22 Sep | Morning | [Neutron and X-ray Sources & Detectors](./day2_tuesday_sep22/morning_sources_detectors/) |
-| 2 | Tue 22 Sep | Afternoon | [Optics](./day2_tuesday_sep22/afternoon_optics/) |
-| 3 | Wed 23 Sep | Morning | [Diffraction Samples](./day3_wednesday_sep23/morning_diffraction_samples/) |
-| 3 | Wed 23 Sep | Afternoon | [Spectroscopy Samples](./day3_wednesday_sep23/afternoon_spectroscopy_samples/) |
-| 4 | Thu 24 Sep | Morning | [Imaging Samples](./day4_thursday_sep24/morning_imaging_samples/) |
-| 4 | Thu 24 Sep | Afternoon | [AI Applications: Training](./day4_thursday_sep24/afternoon_ai_training/) |
-| 5 | Fri 25 Sep | Full day | [AI Applications: Inference](./day5_friday_sep25_ai_inference/) |
+| 1 | Mon 21 Sep | Afternoon | [Introduction](./21_September_Monday/) |
+| 2 | Tue 22 Sep | Morning | [Neutron and X-ray Sources & Detectors](./22_September_Tuesday/morning_sources_detectors/) |
+| 2 | Tue 22 Sep | Afternoon | [Optics](./22_September_Tuesday/afternoon_optics/) |
+| 3 | Wed 23 Sep | Morning | [Diffraction Samples](./23_September_Wednesday/morning_diffraction_samples/) |
+| 3 | Wed 23 Sep | Afternoon | [Spectroscopy Samples](./23_September_Wednesday/afternoon_spectroscopy_samples/) |
+| 4 | Thu 24 Sep | Morning | [Imaging Samples](./24_September_Thursday/morning_imaging_samples/) |
+| 4 | Thu 24 Sep | Afternoon | [AI Applications: Training](./24_September_Thursday/afternoon_ai_training/) |
+| 5 | Fri 25 Sep | Full day | [AI Applications: Inference](./25_September_Friday) |
 
 ## Practical Details
 
