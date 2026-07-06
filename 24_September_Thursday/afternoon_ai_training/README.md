@@ -25,5 +25,7 @@ By the end of this session, participants should be able to:
 _Add slides, notebooks, or reference materials here._
 
 Talks:
+- parameter optimization
 - scikit-learn based approach: random forest tree, XGBoost, TabNet
-- Perceptron example for 1D dataset and classifier
+- Perceptron example for 1D dataset and classifier/regression
+- CNN image classifier/regression
