@@ -26,3 +26,6 @@ Talks:
 - Classical ML, including parameter optimization and sk-learn stuff
 - Deep Learning ML
 - Data IN and OUT: annotations for supervised training
+- Perceptron metrics: input layer size, middle layer, output layer
+
+
