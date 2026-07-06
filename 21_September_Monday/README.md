@@ -21,3 +21,8 @@ Introduction to the challenges of simulation for generating realistic data in su
 ## Resources
 
 _Add slides, notebooks, or reference materials here._
+
+Talks:
+- Classical ML, including parameter optimization and sk-learn stuff
+- Deep Learning ML
+- Data IN and OUT: annotations for supervised training
