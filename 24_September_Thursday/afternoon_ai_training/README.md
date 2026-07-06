@@ -23,3 +23,7 @@ By the end of this session, participants should be able to:
 ## Resources
 
 _Add slides, notebooks, or reference materials here._
+
+Talks:
+- scikit-learn based approach: random forest tree, XGBoost, TabNet
+- Perceptron example for 1D dataset and classifier
