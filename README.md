@@ -2,7 +2,7 @@
 # Photons and Neutrons Realistic Artificial Intelligence Datasets (PaNRAID)
 ![PaNRAID logo](images/panraid_small.png)
 > **DIADEM Academy** — Training course on synthetic data generation for supervised learning  
-> 📅 **21–25 September 2026** | 📍 CNRS CAES Village, St-Pierre d'Oléron
+> 📅 **21–25 September 2026** | 📍 [CNRS CAES Village, St-Pierre d'Oléron](https://cartes.app/?allez=CAES+du+CNRS+La+Vieille+Perrotine%7Cn7785468780%7C-1.25013%7C45.95235)
 
 ## Objective
 
