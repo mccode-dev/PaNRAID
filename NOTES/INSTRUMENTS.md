@@ -13,5 +13,5 @@ _PW 2026/07/09 - Instrument models considered_
     `Radiography_Lithium_Battery.instr` 
 4. Spectroscopy:
   * McXtrace: `SOLEIL_MARS` or `SOLEIL_ROCK`
-  * McStas: `ILL_IN20` or `SNS_ARCS` (relevant sample...?)
+  * ~~McStas: `ILL_IN20` or `SNS_ARCS` (relevant sample...?!)!~~
 
