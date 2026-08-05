@@ -54,6 +54,8 @@ We can use all SAS models, but this would need a slight modification of the inst
 
 ### Powder diffraction 
 
+  * McStas: `ILL_D20.instr` or `PSI_DMC.instr` 
+
 Regression for structural parameters: lattice parameters, occupancies, sizes or strain.
 
 Phase classification from diffraction patterns.
@@ -77,6 +79,8 @@ We can also train a peak detection algorithm for the diffraction patterns, that 
 | BARNS | 1 | Flag to define if powder reflection file \|F2\| is in Barns or fm | 1 |
 | SPLITS |  |  | 58 |
 
+
+##### Output type
 
 ### Imaging 
 
