@@ -15,3 +15,42 @@ _PW 2026/07/09 - Instrument models considered_
   * McXtrace: `SOLEIL_MARS` or `SOLEIL_ROCK`
   * ~~McStas: `ILL_IN20` or `SNS_ARCS` (relevant sample...?!)!~~
 
+
+
+### SAXS / SANS
+
+Multi-class Classification structure/form factor. This could be done from I(Q) or 2D images. We could select a subsample of all the SASmodels, like sphere, cylinder, core-shell, etc. 
+
+SANS parameter regression: From I(Q), for a specific model, like core-shells, we could generate thousands of sample curves, and then learn the radius, polidispesity, shell thickness, correlation length, etc. 
+
+
+### Instrument Parameters: 
+
+
+### 
+## Powder diffraction 
+
+Regression for structural parameters: lattice parameters, occupancies, sizes or strain.
+
+Phase classification from diffraction patterns.
+
+We can also train a peak detection algorithm for the diffraction patterns, that give us the peak positions, widths, and intensities. 
+
+
+## Imaging 
+
+Segmentation: from the x-ray radiographies we could generate data for a U-Net, and segment (a bit time consuming). We could also train do detecto defects, or cracks, or pores, etc.
+
+Binary Classification: presence and absense of something in the images. Detection*  
+
+
+## Spectroscopy
+
+regression problems 
+
+Classification of samples, or elemental composition
+
+Signal/background detection and estimation in spectra
+
+
+
