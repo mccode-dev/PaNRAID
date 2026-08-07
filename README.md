@@ -38,8 +38,7 @@ This course develops an integrated approach to generating synthetic data for sup
 
 - **Duration:** 5 days — 8 half-days (28 hours total)
 - **Modality:** In-person (présentiel)
-- **Price:** €700 (includes return shuttle to La Rochelle, 4 nights accommodation, meals 21st evening – 25th midday, bike hire)
-- **Optional group outing:** €20 extra
+- **Price:** €700 which includes return shuttle to La Rochelle, 4 nights accommodation, meals 21st evening – 25th midday, bike hire, group outing at Fort Boyard.
 
 ## Trainers
 
