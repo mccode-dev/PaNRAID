@@ -1,5 +1,9 @@
 # Overview of AI methods
 
+## Vector type Monitor
+
+We here assume we generate 1D vectors out of some parameters. The monitor data should be e.g. in reciprocal space for anything that produces structural data (diffraction) as it gets less sensitive to instrument configuration (e.g. wavelength).
+
 **Input**: N experimental vectors V (size SV​) and N parameter sets P (size SP​).
 
 **Goal**: Train an ML model to map V→P (inverse problem).
@@ -10,7 +14,7 @@ This task is an Inverse Problem: you are mapping a high-dimensional observation 
 
 Because the mapping V→P is often ill-posed (multiple parameter sets might produce similar vectors), the choice of model depends heavily on the size of your dataset (NN) and the nature of the relationship (linear vs. highly non-linear).
 
-## Methodology Comparison Table
+#### Methodology Comparison Table
 
 Methodology |	Model Type |	Dev Complexity |	Training Complexity |	Performance Expectation |	Best Use Case
 ---|---|---|---|---|---
@@ -20,7 +24,7 @@ TabNet |	Attentive Tabular Network |	High |	High |	High |	Medium-to-Large N; whe
 PyTorch / TF (MLP) |	Multi-Layer Perceptron |	High |	High |	High |	Large N; complex, deep non-linearities; when you need custom loss functions.
 PyTorch / TF (CNN/1D-CNN) |	Convolutional Neural Net |	High |	High |	Very High |	Large N; when V has local correlations (e.g., a signal or spectrum where adjacent points matter).
 
-## Implementation examples
+#### Implementation examples
 
 To implement these, we first need a synthetic dataset. In these examples, we generate a signal (V) where the parameters (P) control the amplitude and frequency of a sine wave.
 
@@ -159,7 +163,6 @@ print(f"XGBoost: {mean_squared_error(y_test, xgb_preds):.6f}")
 print(f"TabNet:  {mean_squared_error(y_test, tabnet_preds):.6f}")
 print(f"MLP:     {mean_squared_error(y_test, mlp_preds):.6f}")
 print(f"CNN:     {mean_squared_error(y_test, cnn_preds):.6f}")
-
 ```
 
 **Notes:**
@@ -169,3 +172,14 @@ print(f"CNN:     {mean_squared_error(y_test, cnn_preds):.6f}")
 - MLP Shape: The MLP takes the vector V as a flat feature list. It assumes every index in V is a feature.
 - CNN Shape (unsqueeze(1)): This is the most common error in PyTorch CNNs. A Conv1d layer expects input in the shape (Batch, Channels, Length). Since the V is 1D, we must treat it as having 1 channel (like a grayscale image).
 - CNN AdaptiveAvgPool1d: We used this instead of standard MaxPool1d at the end. This ensures that regardless of the input vector size SV​, the output passed to the fully connected layer is always the same size, making the model flexible to changes in SV​.
+
+## 2D type Monitor
+
+We could envisage:
+
+1- imaging: segmentation for imaging instr, e.g. tomography
+
+2- diffraction: could be e.g. phase and texture estimates. I(x,y) must be in Q space not to depend much on instrument parameters. Can use a U-Net.
+
+3- de-noising: can apply to any 2D data set.
+
