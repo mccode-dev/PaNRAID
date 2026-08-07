@@ -192,9 +192,11 @@ Found templateDIFF
 
 ### Imaging 
 
-Segmentation: from the x-ray radiographies we could generate data for a U-Net, and segment (a bit time consuming). We could also train do detecto defects, or cracks, or pores, etc.
+* Segmentation: from the x-ray radiographies we could generate data for a U-Net, and segment (a bit time consuming). We could also train do detecto defects, or cracks, or pores, etc.
 
 Binary Classification: presence and absense of something in the images. Detection*  
+
+Denoising possibility low vs high quality images and learning mappings
 
 
 #### `PSI_ICON.instr`
@@ -251,6 +253,8 @@ Found Radiography_Sword
 
 
 #### `SOLEIL_ANATOMIX.instr` (nanoscale) 
+
+coil 
 
 ##### Instrument Parameters:
 ```
