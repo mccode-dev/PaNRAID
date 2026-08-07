@@ -10,3 +10,7 @@ Packages to install (in alphabetical order):
 - python3-scipy
 - python3-sklearn
 - python3-skimage
+- python3-tabnet
+- python3-torch-cuda
+- python3-xgboost
+
