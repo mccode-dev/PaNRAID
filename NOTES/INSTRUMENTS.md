@@ -25,7 +25,7 @@ SANS parameter regression: From I(Q), for a specific model, like core-shells, we
 
 #### `ISIS_SANS2d_Mantid.instr`
 
-Needs NeXus ... Should we use this one?
+Needs NeXus ... Should we use this one? Probably NO.
 
 ##### Instrument Parameters:
 | Name | Unit | Description | Default |
@@ -59,13 +59,17 @@ Parameter instruments can be varied, giving for variablity due to experimental s
 
 We can use all SAS models, but this would need a slight modification of the instrument component as it is. 
 
+- SANS_AnySamp: hard-coded I(q) in INIT. Currently with fixed parameters.
+- SANS_DebyeS: Currently with fixed parameters.
+- SANS_Guinier: Currently with fixed parameters.
+
 ##### Output type 
 
-- 2D Scattering plane
+- 2D Scattering plane 'PSD_monitor'
 
-- 1D curve: PSD monitor radial sum
+- 1D curve: PSD monitor radial sum 'PSD_monitor_rad'
 
-- 1D curve: PSD monitor radial average
+- 1D curve: PSD monitor radial average 'PSD_monitor_rad'
 
 
 #### `SOLEIL_SWING.instr`
@@ -82,6 +86,9 @@ We can use all SAS models, but this would need a slight modification of the inst
 * sample_det:       [m]  Sample to detector distance in m.
 ```
 
+No sample parameters. PDB file not easy to train.
+Could be adapted to use a static parametrised sample model, e.g. sphere.
+
 #### `ESRF_BM29.instr`
 
 ##### Instrument Parameters:
@@ -95,6 +102,11 @@ We can use all SAS models, but this would need a slight modification of the inst
 * DLambda: []                              Relative deviation of wavelength of the rays emitted from source.
 ```
 
+Fixed sample 'SAXSSpheres' with fixed gyration radius. Can be made parametrised.
+
+##### Output
+
+- SAXSQMonitor: 1D I(q)
 
 ### Powder diffraction 
 
