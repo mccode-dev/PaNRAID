@@ -1,5 +1,10 @@
 # Overview of AI methods
 
+## optimisation of instrument parameters
+
+Optimisation is part of classical ML.
+We should mention it, demonstrate how to use it, and what to expect.
+
 ## Vector type Monitor
 
 We here assume we generate 1D vectors out of some parameters. The monitor data should be e.g. in reciprocal space for anything that produces structural data (diffraction) as it gets less sensitive to instrument configuration (e.g. wavelength).
