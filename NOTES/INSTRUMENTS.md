@@ -28,8 +28,12 @@ DIFX  | `SOLEIL_DIFFABS`       | YES | Uses PowderN CIF + Fluo. Can be trained o
 IMGN  | `PSI_ICON`             | NO  | Nothing is parametrised. sample is fixed. Could still be used for de-noising.
 IMGN  | `Radiography_Sword`    | NO  | Using Union. Fixed geometry. Nothing parametrised. Could still be used for de-noising.
 IMGN  | `Radiography_Lithium_Battery` | NO | Using Union. Fixed geometry. Nothing parametrised. Could still be used for de-noising.
-
-
+IMGX  | `SOLEIL_ANATOMIX`      | YES | Flexible geometry. Can be trained for position/angle and geometry.
+IMGX  | `Airport_scannerII`    | YES | Many OFF/PLY objects. These could be displaced for segmentation training vs composition, angle and positions.
+INS   | `templateTAS` (IN20)   | YES | Can be used for parameter optimisation (monok, analyser).
+INS   | `SNS_ARCS`             | YES | May be used to study instrument resolution. But do not know how to use that for AI. Perhaps de-convolution ?
+XRF   | `SOLEIL_MARS`          | YES | Uses PowderN CIF + Fluo. Can be trained on Bravais class and spectroscopy stoichiometry. same as `DIFFABS` in structure.
+ABSX  | `SOLEIL_ROCK`          | YES | Uses Fluo. Can be trained on X-ray absorption energy on edge.
 
 ---------------------------------------------------------------------------------
 
@@ -411,7 +415,7 @@ No easy parameter to train.
 
 ##### Sample Parameters
 
-Using `Abs_objects` with many OFF/PLY objects. These could be displaced for segmentation training vs angle and positions.
+Using `Abs_objects` with many OFF/PLY objects. These could be displaced for segmentation training vs composition, angle and positions.
 
 ##### Output type
 
@@ -424,12 +428,14 @@ Using `Abs_objects` with many OFF/PLY objects. These could be displaced for segm
 
 regression problems 
 
-Classification of samples, or elemental composition
+Classification of samples, or elemental composition.
 
 Signal/background detection and estimation in spectra
 
 
-#### `ILL_IN20`
+#### `ILL_IN20` (templateTAS)
+
+Typical 3 axis spectrometer.
 
 ##### Instrument Parameters:
 | Name | Unit | Description | Default |
@@ -463,6 +469,16 @@ Signal/background detection and estimation in spectra
 | BET3 | arc min | Vertical collimation from Sample to Analyzer | 120 |
 | BET4 | arc min | Vertical collimation from Analyzer to Detector | 120 |
 
+Can be optimised for e.g curvatures (monok, analyser).
+
+##### Sample Parameters
+
+Using `Isotropic_Sqw` which allows any structural and dynamic stuff. Probably too complex for the sample side.
+
+##### Output type
+
+- 2D: image `PSD_monitor` very small in xy space. Moves around (requires scans).
+
 #### `SNS_ARCS` (relevant sample...?)
 
 ##### Instrument Parameters:
@@ -483,6 +499,16 @@ Signal/background detection and estimation in spectra
 | symax | m | Sample slit vert max value | 0.04 |
 | run_num | 1 | Virtual source run number (unused at present) | 1 |
 
+##### Sample Parameters
+
+Using `Spot_sample` which provides the resolution function (N-Dirac).
+Not sure what can be used for training.
+
+##### Output type
+
+- 2D: image `Monitor_nD` large detector in (theta,y).
+
+
 #### `SOLEIL_MARS`
 
 ##### Instrument Parameters:
@@ -493,6 +519,17 @@ Signal/background detection and estimation in spectra
 * reflections: [str] Sample structure file, LAU/CIF format.
 * reflec_material_M12: [str] reflecting coating on curved mirrors, e.g. Pt
 ```
+
+Same as `DIFFABS` in structure. Less parameters.
+
+##### Sample Parameters
+
+Uses PowderN CIF + Fluo. Can be trained on Bravais class and spectroscopy stoichiometry. 
+
+##### Output type
+
+- 1D: I(theta) 'Monitor_nD'
+- 2D: I(theta,y) banana 'Monitor_nD'
 
 #### `SOLEIL_ROCK`
 
@@ -508,3 +545,15 @@ Signal/background detection and estimation in spectra
 * reflec_material_M1:      [str] Material reflectivity file name for M1 mirror, e.g. "Ir.dat"
 * reflec_material_M2A_M2B: [str] Material reflectivity file name for M2A and M2B mirror. Use NULL for automatic setting.
 ```
+
+Nothing to optimise here.
+
+##### Sample Parameters
+
+Uses Fluo component. Can be trained on X-ray absorption energy on edge.
+
+##### Output type
+
+- 1D: energy 'Monitor_nD'
+- 2D: XY 'Monitor_nD'
+
