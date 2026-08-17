@@ -15,17 +15,29 @@ _PW 2026/07/09 - Instrument models considered_
   * McXtrace: `SOLEIL_MARS` or `SOLEIL_ROCK`
   * ~~McStas: `ILL_IN20` or `SNS_ARCS` (relevant sample...?!)!~~
 
+Class | Instrument     | Eligibility | Adaption
+------|------------------------|-----|---------
+SANS  | `ISIS_SANS2d_Mantid`   | NO  | (Nexus)
+SANS  | `SANS_KWS2_AnySample`  | YES | Parametrise Sphere/Guinier/Debye
+SAXS  | `SOLEIL_SWING`         | YES | Use a PDB set to infer e.g. chemical composition ? Or turn to Sphere/Cyl/Shell/Nanodisc ?
+SAXS  | `ESRF_BM29`            | YES | Fixed parameters. Parametrise gyration radius (sphere)
+DIFN  | `templateDIFF` (D20)   | YES | Uses PowderN CIF. Can be trained on Bravais class ? also optimise monochromator curvature ?
+DIFN  | `PSI_DMC`              | YES | Uses PowderN CIF. Can be trained on Bravais class ?
+DIFX  | `MAXIV_DanMAX_pxrd2d`  | YES | Uses PowderN CIF. Can be trained on Bravais class ?
+
+
+---------------------------------------------------------------------------------
 
 ### SAXS / SANS
 
 Multi-class Classification structure/form factor. This could be done from I(Q) or 2D images. We could select a subsample of all the SASmodels, like sphere, cylinder, core-shell, etc. 
 
-SANS parameter regression: From I(Q), for a specific model, like core-shells, we could generate thousands of sample curves, and then learn the radius, polidispesity, shell thickness, correlation length, etc. 
+SANS parameter regression: From I(Q), for a specific model, like core-shells, we could generate thousands of sample curves, and then learn the radius, poly dispersity, shell thickness, correlation length, etc. 
 
 
 #### `ISIS_SANS2d_Mantid.instr`
 
-Needs NeXus ... Should we use this one? Probably NO.
+Needs NeXus ... Should we use this one? Probably **NO**.
 
 ##### Instrument Parameters:
 | Name | Unit | Description | Default |
@@ -43,7 +55,7 @@ Needs NeXus ... Should we use this one? Probably NO.
 #### `SANS_KWS2_AnySample.instr` 
 
 ##### Instrument Parameters: 
-Parameter instruments can be varied, giving for variablity due to experimental setup. This can be seen as within variability for a specific sample and model. 
+Parameter instruments can be varied, giving for variability due to experimental setup. This can be seen as within variability for a specific sample and model. 
 
 | Name | Unit | Description | Default |
 |------|------|-------------|---------|
@@ -55,21 +67,22 @@ Parameter instruments can be varied, giving for variablity due to experimental s
 | Clen | m | distance to collimation in 0-20. Sample is at 40 m from source | 10.0 |
 | Dlen | m | distance from sample to detector | 10.0 |
 
+Not many instrument parameters that can be used for AI.
+
 ##### Sample Parameters:
 
 We can use all SAS models, but this would need a slight modification of the instrument component as it is. 
+Can be made parametrised with little modifications.
 
-- SANS_AnySamp: hard-coded I(q) in INIT. Currently with fixed parameters.
-- SANS_DebyeS: Currently with fixed parameters.
-- SANS_Guinier: Currently with fixed parameters.
+- `SANS_AnySamp`: hard-coded I(q) in INIT (Sphere). Currently with fixed parameters.
+- `SANS_DebyeS`: Currently with fixed parameters.
+- `SANS_Guinier`: Currently with fixed parameters.
 
 ##### Output type 
 
-- 2D Scattering plane 'PSD_monitor'
-
-- 1D curve: PSD monitor radial sum 'PSD_monitor_rad'
-
-- 1D curve: PSD monitor radial average 'PSD_monitor_rad'
+- 2D: xy image `PSD_monitor`
+- 1D: I(q) curve: PSD monitor radial sum `PSD_monitor_rad`
+- 1D: I(q) curve: PSD monitor radial average `PSD_monitor_rad`
 
 
 #### `SOLEIL_SWING.instr`
@@ -86,8 +99,19 @@ We can use all SAS models, but this would need a slight modification of the inst
 * sample_det:       [m]  Sample to detector distance in m.
 ```
 
-No sample parameters. PDB file not easy to train.
-Could be adapted to use a static parametrised sample model, e.g. sphere.
+No sample parameters, using 'SAXSPDBFast'. 
+
+PDB file not easy to train, but we could select some PDB from https://www.wwpdb.org/ and train against e.g. `_chem_comp.formula` ? 
+Not sure this is relevant, but this way a model could infer the compound formula in a limited set of atoms (CNHOFClSP).
+
+Can be used to optimise mirror curvatures.
+
+Could also be adapted to use a static parametrised sample model, e.g. sphere, cylinders, shells, nanodiscs.
+
+##### Output type
+
+- 2D: image 'Monitor_nD'
+- 1D: I(q) 'SAXSQMonitor'
 
 #### `ESRF_BM29.instr`
 
@@ -103,13 +127,16 @@ Could be adapted to use a static parametrised sample model, e.g. sphere.
 ```
 
 Fixed sample 'SAXSSpheres' with fixed gyration radius. Can be made parametrised.
+Not many instrument parameters that can be used for AI.
 
 ##### Output
 
-- SAXSQMonitor: 1D I(q)
+- `SAXSQMonitor`: 1D I(q)
+
+
+---------------------------------------------------------------------------------
 
 ### Powder diffraction 
-
 
 Regression for structural parameters: lattice parameters, occupancies, sizes or strain.
 
@@ -118,9 +145,9 @@ Phase classification from diffraction patterns.
 We can also train a peak detection algorithm for the diffraction patterns, that give us the peak positions, widths, and intensities. 
 
 
-#### `ILL_D20.instr` 
+#### `ILL_D20.instr` (templateDIFF)
 
-Found templateDIFF
+Found `templateDIFF` which refers to D20.
 
 ##### Instrument Parameters:
 | Name | Unit | Description | Default |
@@ -140,6 +167,15 @@ Found templateDIFF
 | THETA_M | deg | Monochromator take-off angle, computed from lambda and DM if left as 0. | 0 |
 | SM | int | Scattering sense of beam from Monochromator. 1:left, -1:right | 1 |
 
+sample is PowderN. Can use CIF. Train on Bravais class ?
+
+Could also be use to demonstrate instrument optimisation, e.g. curvature RV.
+
+##### Output
+
+- 1D: I(theta) `Monitor_nD`
+- 2D: I(theta,y) `Monitor_nD`
+
 #### `PSI_DMC.instr`
 
 ##### Instrument Parameters:
@@ -156,9 +192,12 @@ Found templateDIFF
 | BARNS | 1 | Flag to define if powder reflection file \|F2\| is in Barns or fm | 1 |
 | SPLITS |  |  | 58 |
 
+Sample is PowderN using CIF. Can be trained on Bravais class.
+Not many instrument parameters that can be used for AI.
 
 ##### Output type
 
+- 2D: I(theta,y) `Monitor_nD`
 
 #### `MAXIV_DanMAX_pxrd2d.instr`
 
@@ -189,6 +228,9 @@ Found templateDIFF
 * sample_radius: [m] Powder sample cylinder radius
 ```
 
+Sample is PowderN. Can be used to train sample Bravais class.
+Not many instrument parameters that can be used for AI.
+
 #### `SOLEIL_DIFFABS.instr`
 
 ##### Instrument Parameters:
@@ -202,7 +244,17 @@ Found templateDIFF
 * sample:   [str]  Sample structure file, LAU/CIF format.
 ```
 
-### Imaging 
+Using CIF2HKL in 'PowderN+Fluorescence'. We could train with classes from Bravais classes.
+Need to select some files from e.g. Crystallography.net, create classes, and train with corresponding CIF.
+
+##### Output type
+
+- 1D: I(theta) 'Monitor_nD'
+- 2D: I(theta,y) banana 'Monitor_nD'
+
+---------------------------------------------------------------------------------
+
+### Imaging / tomography
 
 * Segmentation: from the x-ray radiographies we could generate data for a U-Net, and segment (a bit time consuming). We could also train do detecto defects, or cracks, or pores, etc.
 
@@ -288,6 +340,8 @@ coil
 * posZ: [m]     Displacement of scene along z-axis
 * Ncount: [1]   Set X-ray particle count for the simulation (same as -n #)
 ```
+
+---------------------------------------------------------------------------------
 
 ### Spectroscopy
 
