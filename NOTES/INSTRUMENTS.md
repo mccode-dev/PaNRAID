@@ -18,12 +18,17 @@ _PW 2026/07/09 - Instrument models considered_
 Class | Instrument     | Eligibility | Adaption
 ------|------------------------|-----|---------
 SANS  | `ISIS_SANS2d_Mantid`   | NO  | (Nexus)
-SANS  | `SANS_KWS2_AnySample`  | YES | Parametrise Sphere/Guinier/Debye
-SAXS  | `SOLEIL_SWING`         | YES | Use a PDB set to infer e.g. chemical composition ? Or turn to Sphere/Cyl/Shell/Nanodisc ?
-SAXS  | `ESRF_BM29`            | YES | Fixed parameters. Parametrise gyration radius (sphere)
-DIFN  | `templateDIFF` (D20)   | YES | Uses PowderN CIF. Can be trained on Bravais class ? also optimise monochromator curvature ?
-DIFN  | `PSI_DMC`              | YES | Uses PowderN CIF. Can be trained on Bravais class ?
-DIFX  | `MAXIV_DanMAX_pxrd2d`  | YES | Uses PowderN CIF. Can be trained on Bravais class ?
+SANS  | `SANS_KWS2_AnySample`  | YES | Fixed parameters. Must parametrise Sphere/Guinier/Debye.
+SAXS  | `SOLEIL_SWING`         | YES | Use a PDB set to infer e.g. chemical composition. Or change to Sphere/Cyl/Shell/Nanodisc. Can be used for instr optimisation.
+SAXS  | `ESRF_BM29`            | YES | Fixed parameters. Should parametrise gyration radius (sphere).
+DIFN  | `templateDIFF` (D20)   | YES | Uses PowderN CIF. Can be trained on Bravais class. Can optimise monochromator curvature.
+DIFN  | `PSI_DMC`              | YES | Uses PowderN CIF. Can be trained on Bravais class.
+DIFX  | `MAXIV_DanMAX_pxrd2d`  | YES | Uses PowderN CIF. Can be trained on Bravais class.
+DIFX  | `SOLEIL_DIFFABS`       | YES | Uses PowderN CIF + Fluo. Can be trained on Bravais class and spectroscopy stoichiometry. Can be used to optimise mirror curvatures.
+IMGN  | `PSI_ICON`             | NO  | Nothing is parametrised. sample is fixed. Could still be used for de-noising.
+IMGN  | `Radiography_Sword`    | NO  | Using Union. Fixed geometry. Nothing parametrised. Could still be used for de-noising.
+IMGN  | `Radiography_Lithium_Battery` | NO | Using Union. Fixed geometry. Nothing parametrised. Could still be used for de-noising.
+
 
 
 ---------------------------------------------------------------------------------
@@ -69,7 +74,7 @@ Parameter instruments can be varied, giving for variability due to experimental 
 
 Not many instrument parameters that can be used for AI.
 
-##### Sample Parameters:
+##### Sample Parameters
 
 We can use all SAS models, but this would need a slight modification of the instrument component as it is. 
 Can be made parametrised with little modifications.
@@ -99,12 +104,14 @@ Can be made parametrised with little modifications.
 * sample_det:       [m]  Sample to detector distance in m.
 ```
 
+Can be used to optimise mirror curvatures.
+
+##### Sample Parameters
+
 No sample parameters, using 'SAXSPDBFast'. 
 
 PDB file not easy to train, but we could select some PDB from https://www.wwpdb.org/ and train against e.g. `_chem_comp.formula` ? 
 Not sure this is relevant, but this way a model could infer the compound formula in a limited set of atoms (CNHOFClSP).
-
-Can be used to optimise mirror curvatures.
 
 Could also be adapted to use a static parametrised sample model, e.g. sphere, cylinders, shells, nanodiscs.
 
@@ -126,8 +133,11 @@ Could also be adapted to use a static parametrised sample model, e.g. sphere, cy
 * DLambda: []                              Relative deviation of wavelength of the rays emitted from source.
 ```
 
-Fixed sample 'SAXSSpheres' with fixed gyration radius. Can be made parametrised.
 Not many instrument parameters that can be used for AI.
+
+##### Sample Parameters
+
+Fixed sample 'SAXSSpheres' with fixed gyration radius. Can be made parametrised.
 
 ##### Output
 
@@ -167,9 +177,11 @@ Found `templateDIFF` which refers to D20.
 | THETA_M | deg | Monochromator take-off angle, computed from lambda and DM if left as 0. | 0 |
 | SM | int | Scattering sense of beam from Monochromator. 1:left, -1:right | 1 |
 
-sample is PowderN. Can use CIF. Train on Bravais class ?
-
 Could also be use to demonstrate instrument optimisation, e.g. curvature RV.
+
+##### Sample Parameters
+
+Sample is PowderN. Can use CIF. Train on Bravais class ?
 
 ##### Output
 
@@ -192,8 +204,11 @@ Could also be use to demonstrate instrument optimisation, e.g. curvature RV.
 | BARNS | 1 | Flag to define if powder reflection file \|F2\| is in Barns or fm | 1 |
 | SPLITS |  |  | 58 |
 
-Sample is PowderN using CIF. Can be trained on Bravais class.
 Not many instrument parameters that can be used for AI.
+
+##### Sample Parameters
+
+Sample is PowderN using CIF. Can be trained on Bravais class.
 
 ##### Output type
 
@@ -228,10 +243,19 @@ Not many instrument parameters that can be used for AI.
 * sample_radius: [m] Powder sample cylinder radius
 ```
 
-Sample is PowderN. Can be used to train sample Bravais class.
 Not many instrument parameters that can be used for AI.
 
+##### Sample Parameters
+
+Sample is PowderN. Can be used to train CIF sample Bravais class.
+
+##### Output type
+
+- 2D xy image
+
 #### `SOLEIL_DIFFABS.instr`
+
+Mixed diff/fluo (spectroscopy).
 
 ##### Instrument Parameters:
 ```
@@ -243,6 +267,10 @@ Not many instrument parameters that can be used for AI.
 * DCM_theta:[deg]  Rotation angle of DCM crystals. When left as 0, it is set automatically from E0.
 * sample:   [str]  Sample structure file, LAU/CIF format.
 ```
+
+Can be used to optimise mirror curvatures.
+
+##### Sample Parameters
 
 Using CIF2HKL in 'PowderN+Fluorescence'. We could train with classes from Bravais classes.
 Need to select some files from e.g. Crystallography.net, create classes, and train with corresponding CIF.
@@ -256,14 +284,16 @@ Need to select some files from e.g. Crystallography.net, create classes, and tra
 
 ### Imaging / tomography
 
-* Segmentation: from the x-ray radiographies we could generate data for a U-Net, and segment (a bit time consuming). We could also train do detecto defects, or cracks, or pores, etc.
+* Segmentation: from the x-ray radiographies we could generate data for a U-Net, and segment (a bit time consuming). We could also train to defects, or cracks, or pores, etc.
 
-Binary Classification: presence and absense of something in the images. Detection*  
+Binary Classification: presence and absence of something in the images. Detection
 
-Denoising possibility low vs high quality images and learning mappings
+De-noising possibility low vs high quality images and learning mappings.
 
 
 #### `PSI_ICON.instr`
+
+probably not usable. Nothing is parametrised.
 
 ##### Instrument Parameters:
 | Name | Unit | Description | Default |
@@ -285,7 +315,15 @@ Denoising possibility low vs high quality images and learning mappings
 | delta_eps | m | Finite distance separating metal-slabs in sample | 1e-9 |
 | delta_y | 1 | Size-factor between slabs of Zr and Al | 0.1 |
 
-#### `Sword_ODIN.instr`,
+##### Sample Parameters
+
+A set of 'Refractor' components. Fixed geometry.
+
+##### Output type
+
+- 2D: many !!
+
+#### `Sword_ODIN.instr` (`Radiography_Sword`)
 
 Found Radiography_Sword
 
@@ -301,8 +339,17 @@ Found Radiography_Sword
 * Y_sample_pos:              [m] Translation of sample in x-direction.
 * angle:                   [deg] Sample-stage rotation (around y).
 * Zoom:                      [1] Detector zooom: Reduce area and increase resolution detector by the same fact. Values between 1 and 10.
-
 ```
+
+No easy parameter to train. 
+
+##### Sample Parameters
+
+Fixed sample (Union).
+
+##### Output type
+
+- 2D: image `PSD_monitor_Filter`
 
 #### `Radiography_Lithium_Battery.instr` 
 
@@ -315,6 +362,15 @@ Found Radiography_Sword
 | sample_used | 1 | Flag to indicate if battery stack sample (0) or single-slab calibration sample (1) is in the beam | 0 |
 | battery_charge | 1 | Level of charge of battery (Currently not functional!) | 1.0 |
 
+No easy parameter to train. 
+
+##### Sample Parameters
+
+Fixed sample (Union).
+
+##### Output type
+
+- 2D: image `PSD_monitor`
 
 #### `SOLEIL_ANATOMIX.instr` (nanoscale) 
 
@@ -329,6 +385,16 @@ coil
 * sample:[str] Sample geometry file, OFF/PLY format.
 ```
 
+No easy parameter to train. 
+
+##### Sample Parameters
+
+Using `Filter` with Ge material. Geometry is OFF/PLY.
+
+##### Output type
+
+- 2D: image `PSD_monitor`
+
 #### `Airport_scannerII.instr` (macro)
 
 ##### Instrument Parameters:
@@ -340,6 +406,17 @@ coil
 * posZ: [m]     Displacement of scene along z-axis
 * Ncount: [1]   Set X-ray particle count for the simulation (same as -n #)
 ```
+
+No easy parameter to train. 
+
+##### Sample Parameters
+
+Using `Abs_objects` with many OFF/PLY objects. These could be displaced for segmentation training vs angle and positions.
+
+##### Output type
+
+- 2D: image `PSD_monitor`
+
 
 ---------------------------------------------------------------------------------
 
