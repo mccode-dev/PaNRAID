@@ -54,3 +54,5 @@ This course develops an integrated approach to generating synthetic data for sup
 📞 05 87 50 23 32  
 📧 [diadem-formationcontinuecontact@unilim.fr](mailto:diadem-formationcontinuecontact@unilim.fr)  
 🌐 [https://formation.pepr-diadem.fr/les-formations](https://formation.pepr-diadem.fr/les-formations)
+
+This school receives moral support from [GDR 2123 IAMAT](https://iamat.cnrs.fr/) ![IAMAT](images/logo-GDR-IAMAT-small.png)
