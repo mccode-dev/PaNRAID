@@ -18,14 +18,14 @@ _PW 2026/07/09 - Instrument models considered_
 Class | Instrument     | Eligibility | Adaption
 ------|------------------------|-----|---------
 SANS  | `ISIS_SANS2d_Mantid`   | NO  | (Nexus)
-SANS  | `SANS_KWS2_AnySample`  | YES | Fixed parameters. Must parametrise Sphere/Guinier/Debye.
+**SANS**  | `SANS_KWS2_AnySample`  | YES | Fixed parameters. Must parametrise Sphere/Guinier/Debye.
 **SAXS**  | `SOLEIL_SWING`         | YES | Use a PDB set to infer e.g. chemical composition. Or change to Sphere/Cyl/Shell/Nanodisc. Can be used for instr optimisation.
 SAXS  | `ESRF_BM29`            | YES | Fixed parameters. Should parametrise gyration radius (sphere).
 DIFN  | `templateDIFF` (D20)   | YES | Uses PowderN CIF. Can be trained on Bravais class. Can optimise monochromator curvature.
 DIFN  | `PSI_DMC`              | YES | Uses PowderN CIF. Can be trained on Bravais class.
 DIFX  | `MAXIV_DanMAX_pxrd2d`  | YES | Uses PowderN CIF. Can be trained on Bravais class.
 **DIFX and XRF**  | `SOLEIL_DIFFABS`       | YES | Uses PowderN CIF + Fluo. Can be trained on Bravais class and spectroscopy stoichiometry. Can be used to optimise mirror curvatures.
-IMGN  | `PSI_ICON`             | NO  | Nothing is parametrised. sample is fixed. Could still be used for de-noising.
+**IMGN**  | `PSI_ICON`             | NO  | Nothing is parametrised. sample is fixed. Could still be used for de-noising.
 IMGN  | `Radiography_Sword`    | NO  | Using Union. Fixed geometry. Nothing parametrised. Could still be used for de-noising.
 IMGN  | `Radiography_Lithium_Battery` | NO | Using Union. Fixed geometry. Nothing parametrised. Could still be used for de-noising.
 IMGX  | `SOLEIL_ANATOMIX`      | YES | Flexible geometry. Can be trained for position/angle and geometry.
