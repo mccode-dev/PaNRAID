@@ -12,6 +12,64 @@ a dash, e.g. `mcplot-html` / `mxplot-html`.
 
 ---
 
+## 0. mcstas / mcxtrace (the code generators)
+
+The actual compiler step underneath `mcrun -c` / `mcgui`'s "Compile" action: translates an `.instr` file into C, which is then compiled into the executable simulation. Identical options on both sides (only the tool name, and which environment variable is consulted for the component search path, differ).
+
+### mcstas / mcxtrace
+
+| Option | Description |
+|---|---|
+| `file` | the `.instr` file to translate |
+| `-o FILE`, `--output-file=FILE` | place the generated C output in `FILE` |
+| `-v`, `--version` | print the full version header |
+| `--version-num` | print the version number only |
+| `--verbose` | display compilation process steps |
+| `-I DIR`, `--search-dir=DIR` | append `DIR` to the component search list |
+| `-t`, `--trace` | enable trace mode for instrument display (on by default) |
+| `--no-trace` | disable trace mode |
+| `--no-main` | do not create `main()` (for external embedding) |
+| `--no-runtime` | do not embed the run-time libraries |
+| `--source` | embed the instrument source code in the executable |
+
+*(The component search path also defaults to whatever the `MCSTAS`/`MCXTRACE` environment variable points at, if set. The help text's usage line also shows a `-p` flag that isn't explained in the option list itself. Ordinarily invoked indirectly via `mcrun`/`mxrun` or `mcgui`/`mxgui`, rather than run by hand.)*
+
+### mcstas-pygen / mcxtrace-pygen — convert an instrument to Python
+
+A binary code-generator tool, sibling to `mcstas`/`mcxtrace` themselves: translates an `.instr` file into a Python module built on **[McStasScript](https://panosc-vinyl.github.io/McStasScript/)** instead of C, so the instrument can be constructed, run, and plotted from Python instead of the `.instr`/`mcrun` route.
+
+| Option | Description |
+|---|---|
+| `file` | the `.instr` file to translate |
+| `-o FILE`, `--output-file=FILE` | place the generated Python output in `FILE` |
+| `-v`, `--version` | print the full version header |
+| `--version-num` | print the version number only |
+| `--verbose` | display compilation process steps |
+| `--lint` | generate a `.py` script for McStasScript-style "diagnostic" linting |
+
+*(Its usage synopsis also lists `-I dir1 ...`, `-t`, `-p`, `--no-main`, and `--no-runtime` — inherited from sharing the same usage line as `mcstas`/`mcxtrace` — but, as with those, none of these are actually explained in the tool's own `--help` text, so treat them as unconfirmed for this variant; verify with `--help` before relying on them.)*
+
+The generated module exposes a `make()` function returning a McStasScript instrument object, e.g.:
+```python
+import mcstasscript as ms
+from INSTRUMENT_generated import make
+instr = make()
+instr.show_diagram()
+instr.show_instrument()      # backend='webgl-classic' by default; also 'window' (pyqtgraph), 'webgl', 'pythreejs'
+data = instr.backengine()
+ms.make_sub_plot(data)
+```
+
+### mcstas-jupylab / mcxtrace-jupylab — explore an instrument in Jupyter
+
+A convenience wrapper around `mcstas-pygen`/`mcxtrace-pygen`: converts the given instrument, drops it into a ready-made notebook template (imports, `show_diagram()`/`show_instrument()`/`backengine()`/plotting cells, all pre-written), and launches `jupyter lab` on it.
+
+| Option | Description |
+|---|---|
+| `INSTR` | the `.instr` file to convert and open in a new Jupyter Lab notebook |
+
+---
+
 ## 1. mcgui / mxgui
 
 A graphical front-end (editor, compile/run, visualize) — no real
@@ -224,6 +282,21 @@ Overlays **2 or more** datasets (unlike mcplotdiff, not limited to two).
 
 *(Legends always show compact letters `A`, `B`, `C`, ...; the full dataset identity is shown separately in the title/header.)*
 
+### mcplot-matlab / mxplot-matlab *(legacy Matlab/Octave/iFit variant)*
+
+A second, older implementation of plain `mcplot` (single-simulation plotting only — no `mcplotdiff`/`mccoplot` equivalent exists for this variant), living under `tools/matlab` as a bash wrapper around a `.m` script rather than Python. Runs under **Matlab**, **Octave**, or **iFit** (a Matlab-compiler-based standalone runtime, see <https://ifit.mccode.org>) — the wrapper auto-detects whichever is available, preferring Matlab, then Octave, then iFit, and falls back to the plain Python `mcplot` if none of the three are found.
+
+| Option | Description |
+|---|---|
+| `FILE`\|`DIR` | monitor file or simulation directory to plot (default: current directory) |
+| `-m` | explicitly request Matlab (skip auto-detection) |
+| `-o` | explicitly request Octave |
+| `-i` | explicitly request iFit |
+| `-h` | show wrapper usage and exit |
+| `-png`, `-jpg`, `-fig`, `-eps`, `-pdf` | *(parsed by `mcplot.m` itself, not the wrapper)* export each plotted monitor to the given format instead of just displaying it |
+
+*(`-m`/`-o`/`-i`/`-h` are wrapper-level flags and must come first; the export-format flags are forwarded as-is to the underlying `.m` script.)*
+
 ---
 
 ## 4. mcdisplay family
@@ -306,6 +379,23 @@ Requires the `cadquery` Python package.
 | `--dirname DIR` | override output directory name |
 | `-f`, `--format FMT` | output format: `step` (default), `stl`, `xml`, `vrml`, `gltf`, `vtkjs` |
 
+### mcdisplay-matlab / mxdisplay-matlab *(legacy Matlab/Octave/iFit variant)*
+
+A second, older implementation living under `tools/matlab` as a bash wrapper around a `.m` script rather than Python. Runs under **Matlab** or **Octave** — the wrapper auto-detects whichever is available, preferring Matlab, then Octave, and falls back to the plain Python `mcdisplay` if neither is found.
+
+| Option | Description |
+|---|---|
+| `INSTR` | instrument file (`.instr` or compiled binary) |
+| `name=value ...` | simulation parameters, forwarded to `mcrun` |
+| `-m` | explicitly request Matlab |
+| `-o` | explicitly request Octave |
+| `-h` | show wrapper usage and exit |
+| `-n N`, `--ncount N` | number of particles to simulate |
+| `--inspect=COMP` | only plot components matching `COMP` — a partial name (e.g. `Monitor`), or an interval (`Monok:Sample`, `2:10`, `2:end`) |
+| `-png`, `-jpg`, `-fig`, `-eps`, `-pdf`, `-tif` | *(parsed by `mcdisplay.m` itself, not the wrapper)* export the 3D view to the given format |
+
+*(`-m`/`-o`/`-h` are wrapper-level flags and must come first; the export-format flags and `--inspect` are forwarded as-is to the underlying `.m` script.)*
+
 ---
 
 ## 5. mctest family
@@ -387,42 +477,13 @@ Generates browsable documentation for installed and local instrument/component f
 
 ---
 
-## 7. Matlab / Octave / iFit tools
-
-A second, older `mcplot`/`mcdisplay` pair lives under `tools/matlab`, implemented as bash wrapper scripts around `.m` files rather than Python. They run under **Matlab**, **Octave**, or **iFit** (a Matlab-compiler-based standalone runtime, see <https://ifit.mccode.org>) — the wrapper auto-detects whichever is available, preferring Matlab, then Octave, then iFit, and falls back to the plain Python `mcplot`/`mcdisplay` if none of the three are found.
-
-### mcplot-matlab / mxplot-matlab
-
-| Option | Description |
-|---|---|
-| `FILE`\|`DIR` | monitor file or simulation directory to plot (default: current directory) |
-| `-m` | explicitly request Matlab (skip auto-detection) |
-| `-o` | explicitly request Octave |
-| `-i` | explicitly request iFit |
-| `-h` | show wrapper usage and exit |
-| `-png`, `-jpg`, `-fig`, `-eps`, `-pdf` | *(parsed by `mcplot.m` itself, not the wrapper)* export each plotted monitor to the given format instead of just displaying it |
-
-*(`-m`/`-o`/`-i`/`-h` are wrapper-level flags and must come first; the export-format flags are forwarded as-is to the underlying `.m` script.)*
-
-### mcdisplay-matlab / mxdisplay-matlab
-
-| Option | Description |
-|---|---|
-| `INSTR` | instrument file (`.instr` or compiled binary) |
-| `name=value ...` | simulation parameters, forwarded to `mcrun` |
-| `-m` | explicitly request Matlab |
-| `-o` | explicitly request Octave |
-| `-h` | show wrapper usage and exit |
-| `-n N`, `--ncount N` | number of particles to simulate |
-| `--inspect=COMP` | only plot components matching `COMP` — a partial name (e.g. `Monitor`), or an interval (`Monok:Sample`, `2:10`, `2:end`) |
-| `-png`, `-jpg`, `-fig`, `-eps`, `-pdf`, `-tif` | *(parsed by `mcdisplay.m` itself)* export the 3D view to the given format |
-
----
-
 ## Quick reference: which tool for which job?
 
 | I want to... | Use |
 |---|---|
+| Compile an `.instr` file to C directly (rarely needed by hand) | `mcstas` / `mcxtrace` |
+| Convert an `.instr` model to Python for use with McStasScript | `mcstas-pygen` / `mcxtrace-pygen` |
+| Explore an instrument interactively in Jupyter via McStasScript | `mcstas-jupylab` / `mcxtrace-jupylab` |
 | Edit/compile/run instruments interactively | `mcgui` / `mxgui` |
 | Run a simulation from the command line, or a parameter scan/optimisation | `mcrun` / `mxrun` |
 | Plot one simulation's results | `mcplot-{html,matplotlib,pyqtgraph}` |
