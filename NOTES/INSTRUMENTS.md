@@ -17,24 +17,11 @@ _PW 2026/07/09 - Instrument models considered_
 
 Class | Instrument     | Eligibility | Adaption
 ------|------------------------|-----|---------
-SANS  | `ISIS_SANS2d_Mantid`   | NO  | (Nexus)
 **SANS**  | `SANS_KWS2_AnySample`  | YES | Fixed parameters. Must parametrise Sphere/Guinier/Debye.
 **SAXS**  | `SOLEIL_SWING`         | YES | Use a PDB set to infer e.g. chemical composition. Or change to Sphere/Cyl/Shell/Nanodisc. Can be used for instr optimisation.
-SAXS  | `ESRF_BM29`            | YES | Fixed parameters. Should parametrise gyration radius (sphere).
 DIFN  | `templateDIFF` (D20)   | YES | Uses PowderN CIF. Can be trained on Bravais class. Can optimise monochromator curvature.
-DIFN  | `PSI_DMC`              | YES | Uses PowderN CIF. Can be trained on Bravais class.
-DIFX  | `MAXIV_DanMAX_pxrd2d`  | YES | Uses PowderN CIF. Can be trained on Bravais class.
 **DIFX and XRF**  | `SOLEIL_DIFFABS`       | YES | Uses PowderN CIF + Fluo. Can be trained on Bravais class and spectroscopy stoichiometry. Can be used to optimise mirror curvatures.
 **IMGN**  | `PSI_ICON`             | NO  | Nothing is parametrised. sample is fixed. Could still be used for de-noising.
-IMGN  | `Radiography_Sword`    | NO  | Using Union. Fixed geometry. Nothing parametrised. Could still be used for de-noising.
-IMGN  | `Radiography_Lithium_Battery` | NO | Using Union. Fixed geometry. Nothing parametrised. Could still be used for de-noising.
-IMGX  | `SOLEIL_ANATOMIX`      | YES | Flexible geometry. Can be trained for position/angle and geometry.
-IMGX  | `Airport_scannerII`    | YES | Many OFF/PLY objects. These could be displaced for segmentation training vs composition, angle and positions.
-INS   | `templateTAS` (IN20)   | YES | Can be used for parameter optimisation (monok, analyser).
-INS   | `SNS_ARCS`             | YES | May be used to study instrument resolution. But do not know how to use that for AI. Perhaps de-convolution ?
-XRF   | `SOLEIL_MARS`          | YES | Uses PowderN CIF + Fluo. Can be trained on Bravais class and spectroscopy stoichiometry. same as `DIFFABS` in structure.
-ABSX  | `SOLEIL_ROCK`          | YES | Uses Fluo. Can be trained on X-ray absorption energy on edge.
-
 ---------------------------------------------------------------------------------
 
 ### SAXS / SANS
