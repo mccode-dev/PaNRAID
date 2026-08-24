@@ -33,6 +33,7 @@ result against the target value recorded in the instrument header.
 | `--runmax S` | max seconds allowed per test run (default: 3600) |
 | `--displaymax S` | max seconds allowed per test display run (default: 60) |
 | `--permissive` | exit 0 even if some tests fail |
+| `--strict` | Let instruments without %%Example line(s) instantly fail. |
 | `--versions` | display local version info |
 | `--verbose` | print a test/no-test status header before each test |
 
