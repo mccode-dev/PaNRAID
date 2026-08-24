@@ -25,7 +25,6 @@
 * lambda_max: [AA] Maximum wavelength on wavelength monitors
 * Lambda_Min: [AA] Minimum wavelength produced from source
 * Lambda_Max: [AA] Maximum wavelength produced from source
-* eventmode:   [1] Flag to store neutron events with calculated sample-detector travel
 * nx:          [1] Number of x-pixels, camera
 * ny:          [1] Number of y-pixels, camera
 * sp:          [m] Overall goniometer z-position wrt. camera
@@ -35,6 +34,8 @@
 * rx:          [m] Goniometer x-rotation
 * ry:          [m] Goniometer y-rotation
 * rz:          [m] Goniometer z-rotation
+* SAMPLE:      [1] 0=No sample, 1=Incoherent shape from OFF file (material V), 2==Union assembly, calibration sample 3==Sheet assembly of Zr and Al.
+* geometry:  [str] OFF geometry for SAMPLE=1 case
 * delta_eps:   [m] Finite distance separating metal-slabs in sample
 * delta_y:     [1] Size-factor between slabs of Zr and Al
 * all_mons:    [1] Flag to enable all monitors in the instrument
@@ -46,8 +47,8 @@
 * %End
 ***************************************************/
 
-DEFINE INSTRUMENT PSI_ICON(lambda_min=0.3,lambda_max=10.0, int eventmode=0, int all_mons=0, int nx=512, int ny=512, 
-			   Lambda_Min=4.1, Lambda_Max=10, sp=0,tx=0,ty=-0.0075,tz=0,rx=0,ry=0,rz=0,delta_eps=1e-9,delta_y=0.1, int SAMPLE=0) 
+DEFINE INSTRUMENT PSI_ICON(lambda_min=0.3,lambda_max=10.0, int all_mons=0, int nx=512, int ny=512, 
+			   Lambda_Min=4.1, Lambda_Max=10, sp=0,tx=0,ty=-0.0075,tz=0,rx=0,ry=0,rz=0,delta_eps=1e-9,delta_y=0.1,string geometry="socket.off", int SAMPLE=0) 
 
 DECLARE 
 %{ 
@@ -239,7 +240,7 @@ INITIALIZE
   vmax = AA2MS * kmax;
   vmin = AA2MS * kmin;
 
-  sprintf(wloptionsICON, "x bins=%i, lambda limits=[%g %g], bins=%i, ", (int)(16),lmin, lmax,(int)(512));
+  sprintf(wloptionsICON, "x bins=%i, lambda limits=[%g %g], bins=%i, ", (int)(16),lambda_min, lambda_max,(int)(512));
   
   // "starting" sample position
   sp0 = 7.482;
@@ -473,7 +474,7 @@ AT (tx,ty,tz) RELATIVE Center
 ROTATED(rx,ry,rz) RELATIVE Center
 
 /* Sample==1: OFF shape, isotropic material using Incoherent() */
-COMPONENT sample1=Incoherent(p_interact = 1e-3, geometry = "socket.off", yheight=0.02, focus_xw=0.1, focus_yh=0.5, target_index=1)
+COMPONENT sample1=Incoherent(p_interact = 1e-3, geometry = geometry, yheight=0.02, focus_xw=0.1, focus_yh=0.5, target_index=1)
   WHEN SAMPLE==1 AT (0,0,0) RELATIVE Goniometer
 
 /* Union materials and geometries loaded from separate file */
