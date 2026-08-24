@@ -10,6 +10,8 @@ adjusted accordingly. Where a tool has several rendering **variants**
 (html / matplotlib / pyqtgraph / webgl / ...), the variant is appended after
 a dash, e.g. `mcplot-html` / `mxplot-html`.
 
+**On the commandline:** Most tools accept `--help`
+
 ## Tool-class pages
 
 | Page | Covers |
