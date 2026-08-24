@@ -478,7 +478,7 @@ COMPONENT sample1=Incoherent(p_interact = 1e-3, geometry = geometry, yheight=0.0
   WHEN SAMPLE==1 AT (0,0,0) RELATIVE Goniometer
 
 /* Union materials and geometries loaded from separate file */
-%include "sample2.instr"
+%include "sample2.inc"
 
 /* Sample==2: Union-assembly, imaging calibration sample */
 COMPONENT calibration_sample = Union_master()
