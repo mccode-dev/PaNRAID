@@ -1,58 +1,173 @@
-# Seeking for AI
+# Seeking for AI: Realistic Datasets for Photons and Neutrons
 
+*PaNRAID School · Supported by PEPR DIADEM*
 
+**Objective**:
+Explore how AI can leverage simulated photon and neutron datasets to solve inverse problems, optimize experiments, and train surrogate models.
 
-In this short presentation, we explain the scope and aim of the school regrading AI applications
+---
 
+## Why "Photons and Neutrons"?
 
+### Shared Physics and Simulation Capabilities
+- **Similar Interaction Processes**:
+  - **Absorption**: Energy transfer to the material (e.g., photoelectric effect for X-rays, neutron capture).
+  - **Scattering**:
+    - *Elastic*: Structure analysis (e.g., Bragg diffraction for X-rays, neutron diffraction).
+    - *Inelastic*: Dynamics analysis (e.g., Raman scattering for X-rays, neutron inelastic scattering).
+  - **Decay**: Time-resolved studies (e.g., fluorescence, neutron activation).
 
-General presentation of AI methodology
+- **Simulation Tools**:
+  - **McStas**: Monte Carlo simulator for neutron scattering instruments.
+  - **McXtrace**: Monte Carlo simulator for X-ray instruments.
+  - Both enable realistic modeling of beamlines, detectors, and sample interactions.
 
-- AI algorithm as a black box, taking input, generating output.
+- **Why Simulations Matter**:
+  - **Realism**: Capture complex instrument geometries and material responses.
+  - **Flexibility**: Test hypothetical setups or extreme conditions (e.g., high pressures, temperatures).
+  - **Cost-Effective**: Avoid expensive trial-and-error on real instruments.
+
+---
+
+## Why Realistic AI Datasets?
+
+### The Problem with Experimental Data
+- **Lack of Annotations**:
+  - Raw data often lacks metadata (e.g., sample composition, instrument settings).
+  - Manual annotation is time-consuming and error-prone.
+- **Publications as Implicit Annotations**:
+  - Papers describe experimental conditions, but formats vary widely.
+  - Not machine-readable or standardized for AI training.
+
+### The Power of Simulated Data
+- **Controlled Parameters**:
+  - Every input (e.g., sample thickness, detector angle) is known and adjustable.
+  - Outputs (e.g., scattering patterns, spectra) are directly linked to inputs.
+
+- **Pipeline Workflow**:
+  - Parameters → [Simulation (McStas/McXtrace)] → Virtual "Measurement"
   
-  - input -> [ AI ] -> output
+  Example: Simulate a neutron scattering experiment with varying sample temperatures.
 
-- AI algorithm is an inverse problem solver.
+- **Inverse Problem**:
+- **Goal**: Reconstruct input parameters from measured data.
+- **AI Approach**:
+  ```
+  Measurement → [AI Algorithm (e.g., CNN, Bayesian Optimization)] → Parameters
+  ```
+- Example: Predict sample composition from a scattering pattern.
 
-- Whatever be the chosen AI method, they all behave about the same.
+- **Surrogate Models**:
+- **Purpose**: Replace slow simulations with fast AI models.
+- **Pipeline**:
+  ```
+  Parameters → [AI Model (e.g., Neural Network)] → Virtual "Measurement" (1000x faster)
+  ```
+- **Use Case**: Real-time optimization of beamline configurations.
 
-- The efficiency of AI models highly depends on the methodology, but also on the choice of the training dataset.
+---
 
-- Training is a correlative step to relate input and output.
+## General AI Methodology
 
-- Training is a minimisation process of a 'loss' that sets the internal variables/weights of the method.
+### AI as a Universal Function Approximator
+- **Black Box Concept**:
+- Input (e.g., scattering pattern) → [AI Model] → Output (e.g., sample density).
+- **Universal Approximation Theorem**: A neural network can approximate any continuous function given sufficient data and complexity.
 
+- **General Behavior**:
+- All AI methods (CNNs, RNNs, SVMs) follow the same principle: **map inputs to outputs via learned weights**.
+- Differences lie in architecture, training efficiency, and interpretability.
 
+### Training: The Core Process
+- **Objective**: Minimize the **loss function** (e.g., Mean Squared Error, Cross-Entropy).
+- **Loss Function**: Measures the difference between predicted and actual outputs.
+- **Steps**:
+1. **Forward Pass**: Compute predictions for a batch of training data.
+2. **Loss Calculation**: Evaluate how far predictions are from true values.
+3. **Backpropagation**: Compute gradients of the loss with respect to weights.
+4. **Optimization**: Update weights using an optimizer (e.g., Adam, SGD).
+- **Key Factors for Success**:
+- **Data Quality**: High-fidelity simulations with diverse parameters.
+- **Model Architecture**: Match complexity to the problem (e.g., CNNs for images, Transformers for sequences).
+- **Hyperparameters**: Learning rate, batch size, number of epochs.
 
-Why 'realistic AI Datasets' ?
+---
 
-- experimental datasets are mostly not annotated.
+## What You Will Learn and Practice
 
-- metadadata is a kind of annotation, required for training.
+### Hands-On Skills
+1. **Setting Up Simulations**:
+ - Configure beamlines/instruments in **McStas** (neutrons) and **McXtrace** (X-rays).
+ - Define sample properties (e.g., crystal structure, composition).
 
-- we may consider publications as some kind of experimental dataset annotation, but not standardized. Can not be used for massive training.
+2. **Characterizing Models**:
+ - Analyze geometry (e.g., detector positions, slit sizes).
+ - Extract parameters (e.g., resolution, flux) and results (e.g., spectra, diffraction patterns).
 
-- simulated datasets have some simulation parameters, and some results.
-  
-  - parameters -> [ simulation ] -> virtual 'measurement'
+3. **Generating Datasets**:
+ - Automate simulations across parameter ranges (e.g., vary temperature, pressure).
+ - Output: Labeled datasets of `(input_parameters, virtual_measurements)`.
 
-- the **inverse problem** is to feed new results, and guess corresponding parameters.
-  
-  - measurement -> [ AI algorithm ] -> parameters
+4. **Surrogate Modeling**:
+ - Train AI models (e.g., neural networks) to mimic simulations.
+ - **Example**: Replace a 1-hour simulation with a 1-second AI prediction.
 
-- we may as well train a **surrogate** model:
+5. **Solving Inverse Problems**:
+ - Use AI to predict parameters from virtual/real measurements.
+ - **Example**: Given a scattering pattern, estimate sample thickness and composition.
 
-  - parameters -> [ AI model ] -> virtual 'measurement' (fast)
+6. **Experimenting with Algorithms**:
+ - Compare methods:
+   - **Neural Networks**: High accuracy, requires large data.
+   - **Gaussian Processes**: Uncertainty quantification, slower for large datasets.
+   - **Random Forests**: Interpretable, robust to noise.
 
-- we can use AI to inverse the simulation to get a parameter estimation (just like a fit).
+---
 
+## What You Will Use (Resources)
 
+### Tools and Infrastructure
+- **Your Laptop**:
+- Local development and testing.
+- Run lightweight simulations (e.g., small McStas/McXtrace models).
 
+- **Local Mini-Server**:
+- Host datasets and share results with collaborators.
+- Example: JupyterHub for interactive analysis.
 
-Why 'Photons and Neutrons' ?
+- **Remote Computing Service**:
+- **High-Performance Computing (HPC)**: Run large-scale simulations (e.g., clusters, cloud).
+- **GPU Nodes**: Train deep learning models efficiently.
 
-- both photons (X-rays) and neutrons follow somewhat similar interaction processes: absorption, scattering (structure and dynamics, decay)
+- **Your Brain**:
+- Design experiments, debug models, and interpret results.
+- Collaborate with peers to tackle complex problems.
 
-- it is possible to simulate some interaction processes, as well as experimental setup to produce realistic data.
+---
 
-- even if not perfect, it is much better than crude approximations and models.
+## Summary and Next Steps
+
+### Key Takeaways
+- **AI + Simulations = Powerful Combination**:
+- Simulations provide **realistic, labeled data** for training AI.
+- AI enables **fast predictions** and **inverse problem-solving**.
+- **Applications**:
+- Optimize beamline designs.
+- Accelerate material discovery (e.g., predict properties from scattering data).
+- Reduce reliance on expensive experimental time.
+
+### Next Steps for You
+1. **Start Small**: Simulate a simple experiment (e.g., neutron diffraction from a known crystal).
+2. **Generate Data**: Create a dataset with 100–1000 parameter combinations.
+3. **Train a Model**: Use a neural network to predict parameters from simulated outputs.
+4. **Validate**: Test the model on real experimental data (if available).
+5. **Iterate**: Refine the model and expand to more complex problems.
+
+---
+## Thank You!
+
+*Questions?*
+
+**Contact**: Emmanuel Farhi · [Your Affiliation/Email]
+
+*Supported by PEPR DIADEM and Partner Organizations*
