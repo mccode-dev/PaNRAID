@@ -14,7 +14,7 @@ Introduction to the challenges of simulation for generating realistic data in su
 Talk | Description
 -----|-------------
 [01_Intro_and_General_Concepts](01_Intro_and_General_Concepts/McStas_McXtrace_Common_Introduction.pptx) | McStas_McXtrace_Common_Introduction
-[02_Seeking_for_AI](02_Seeking_for_AI/README.md) | Why use AI with BL/instrument models
+[02_Seeking_for_AI](02_Seeking_for_AI/02_Seeking_for_AI.pptx) | Why use AI with BL/instrument models
 
 ## Key Tools
 
