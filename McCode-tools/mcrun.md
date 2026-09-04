@@ -29,7 +29,7 @@ in help text, and the McStas-only `-g`/`--gravitation` flag, differ).
 
 | Option | Description |
 |---|---|
-| `param=val`, `param=min,max` | fixed parameter, or scan interval (comma-separated) *(hand-parsed from optparse's leftover positional args, not a real option)* |
+| `param=val`, `param=min,max`, `param=min,delta,max`, `param=a,b,c,d` | fixed parameter, scan interval (comma-separated), list-oriented inputs |
 | `-p FILE`, `--param FILE` | Forward parameters from file FILE to Instrument |
 | `-N NP`, `--numpoints NP` | Set number of scan points. Two input modes available:  1) A single integer applies the same point count to every    scanned parameter (default, and only valid form without -M) 2) Together with -M/--multi, a comma-separated list    (e.g. -N=5,10,20) gives each scanned parameter its    own point count, in the order in which parameters are listed    on the command line. If a parameter is given as par="min:delta:max"   the point count is instead computed from the requested bin width. |
 | `-L`, `--list` | Use list-mode scanning. Multiple input modes available:  1) If multiple lists (of identical length) are given (and -M is     not requested) the lists are scanned together in lockstep. 2) Combined with -M/--multi, the cartesian product of each    parameter's own list is used to set up a multidimensional    'grid' scan (lists may have different lengths) 3) Any parameter given as "min:delta:max" is expanded into its    own explicit list of equidistant points and may be freely mixed    with other, explicitly-listed parameters    (e.g. a list of filenames) under -L. |
