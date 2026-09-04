@@ -11,6 +11,11 @@ Introduction to the challenges of simulation for generating realistic data in su
 - Motivation for synthetic data generation in supervised learning contexts
 - Survey of experimental artefacts and instrumental effects that must be captured in realistic datasets
 
+Talk | Description
+-----|-------------
+[01_Intro_and_General_Concepts](01_Intro_and_General_Concepts/McStas_McXtrace_Common_Introduction.pptx) | McStas_McXtrace_Common_Introduction
+[02_Seeking_for_AI](02_Seeking_for_AI/README.md) | Why use AI with BL/instrument models
+
 ## Key Tools
 
 | Tool | Description | Link |
@@ -20,12 +25,11 @@ Introduction to the challenges of simulation for generating realistic data in su
 
 ## Resources
 
-_Add slides, notebooks, or reference materials here._
-
-Talks:
+Ideas:
 - Classical ML, including parameter optimization and sk-learn stuff
 - Deep Learning ML
 - Data IN and OUT: annotations for supervised training
 - Perceptron metrics: input layer size, middle layer, output layer
+
 
 

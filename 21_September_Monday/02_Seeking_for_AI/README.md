@@ -36,11 +36,16 @@ Why 'realistic AI Datasets' ?
   
   - parameters -> [ simulation ] -> virtual 'measurement'
 
-- the inverse problem is to feed new results, and guess corresponding parameters.
+- the **inverse problem** is to feed new results, and guess corresponding parameters.
   
-  - measurement -> [ algorithm ] -> parameters
+  - measurement -> [ AI algorithm ] -> parameters
+
+- we may as well train a **surrogate** model:
+
+  - parameters -> [ AI model ] -> virtual 'measurement' (fast)
 
 - we can use AI to inverse the simulation to get a parameter estimation (just like a fit).
+
 
 
 
