@@ -21,4 +21,5 @@ By the end of this session, participants should be able to:
 
 ## Resources
 
-_Add slides, notebooks, or reference materials here._
+- [`McStas_McXtrace_Sources_and_Monitors.pptx`](./02_Sources_Monitors/McStas_McXtrace_Sources_and_Monitors.pptx) — lecture slides
+- [`Exercises_Sources_and_Monitors.md`](./02_Sources_Monitors/Exercises_Sources_and_Monitors.md) — parallel McStas/McXtrace hands-on exercises for beginners

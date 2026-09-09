@@ -1,0 +1,41 @@
+/*******************************************************************************
+*         McXtrace instrument definition URL=http://www.mcxtrace.org
+*
+* Instrument: ex2_mcxtrace_starter
+*
+* %Identification
+* Written by: PaNRAID School
+* Date: 2026
+* Origin: PaNRAID / Sources & Monitors exercises
+* %INSTRUMENT_SITE: Templates
+*
+* Starter instrument for Exercise 2 ("Your first beamline") of the
+* Sources & Monitors hands-on exercises. A source, and two monitors
+* 5 m downstream. This is a completed, runnable starting point -
+* if you'd rather type it from scratch following the exercise sheet,
+* just ignore this file and start from a blank .instr instead.
+*
+* %Example: -n 1e6 Detector: psd_I=1
+*
+* %Parameters
+*
+* %End
+*******************************************************************************/
+DEFINE INSTRUMENT ex2_mcxtrace_starter()
+
+TRACE
+
+COMPONENT origin = Progress_bar()
+AT (0,0,0) ABSOLUTE
+
+COMPONENT src = Source_flat(radius=0.05, lambda0=2.5, dlambda=1.5,
+                             focus_xw=0.1, focus_yh=0.1, dist=5)
+AT (0,0,0) RELATIVE origin
+
+COMPONENT psd = PSD_monitor(xwidth=0.2, yheight=0.2, filename="psd.dat")
+AT (0,0,5) RELATIVE src
+
+COMPONENT lm = L_monitor(xwidth=0.2, yheight=0.2, filename="lm.dat", Lmin=0, Lmax=8)
+AT (0,0,5.01) RELATIVE src
+
+END
