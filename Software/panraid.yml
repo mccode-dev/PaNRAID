@@ -36,3 +36,8 @@ dependencies:
   - pytorch-tabnet
   - pytorch          # CPU build — works everywhere, incl. macOS
   - xgboost          # CPU build unless panraid-cuda.yml is added
+
+  # dev-tools etc.
+  - git
+  - cmake
+  
