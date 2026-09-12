@@ -33,11 +33,19 @@ dependencies:
   - scipy
   - scikit-learn
   - scikit-image
-  - pytorch-tabnet
   - pytorch          # CPU build — works everywhere, incl. macOS
   - xgboost          # CPU build unless panraid-cuda.yml is added
 
   # dev-tools etc.
   - git
   - cmake
-  
+
+  # pytorch-tabnet: must be installed via pip, not conda-forge — conda-forge's
+  # recipe hard-pins numpy<2.0 and pytorch<2.0 (stale since Dec 2023),
+  # which would drag every other package back to 2020-era versions and
+  # rule out pytorch-gpu entirely. The PyPI package has no such ceiling.
+  # Note: upstream hasn't updated tabnet's code against numpy 2.x / recent
+  # pytorch either, so if you hit runtime errors from it, that's why.
+  - pip
+  - pip:
+      - pytorch-tabnet
