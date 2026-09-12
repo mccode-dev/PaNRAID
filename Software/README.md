@@ -18,10 +18,12 @@ We provide:
 * We recommend to install [micromamba](https://mamba.readthedocs.io/en/latest/installation/micromamba-installation.html)
 
 _______
-
+## Required
 ### Create your `panraid` environment:
 * `micromamba env create -f panraid.yml`
 
+_______
+## Optional
 #### Got an NVIDIA GPU (Linux or Windows only)?
 After the above finishes, also run:
 
