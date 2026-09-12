@@ -1,5 +1,5 @@
 ![DIADEM banner](../../images/toplogo-diadem.png)
-## <img src="../../images/Under_Construction_small.png" alt="under construction" align="middle"> <img src="../../images/brainhelmet_small.png" alt="Si-brain helmet construction" align="middle"> <img src="../../images/panraid_small.png" alt="PaNRAID logo" align="middle"> PaNRAID Software Issues / Workarounds <img src="../../images/panraid_small.png" alt="PaNRAID logo" align="middle"> <img src="../../images/brainhelmet_small.png" alt="Si-brain helmet construction" align="middle"> <img src="../../images/Under_Construction_small.png" alt="under construction" align="middle">
+### <img src="../../images/Under_Construction_small.png" alt="under construction" align="middle"> <img src="../../images/brainhelmet_small.png" alt="Si-brain helmet construction" align="middle"> <img src="../../images/panraid_small.png" alt="PaNRAID logo" align="middle"> PaNRAID Software Issues / Workarounds <img src="../../images/panraid_small.png" alt="PaNRAID logo" align="middle"> <img src="../../images/brainhelmet_small.png" alt="Si-brain helmet construction" align="middle"> <img src="../../images/Under_Construction_small.png" alt="under construction" align="middle">
 
 ### -—> Work in progress! Subject to change! <—- 
 
