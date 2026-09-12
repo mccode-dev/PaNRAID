@@ -5,7 +5,7 @@
 
 _Work and tutorials during PaNRAID is based on open source software + optional NVIDIA infrastructure_
 
-# A. Installation for your participant laptop:
+# A. Installation for your participant laptop
 
 We provide:
 
