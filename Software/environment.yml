@@ -1,0 +1,38 @@
+# panraid — base environment (works on Windows / macOS / Linux, no GPU needed)
+#
+# Everyone at the workshop, run this first:
+#   mamba env create -f environment.yml
+#
+# Got an NVIDIA GPU (Linux or Windows) and want CUDA acceleration?
+# After the above finishes, also run:
+#   mamba env update -n panraid -f environment-cuda.yml
+#
+# (Apple Silicon / Intel Mac and CPU-only PCs: you're done after this file —
+# there is no CUDA build for macOS, so skip environment-cuda.yml.)
+
+name: panraid
+
+channels:
+  - conda-forge
+  - nodefaults
+
+dependencies:
+  # loose/floor pin — let the solver pick the newest compatible Python
+  - python>=3.12
+
+  # McStas / McXtrace ray-tracing suites (conda-forge carries 3.8.4)
+  - mcstas>=3.8.4
+  - mcxtrace>=3.8.4
+
+  # 3D visualization widget (Jupyter)
+  - pythreejs
+
+  # scientific Python / ML stack
+  - joblib
+  - numpy
+  - scipy
+  - scikit-learn
+  - scikit-image
+  - pytorch-tabnet
+  - pytorch          # CPU build — works everywhere, incl. macOS
+  - xgboost          # CPU build unless environment-cuda.yml is added

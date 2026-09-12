@@ -4,36 +4,27 @@
 ![Under construction](../images/Under_Construction_small.png)
 ![Brain helmet](../images/brainhelmet_small.png)
 
-## Work in progress! Subject to change!
+### Work in progress! Subject to change!
 
-### Work and tutorials during PaNRAID is based on open source software:
+## Work and tutorials during PaNRAID is based on open source software:
 
-* We provide the **[panraid-environment.yml](panraid-environment.yml)** environment file for use with **`conda/mamba/micromamba`**
+We provide:
 
-Please uncomment these lines of the env file if you have access to an NVIDIA GPU:
+* a base **[environment.yml](environment.yml)** for use with **`conda/mamba/micromamba`
+* (an optional **[environment-cuda.yml](environment-cuda.yml)** for machines with NVIDIA GPU)
 
-```
-  # - cuda-toolkit
-  # - pytorch-gpu
-```
-
-
-_______
-###**!! Please install the PaNRAID environment prior to arrival in La Rochelle / Ile d'Oleron !!**
-_______
 
 ### No `conda`-solver on your system?
 * We recommend to install [micromamba](https://mamba.readthedocs.io/en/latest/installation/micromamba-installation.html)
 
 _______
 
-### Create your environment:
-* `micromamba env create -f panraid-environment.yml`
+### Create your `panraid` environment:
+* `micromamba env create -f environment.yml`
 
+####Got an NVIDIA GPU (Linux or Windows only)?
+After the above finishes, also run:
+
+* `micromamba env update -n panraid -f environment-cuda.yml`
 _______
 
-
-### Update your environment:
-* `mamba env update -f panraid-environment.yml --prune`
-
-_______
