@@ -1,14 +1,14 @@
 # panraid — base environment (works on Windows / macOS / Linux, no GPU needed)
 #
 # Everyone at the workshop, run this first:
-#   mamba env create -f environment.yml
+#   mamba env create -f panraid.yml
 #
 # Got an NVIDIA GPU (Linux or Windows) and want CUDA acceleration?
 # After the above finishes, also run:
-#   mamba env update -n panraid -f environment-cuda.yml
+#   mamba env update -n panraid -f panraid-cuda.yml
 #
 # (Apple Silicon / Intel Mac and CPU-only PCs: you're done after this file —
-# there is no CUDA build for macOS, so skip environment-cuda.yml.)
+# there is no CUDA build for macOS, so skip panraid-cuda.yml.)
 
 name: panraid
 
@@ -35,4 +35,4 @@ dependencies:
   - scikit-image
   - pytorch-tabnet
   - pytorch          # CPU build — works everywhere, incl. macOS
-  - xgboost          # CPU build unless environment-cuda.yml is added
+  - xgboost          # CPU build unless panraid-cuda.yml is added

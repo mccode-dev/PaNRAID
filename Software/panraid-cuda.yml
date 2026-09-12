@@ -2,11 +2,11 @@
 #
 # Only for machines with an NVIDIA GPU + driver (Linux or Windows).
 # Not available on macOS (no CUDA build exists for Apple Silicon/Intel Mac)
-# and not needed on CPU-only machines — those should stop after environment.yml.
+# and not needed on CPU-only machines — those should stop after panraid.yml.
 #
 # Run AFTER creating the base env:
-#   mamba env create -f environment.yml
-#   mamba env update -n panraid -f environment-cuda.yml
+#   mamba env create -f panraid.yml
+#   mamba env update -n panraid -f panraid-cuda.yml
 
 name: panraid
 
@@ -17,5 +17,5 @@ channels:
 dependencies:
   - cuda-toolkit
   - pytorch-gpu      # CUDA-enabled build of PyTorch
-                      # (xgboost from environment.yml auto-switches to its
+                      # (xgboost from panraid.yml auto-switches to its
                       #  CUDA-enabled build once cuda-toolkit is present)

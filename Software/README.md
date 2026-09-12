@@ -10,8 +10,8 @@
 
 We provide:
 
-* a base **[environment.yml](environment.yml)** for use with **`conda/mamba/micromamba`
-* (an optional **[environment-cuda.yml](environment-cuda.yml)** for machines with NVIDIA GPU)
+* a base **[panraid.yml](panraid.yml)** for use with **`conda/mamba/micromamba`
+* (an optional **[panraid-cuda.yml](panraid-cuda.yml)** for machines with NVIDIA GPU)
 
 
 ### No `conda`-solver on your system?
@@ -20,11 +20,11 @@ We provide:
 _______
 
 ### Create your `panraid` environment:
-* `micromamba env create -f environment.yml`
+* `micromamba env create -f panraid.yml`
 
 ####Got an NVIDIA GPU (Linux or Windows only)?
 After the above finishes, also run:
 
-* `micromamba env update -n panraid -f environment-cuda.yml`
+* `micromamba env update -n panraid -f panraid-cuda.yml`
 _______
 
