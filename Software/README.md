@@ -22,7 +22,7 @@ _______
 ### Create your `panraid` environment:
 * `micromamba env create -f panraid.yml`
 
-####Got an NVIDIA GPU (Linux or Windows only)?
+#### Got an NVIDIA GPU (Linux or Windows only)?
 After the above finishes, also run:
 
 * `micromamba env update -n panraid -f panraid-cuda.yml`
