@@ -5,7 +5,7 @@
 
 _Work and tutorials during PaNRAID is based on open source software + optional NVIDIA infrastructure_
 
-# A. Installation for your participant laptop
+# A. Installation for your participant laptop ![laptop](../images/laptop.png)
 
 We provide:
 
@@ -32,7 +32,8 @@ After the above finishes, also run:
 * Manually install [NVHPC](https://developer.nvidia.com/hpc-sdk/downloads) from NVIDIA
 _______
 
-# B. Installation for MESONET account
+# B. Installation for MESONET account ![hpc](../images/hpc.png)
+
 ![Under construction](../images/Under_Construction_small.png) ![Si-brain helmet](../images/brainhelmet_small.png) 
 
 Description pending, but:
