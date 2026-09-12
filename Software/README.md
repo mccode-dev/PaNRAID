@@ -1,8 +1,5 @@
 ![DIADEM banner](../images/toplogo-diadem.png)
-# ![PaNRAID logo](../images/panraid_small.png) PaNRAID Software ![PaNRAID logo](../images/panraid_small.png)
-
-![Under construction](../images/Under_Construction_small.png)
-![Si-brain helmet](../images/brainhelmet_small.png)
+# ![Under construction](../images/Under_Construction_small.png) ![Si-brain helmet](../images/brainhelmet_small.png) ![PaNRAID logo](../images/panraid_small.png) PaNRAID Software ![PaNRAID logo](../images/panraid_small.png) ![Si-brain helmet](../images/brainhelmet_small.png) ![Under construction](../images/Under_Construction_small.png)
 
 ### Work in progress! Subject to change!
 
