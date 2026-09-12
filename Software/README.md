@@ -3,7 +3,7 @@
 
 ### Work in progress! Subject to change!
 
-## Work and tutorials during PaNRAID is based on open source software.
+## Work and tutorials during PaNRAID is based on open source software + optional NVIDIA infrastructure
 
 # Installation for your participant laptop:
 
