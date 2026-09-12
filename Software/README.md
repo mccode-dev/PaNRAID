@@ -2,7 +2,7 @@
 # ![PaNRAID logo](../images/panraid_small.png) PaNRAID Software ![PaNRAID logo](../images/panraid_small.png)
 
 ![Under construction](../images/Under_Construction_small.png)
-![Brain helmet](../images/brainhelmet_small.png)
+!(../images/brainhelmet_small.png)
 
 ### Work in progress! Subject to change!
 
@@ -26,5 +26,8 @@ _______
 After the above finishes, also run:
 
 * `micromamba env update -n panraid -f panraid-cuda.yml`
+
+### Got an NVIDIA GPU on Linux and want to run McCode with that?
+* Manually install [NVHPC](https://developer.nvidia.com/hpc-sdk/downloads) from NVIDIA
 _______
 
