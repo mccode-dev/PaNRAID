@@ -1,12 +1,11 @@
 ![DIADEM banner](../images/toplogo-diadem.png)
-# ![Under construction](../images/Under_Construction_small.png) ![Si-brain helmet](../images/brainhelmet_small.png) ![PaNRAID logo](../images/panraid_small.png) PaNRAID Software ![PaNRAID logo](../images/panraid_small.png) ![Si-brain helmet](../images/brainhelmet_small.png) ![Under construction](../images/Under_Construction_small.png)
+# <img src="../images/Under_Construction_small.png" alt="under construction" align="middle"> <img src="../images/brainhelmet_small.png" alt="Si-brain helmet construction" align="middle"> <img src="../images/panraid_small.png" alt="PaNRAID logo" align="middle"> PaNRAID Software <img src="../images/panraid_small.png" alt="PaNRAID logo" align="middle"> <img src="../images/brainhelmet_small.png" alt="Si-brain helmet construction" align="middle"> <img src="../images/Under_Construction_small.png" alt="under construction" align="middle">
 
 ### -—> Work in progress! Subject to change! <—- 
 
 _Work and tutorials during PaNRAID is based on open source software + optional NVIDIA infrastructure_
 
-# A. Installation for your participant laptop ![laptop](../images/laptop.png)
-
+# A. Installation for your participant laptop <img src="../images/laptop.png" alt="laptop" align="middle">
 We provide:
 
 * a base **[panraid.yml](panraid.yml)** for use with **`conda/mamba/micromamba`**
@@ -32,9 +31,8 @@ After the above finishes, also run:
 * Manually install [NVHPC](https://developer.nvidia.com/hpc-sdk/downloads) from NVIDIA
 _______
 
-# B. Installation for MESONET account ![hpc](../images/hpc.png)
+# B. Installation for MESONET account <img src="../images/hpc.png" alt="hpc" align="middle"> <img src="../images/Under_Construction_small.png" alt="under construction" align="middle"> <img src="../images/brainhelmet_small.png" alt="Si-brain helmet construction" align="middle">
 
-![Under construction](../images/Under_Construction_small.png) ![Si-brain helmet](../images/brainhelmet_small.png) 
 
 Description pending, but:
 * The above `.yml` files should work
