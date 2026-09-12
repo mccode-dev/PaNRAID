@@ -1,9 +1,9 @@
 ![DIADEM banner](../images/toplogo-diadem.png)
 # ![Under construction](../images/Under_Construction_small.png) ![Si-brain helmet](../images/brainhelmet_small.png) ![PaNRAID logo](../images/panraid_small.png) PaNRAID Software ![PaNRAID logo](../images/panraid_small.png) ![Si-brain helmet](../images/brainhelmet_small.png) ![Under construction](../images/Under_Construction_small.png)
 
-### Work in progress! Subject to change!
+### -—> Work in progress! Subject to change! <—- 
 
-## Work and tutorials during PaNRAID is based on open source software + optional NVIDIA infrastructure
+_Work and tutorials during PaNRAID is based on open source software + optional NVIDIA infrastructure_
 
 # A. Installation for your participant laptop:
 
@@ -17,12 +17,12 @@ We provide:
 * We recommend to install [micromamba](https://mamba.readthedocs.io/en/latest/installation/micromamba-installation.html)
 
 _______
-## Required
+## Required:
 ### Create your `panraid` environment:
 * `micromamba env create -f panraid.yml`
 
 _______
-## Optional
+## Optional:
 #### Got an NVIDIA GPU (Linux or Windows only)?
 After the above finishes, also run:
 
