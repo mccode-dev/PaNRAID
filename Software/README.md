@@ -10,7 +10,7 @@
 
 We provide:
 
-* a base **[panraid.yml](panraid.yml)** for use with **`conda/mamba/micromamba`
+* a base **[panraid.yml](panraid.yml)** for use with **`conda/mamba/micromamba`**
 * (an optional **[panraid-cuda.yml](panraid-cuda.yml)** for machines with NVIDIA GPU)
 
 
