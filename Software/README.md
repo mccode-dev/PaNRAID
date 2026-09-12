@@ -3,9 +3,9 @@
 
 ### Work in progress! Subject to change!
 
-## Work and tutorials during PaNRAID is based on open source software:
+## Work and tutorials during PaNRAID is based on open source software.
 
-### Installation for your participant laptop:
+# Installation for your participant laptop:
 
 We provide:
 
@@ -32,7 +32,7 @@ After the above finishes, also run:
 * Manually install [NVHPC](https://developer.nvidia.com/hpc-sdk/downloads) from NVIDIA
 _______
 
-### Installation for MESONET account
+# Installation for MESONET account
 ![Under construction](../images/Under_Construction_small.png) ![Si-brain helmet](../images/brainhelmet_small.png) 
 
 Description pending, but:
