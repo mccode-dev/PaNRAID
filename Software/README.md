@@ -37,3 +37,7 @@ _______
 Description pending, but:
 * The above `.yml` files should work
 * `nvhpc` is probably available as a module
+
+# Known issues + workarounds
+
+**See [Issues-Workarounds](Issues-Workarounds/README.md)**
