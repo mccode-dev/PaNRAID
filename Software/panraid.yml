@@ -36,6 +36,9 @@ dependencies:
   - pytorch          # CPU build — works everywhere, incl. macOS
   - xgboost          # CPU build unless panraid-cuda.yml is added
 
+  # HDF5/NeXus extra
+  - silx # McStas/McXtrace already include nexpy
+
   # dev-tools etc.
   - git
   - cmake
