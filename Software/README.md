@@ -5,6 +5,8 @@
 
 ## Work and tutorials during PaNRAID is based on open source software:
 
+### Installation for your participant laptop:
+
 We provide:
 
 * a base **[panraid.yml](panraid.yml)** for use with **`conda/mamba/micromamba`**
@@ -30,3 +32,9 @@ After the above finishes, also run:
 * Manually install [NVHPC](https://developer.nvidia.com/hpc-sdk/downloads) from NVIDIA
 _______
 
+### Installation for MESONET account
+![Under construction](../images/Under_Construction_small.png) ![Si-brain helmet](../images/brainhelmet_small.png) 
+
+Description pending, but:
+* The above `.yml` files should work
+* `nvhpc` is probably available as a module
