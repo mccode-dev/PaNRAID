@@ -1,5 +1,7 @@
 # McStas / McXtrace User Tools Cheat Sheet
 
+# Nota Bene: This sheet is also available directly in your PaNRAID installation, access via mcdoc / mxdoc
+
 Source: `McCode/tools/Python` (plus `McCode/tools/matlab` for the legacy Matlab/Octave/iFit variants)
 
 **Naming convention:** almost everything named `mc<something>` on the McStas
