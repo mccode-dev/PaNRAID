@@ -28,8 +28,8 @@ This course develops an integrated approach to generating synthetic data for sup
 | 1 | Mon 21 Sep | Afternoon | [Introduction](./21_September_Monday/) |
 | 2 | Tue 22 Sep | Morning | [Neutron and X-ray Sources & Detectors](./22_September_Tuesday/morning_sources_detectors/) |
 | 2 | Tue 22 Sep | Afternoon | [Optics](./22_September_Tuesday/afternoon_optics/) |
-| 3 | Wed 23 Sep | Morning | [Samples 1](./23_September_Wednesday/morning_diffraction_samples/) |
-| 3 | Wed 23 Sep | Afternoon | [Samples 2](./23_September_Wednesday/afternoon_spectroscopy_samples/) |
+| 3 | Wed 23 Sep | Morning | [Samples 1](./23_September_Wednesday/morning_samples_1/) |
+| 3 | Wed 23 Sep | Afternoon | [Samples 2](./23_September_Wednesday/afternoon_samples_2/) |
 | 4 | Thu 24 Sep | Full day | [AI Applications: Training](./24_September_Thursday/afternoon_ai_training/) |
 | 5 | Fri 25 Sep | Full day | [AI Applications: Inference](./25_September_Friday) |
 
