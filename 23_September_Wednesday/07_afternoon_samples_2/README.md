@@ -21,4 +21,5 @@ By the end of this session, participants should be able to:
 
 ## Resources
 
-_Add slides, notebooks, or reference materials here._
+- [`../McStas_McXtrace_Sample_Components.pptx`](../McStas_McXtrace_Sample_Components.pptx) — lecture slides (shared with the morning session) [(PDF here)](../McStas_McXtrace_Sample_Components.pdf)
+- [`Exercise_McXtrace_spectroscopy.md`](./Exercise_McXtrace_spectroscopy.md) — McXtrace spectroscopy exercises (absorption/ROCK and fluorescence/LUCIA beamlines)
