@@ -21,4 +21,5 @@ By the end of this session, participants should be able to:
 
 ## Resources
 
-_Add slides, notebooks, or reference materials here._
+- [`McStas_McXtrace_Optics.pptx`](./McStas_McXtrace_Optics.pptx) — lecture slides [(PDF here)](./McStas_McXtrace_Optics.pdf)
+- [`Exercises_Optics.md`](./Exercises_Optics.md) — McStas guide/gravity and McXtrace monochromator hands-on exercises
