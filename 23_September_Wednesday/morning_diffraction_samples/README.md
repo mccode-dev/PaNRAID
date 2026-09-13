@@ -1,4 +1,4 @@
-# Day 3 — Wednesday 23 September (Morning): Diffraction Samples
+# Day 3 — Wednesday 23 September (Morning - 1): Diffraction Samples
 
 ## Topic
 
@@ -18,6 +18,31 @@ By the end of this session, participants should be able to:
 - Build a basic sample model for powder or single-crystal diffraction in McStas/McXtrace
 - Run a full virtual diffraction experiment from source to detector
 - Generate annotated diffraction datasets suitable for supervised AI training
+
+## Resources
+
+_Add slides, notebooks, or reference materials here._
+
+# Day 3 — Thursday 23 September (Morning - 2 ): Imaging Samples
+
+## Topic
+
+Simulation of samples for imaging applications, including CT and radiography.
+
+## Content
+
+- Sample modelling for X-ray and neutron imaging (computed tomography, radiography)
+- Generation of virtual images incorporating realistic experimental artefacts (beam hardening, scatter, detector blur)
+- Creating varied and realistic imaging datasets for supervised learning
+- Strategies for dataset diversity: sample geometry, material contrast, acquisition geometry
+
+## Learning Outcomes
+
+By the end of this session, participants should be able to:
+
+- Construct a virtual imaging experiment end-to-end in McStas/McXtrace
+- Generate a set of synthetic projection or tomographic images with controlled artefacts
+- Organise and annotate imaging datasets ready for AI model training
 
 ## Resources
 
