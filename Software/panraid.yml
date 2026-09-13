@@ -20,9 +20,9 @@ dependencies:
   # loose/floor pin — let the solver pick the newest compatible Python
   - python>=3.12
 
-  # McStas / McXtrace ray-tracing suites (conda-forge carries 3.8.4)
-  - mcstas>=3.8.4
-  - mcxtrace>=3.8.4
+  # McStas / McXtrace ray-tracing suites (conda-forge carries 3.8.5)
+  - mcstas>=3.8.5
+  - mcxtrace>=3.8.5
 
   # 3D visualization widget (Jupyter)
   - pythreejs
