@@ -15,8 +15,8 @@ Introduction to the challenges of simulation for generating realistic data in su
 
 Talk | Description
 -----|-------------
-[02_Seeking_for_AI](02_Seeking_for_AI/02_Seeking_for_AI.pptx) | Why use AI with BL/instrument models
-[01_Intro_and_General_Concepts](01_Intro_and_General_Concepts/McStas_McXtrace_Common_Introduction.pptx) | McStas_McXtrace_Common_Introduction
+[01_Seeking_for_AI](01_Seeking_for_AI/02_Seeking_for_AI.pptx) | Why use AI with BL/instrument models
+[02_Intro_and_General_Concepts](02_Intro_and_General_Concepts/McStas_McXtrace_Common_Introduction.pptx) | McStas_McXtrace_Common_Introduction
 [03_intro_deep_learning](03_intro_deep_learning/robledo_intro_DL.pdf) | The role of Neutron and X-ray Scattering simulations in the AI era
 
 ## Key Tools
