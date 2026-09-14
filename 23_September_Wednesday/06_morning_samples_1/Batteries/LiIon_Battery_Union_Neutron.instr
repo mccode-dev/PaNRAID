@@ -1,0 +1,260 @@
+/*******************************************************************************
+* McStas fragment (NOT a standalone instrument): LiIon_Battery_Union
+*
+* Purpose
+* -------
+* An approximate McStas/Union + NCrystal model of a cylindrical (18650-type)
+* lithium-ion battery cell "jellyroll", intended to be dropped in at the
+* sample position of a HOST instrument via:
+*
+*     %include "LiIon_Battery_Union.instr"
+*
+* placed immediately after whatever Arm/component in the host TRACE section
+* marks the desired sample position and orientation (the geometry below is
+* positioned "AT (0,0,0) RELATIVE PREVIOUS", i.e. it lands wherever the
+* %include statement is inserted).
+*
+* As requested, this file contains ONLY Union framework components
+* (Union_init, NCrystal_process + Union_make_material for materials,
+* Union_cylinder for geometry, Union_master, Union_stop) - no source,
+* no monitors, no Arms, no DEFINE INSTRUMENT/TRACE/END wrapper. This mirrors
+* the "instrument-fragment-for-%include" style used e.g. by
+* Templates/templateTAS/templateTAS.instr in the shipped McStas examples.
+*
+* Physical picture (from Ziesche et al., "Neutron imaging of lithium
+* batteries", Joule 6, 35-52 (2022), and general 18650-cell teardown data)
+* -------------------------------------------------------------------------
+* A cylindrical Li-ion cell (e.g. 18650: ~18 mm diameter x 65 mm height) is
+* built from a spirally-wound "jellyroll": Cu-foil anode current collector
+* coated with graphite, a polymer separator soaked in a Li-salt/organic-
+* carbonate liquid electrolyte, and an Al-foil cathode current collector
+* coated with a lithium transition-metal oxide (e.g. LiCoO2/NMC/LiFePO4),
+* all wound around a central mandrel and enclosed in a steel can. The
+* paper's central point is that neutrons are unusually sensitive to Li and H,
+* which is what makes neutron imaging/tomography valuable for seeing
+* electrolyte wetting/distribution and Li transport/plating inside an
+* intact, closed cell - a consideration that has directly shaped the
+* material choices below (favouring genuinely Li- and H-bearing NCrystal
+* materials over purely elemental metal proxies wherever a reasonable
+* stdlib entry exists).
+*
+* Geometric approximation [assumed]
+* ----------------------------------
+* McStas/Union has no "wound spiral" primitive, so the multi-turn jellyroll
+* is approximated as a stack of concentric cylindrical shells ("onion
+* model"), each representing the volume-averaged material occupying that
+* radial band, built from five nested Union_cylinder volumes of decreasing
+* radius and increasing `priority` (Union rule: "a high priority is on top
+* of low", so each smaller/higher-priority cylinder punches an annulus out
+* of the next one down):
+*
+*   r  0.0   - 1.5 mm : central winding mandrel/core hole    -> Vacuum
+*   r  1.5   - 4.0 mm : anode composite (graphite + Cu)      -> homogenized
+*   r  4.0   - 4.6 mm : separator + liquid electrolyte       -> homogenized
+*   r  4.6   - 8.8 mm : cathode composite (Li-oxide + Al)    -> homogenized
+*   r  8.8   - 9.0 mm : steel outer can                      -> Fe proxy
+*
+* using an overall can outer radius of 9.0 mm and an active winding height
+* of 60 mm [assumed, illustrative 18650-scale numbers - not taken from a
+* teardown of a specific cell]. Not modeled at all: crimped end caps, vent,
+* insulation discs, electrode tabs, headspace, and the true helical
+* winding structure the paper's neutron radiographs actually resolve turn
+* by turn. Pouch/prismatic stacked-electrode cells (also discussed in the
+* paper) would need a different geometry (a stack of Union_box volumes)
+* and are not covered by this cylindrical-cell fragment.
+*
+* Material choices [assumed - see notes] drawn from the NCrystal stdlib
+* -----------------------------------------------------------------------
+* No exact LiCoO2 / LiMn2O4 / LiFePO4 / NMC compound is available in the
+* stdlib list supplied for this task, so the cathode active material is
+* proxied by Li2O_sg225_LithiumOxide.ncmat: an oxide that, unlike a pure
+* transition-metal or elemental proxy, at least keeps genuine Li content
+* (and therefore the strong natural-Li neutron absorption/attenuation
+* contrast the source paper discusses) in the cathode region. The polymer
+* separator additionally stands in for the H-rich liquid electrolyte
+* (no liquid organic-carbonate solvent exists in the crystalline NCrystal
+* stdlib), so its neutron-absorption estimate below should be read as a
+* combined "H-rich content" proxy rather than pure dry polyethylene.
+*
+* Each homogenized shell is built as a genuine 2-component Union material,
+* combining two NCrystal_process components (one per constituent) into one
+* Union_make_material via a comma-separated process_string, with each
+* constituent's NCrystal cfg density scaled by its assumed volume fraction
+* (";density=<f>x", the same mechanism used for a "packed powder" in the
+* shipped Union_NCrystal_mix_example.instr). The volume fractions below
+* (90/10 graphite/Cu, 85/15 Li2O-proxy/Al) are illustrative estimates, not
+* derived from a real winding/turn count - flagged [assumed].
+*
+* my_absorption values [assumed - hand-computed, not tool-verified]
+* --------------------------------------------------------------------
+* Union_make_material requires a manually supplied `my_absorption` [1/m]:
+* the additional (n,gamma)-type absorption cross section at the standard
+* 2200 m/s reference velocity, which is normally generated by the
+* `ncrystal_mcstasunion` command-line tool (see the comments this tool
+* leaves in Union_NCrystal_example.instr). That tool is not available in
+* the environment this file was written in, so the my_absorption values
+* below were instead hand-computed from standard tabulated thermal
+* (2200 m/s) absorption cross sections and each material's approximate
+* bulk density (Sigma_a [1/cm] = n[atoms or f.u./cm^3] * sigma_abs[barn]*1e-24,
+* then x100 for [1/m]), using natural-abundance sigma_abs of ~2.56 b (Fe),
+* ~3.78 b (Cu), ~0.231 b (Al), ~0.0035 b (C), ~70.5 b (natural Li, i.e.
+* Li2O's absorption is completely dominated by its Li content), ~0.00019 b
+* (O, negligible) and 0.3326 b (H). Treat these as reasonable order-of-
+* magnitude placeholders and recompute with `ncrystal_mcstasunion` (or
+* `nctool`) before relying on this model quantitatively.
+*
+* %Link
+* Ziesche, R.F. et al., "Neutron imaging of lithium batteries", Joule 6,
+* 35-52 (2022), https://doi.org/10.1016/j.joule.2021.12.003
+* %Link
+* NCrystal Union examples: Union_NCrystal_example.instr,
+* Union_NCrystal_mix_example.instr (shipped with McStas)
+*
+*******************************************************************************/
+DEFINE INSTRUMENT battery()
+
+TRACE
+
+REMOVABLE COMPONENT sample_pos = Arm()
+  AT (0,0,0) ABSOLUTE  
+
+COMPONENT init = Union_init()
+AT (0,0,0) ABSOLUTE
+
+/* ---------------------------------------------------------------------
+ * Materials
+ * --------------------------------------------------------------------- */
+
+/* Steel can, proxied by elemental alpha-iron (bcc). [assumed proxy: real
+ * cans are low-carbon/stainless steel alloys, not pure Fe] */
+COMPONENT steel_can_proc = NCrystal_process(
+    cfg = "Fe_sg229_Iron-alpha.ncmat"
+)
+AT (0,0,0) ABSOLUTE
+
+COMPONENT steel_can_material = Union_make_material(
+    process_string = "steel_can_proc",
+    my_absorption = 21.7 /* [assumed, hand-computed, see header] */
+)
+AT (0,0,0) ABSOLUTE
+
+/* Anode composite: graphite active material (90 vol%, [assumed]) +
+ * Cu current-collector foil (10 vol%, [assumed]), homogenized. */
+COMPONENT anode_C_proc = NCrystal_process(
+    cfg = "C_sg194_pyrolytic_graphite.ncmat;density=0.9x"
+)
+AT (0,0,0) ABSOLUTE
+
+COMPONENT anode_Cu_proc = NCrystal_process(
+    cfg = "Cu_sg225.ncmat;density=0.1x"
+)
+AT (0,0,0) ABSOLUTE
+
+COMPONENT anode_composite_material = Union_make_material(
+    process_string = "anode_C_proc,anode_Cu_proc",
+    my_absorption = 3.25 /* [assumed] = 0.9*0.039 + 0.1*32.1 (1/m) */
+)
+AT (0,0,0) ABSOLUTE
+
+/* Separator + liquid electrolyte, proxied by polyethylene (real
+ * separators are PE/PP; the liquid carbonate-solvent electrolyte has no
+ * crystalline NCrystal stdlib entry, so its H content is folded into this
+ * proxy too - see header). */
+COMPONENT separator_proc = NCrystal_process(
+    cfg = "Polyethylene_CH2.ncmat"
+)
+AT (0,0,0) ABSOLUTE
+
+COMPONENT separator_material = Union_make_material(
+    process_string = "separator_proc",
+    my_absorption = 2.70 /* [assumed, hand-computed, see header] */
+)
+AT (0,0,0) ABSOLUTE
+
+/* Cathode composite: lithium-oxide proxy for the Li transition-metal-oxide
+ * active material (85 vol%, [assumed]) + Al current-collector foil
+ * (15 vol%, [assumed]), homogenized. No exact LiCoO2/NMC/LiMn2O4/LiFePO4
+ * entry was available in the supplied stdlib list - see header. */
+COMPONENT cathode_Li2O_proc = NCrystal_process(
+    cfg = "Li2O_sg225_LithiumOxide.ncmat;density=0.85x"
+)
+AT (0,0,0) ABSOLUTE
+
+COMPONENT cathode_Al_proc = NCrystal_process(
+    cfg = "Al_sg225.ncmat;density=0.15x"
+)
+AT (0,0,0) ABSOLUTE
+
+COMPONENT cathode_composite_material = Union_make_material(
+    process_string = "cathode_Li2O_proc,cathode_Al_proc",
+    my_absorption = 485.6 /* [assumed] = 0.85*571 + 0.15*1.39 (1/m);
+                              dominated by natural-Li absorption in the
+                              Li2O proxy, consistent with the source
+                              paper's point that Li content drives
+                              neutron contrast in these cells */
+)
+AT (0,0,0) ABSOLUTE
+
+/* ---------------------------------------------------------------------
+ * Geometry: five concentric cylindrical shells ("onion model" of the
+ * wound jellyroll), built from largest radius/lowest priority to
+ * smallest radius/highest priority so each inner cylinder cuts its own
+ * annulus out of the ones further out. All lengths in metres.
+ * The whole stack is centred wherever the %include lands (RELATIVE
+ * PREVIOUS), with the cylinder axis along local y (vertical), matching
+ * how these cells are normally stood up for neutron radiography/CT.
+ * --------------------------------------------------------------------- */
+
+/* Outer steel can, radius 9.0 mm, wall thickness 0.2 mm [assumed,
+ * illustrative 18650-scale dimensions]. */
+COMPONENT battery_can = Union_cylinder(
+    radius = 0.0090, yheight = 0.060,
+    priority = 1,
+    material_string = "steel_can_material"
+)
+AT (0,0,0) RELATIVE sample_pos
+
+/* Cathode composite fills the can interior out to the can wall. */
+COMPONENT battery_cathode = Union_cylinder(
+    radius = 0.0088, yheight = 0.060,
+    priority = 2,
+    material_string = "cathode_composite_material"
+)
+AT (0,0,0) RELATIVE battery_can
+
+/* Separator + electrolyte band. */
+COMPONENT battery_separator = Union_cylinder(
+    radius = 0.0046, yheight = 0.060,
+    priority = 3,
+    material_string = "separator_material"
+)
+AT (0,0,0) RELATIVE battery_can
+
+/* Anode composite band. */
+COMPONENT battery_anode = Union_cylinder(
+    radius = 0.0040, yheight = 0.060,
+    priority = 4,
+    material_string = "anode_composite_material"
+)
+AT (0,0,0) RELATIVE battery_can
+
+/* Central winding mandrel/core, modeled as an empty (Vacuum) hole -
+ * some real cells instead have a solid plastic centre pin, which could
+ * be represented by swapping "Vacuum" for a Polyethylene_CH2.ncmat-based
+ * material analogous to separator_material above. */
+COMPONENT battery_mandrel = Union_cylinder(
+    radius = 0.0015, yheight = 0.060,
+    priority = 5,
+    material_string = "Vacuum"
+)
+AT (0,0,0) RELATIVE battery_can
+
+/* Single Union_master simulates all five geometries defined above in one
+ * scattering step at the cell's position. */
+COMPONENT battery_master = Union_master()
+AT (0,0,0) RELATIVE battery_can
+
+COMPONENT battery_stop = Union_stop()
+AT (0,0,0) ABSOLUTE
+
+END
