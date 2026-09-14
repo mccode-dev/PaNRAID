@@ -1,6 +1,8 @@
-# McXtrace training: samples and virtual experiment: spectroscopy/fluorescence (hyperspectral)
+# Day 3 — Wednesday 23 September (Afternoon): Samples - X-ray Fluorescence (hyperspectral)
 
-For this exercise, we shall build a simplified model of the LUCIA@SOLEIL beam-line.
+*PaNRAID School, Day 3 afternoon — follows the `McStas_McXtrace_Sample_Components` lecture*
+
+For this exercise, we shall build a simplified model of the LUCIA@SOLEIL fluorescence imaging beam-line.
 
 Let's review the main elements to be modelled:
 
@@ -27,7 +29,7 @@ Position a 0.5x0.5 mm<sup>2</sup> slit at 13.4 m from the HU52,and a PSD monitor
 
 ## The LUCIA double monochromator 
 
-We use the DCM model from session 5 "Optics" or the session 9 "tomography" (PSICHE). You may as well refer to the `Template_DCM` example.
+We use the DCM model from session 07 "absorption" (ROCK). You may as well refer to the `Template_DCM` example.
 
 Basically, it all boils down to rotating two Si(111) Bragg crystals. The rotation angle can be computed from the nominal energy `E0` using Bragg's law *&lambda;=2d sin(&theta;)*, with the Si _d_-spacing as 5.4309/n Angs, the norm _n_ of the <111> reflection and &lambda; = 12.39842 / E0. Declare a `dcm_theta` in the `DECLARE` block variable and set its value in the `INITIALIZE` section (:warning: must be in degrees, multiply by `RAD2DEG`). 
 
