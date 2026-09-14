@@ -115,7 +115,7 @@ DEFINE INSTRUMENT battery()
 
 TRACE
 
-REMOVABLE COMPONENT sample_pos = Arm()
+REMOVABLE COMPONENT samplearm = Arm()
   AT (0,0,0) ABSOLUTE  
 
 COMPONENT init = Union_init()
@@ -212,7 +212,7 @@ COMPONENT battery_can = Union_cylinder(
     priority = 1,
     material_string = "steel_can_material"
 )
-AT (0,0,0) RELATIVE sample_pos
+AT (0,0,0) RELATIVE samplearm
 
 /* Cathode composite fills the can interior out to the can wall. */
 COMPONENT battery_cathode = Union_cylinder(
