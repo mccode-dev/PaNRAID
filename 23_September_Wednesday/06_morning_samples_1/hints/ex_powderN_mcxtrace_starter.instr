@@ -1,0 +1,62 @@
+/*******************************************************************************
+*         McXtrace instrument definition URL=http://www.mcxtrace.org
+*
+* Instrument: ex_powderN_mcxtrace_starter
+*
+* %Identification
+* Written by: PaNRAID School
+* Date: 2026
+* Origin: PaNRAID / PowderN exercises
+* %INSTRUMENT_SITE: Templates
+*
+* Starter instrument for Exercise B1 ("Baseline: source, sample, detector,
+* rings") of the PowderN hands-on exercises: a near-monochromatic
+* Source_gaussian focused onto a small aperture, a cylindrical PowderN
+* LaB6 sample (via on-the-fly CIF conversion) at that position, a Beamstop
+* over the direct beam, and a large flat PSD_monitor for the rings.
+*
+* This is deliberately the B1 baseline only - Exercise B2 (CIF vs.
+* pre-computed .laz table) is for you to build as a second instrument (or
+* a second PowderN component with reflections="LaB6.laz" once you've
+* generated it) starting from this one; it isn't done for you here.
+*
+* %Parameters
+* E0: [keV]             Mean source photon energy
+* dE: [keV]              Source energy half-width (kept narrow for sharp rings)
+* dist_sample: [m]      Source-to-sample distance
+* dist_detector: [m]    Sample-to-detector distance
+*
+* %End
+*******************************************************************************/
+DEFINE INSTRUMENT ex_powderN_mcxtrace_starter(E0=10, dE=0.05,
+                                               dist_sample=3, dist_detector=0.4)
+
+TRACE
+
+COMPONENT origin = Progress_bar()
+AT (0,0,0) ABSOLUTE
+
+/* Exercise B1, step 1: near-monochromatic source focused onto a small
+ * aperture - this aperture is the sample position. Keep dE small: a
+ * narrow energy band is what gives sharp rings instead of smeared bands. */
+COMPONENT src = Source_gaussian(E0=E0, dE=dE, focus_xw=0.001, focus_yh=0.001,
+                                 dist=dist_sample)
+AT (0,0,0) RELATIVE origin
+
+COMPONENT sample_pos = Arm()
+AT (0,0,dist_sample) RELATIVE src
+
+/* Exercise B1, step 2: the reference PowderN call from the exercise sheet.
+ * The first run transparently calls cif2hkl to turn LaB6.cif into
+ * structure factors - no separate step needed. */
+COMPONENT sample = PowderN(radius=0.5e-4, yheight=1e-3, reflections="LaB6.cif")
+AT (0,0,0) RELATIVE sample_pos
+
+/* Exercise B1, step 3: a small beamstop over the direct (unscattered) beam. */
+COMPONENT beamstop = Beamstop(xwidth=0.0005, yheight=0.0005)
+AT (0,0,dist_detector-0.01) RELATIVE sample_pos
+
+COMPONENT det = PSD_monitor(xwidth=0.2, yheight=0.2, nx=200, ny=200, filename="rings.dat")
+AT (0,0,dist_detector) RELATIVE sample_pos
+
+END

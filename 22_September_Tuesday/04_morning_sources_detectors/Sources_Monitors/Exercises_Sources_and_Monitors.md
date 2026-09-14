@@ -216,8 +216,4 @@ Run instrument B and compare its monitor output to the monitors you had directly
 
 ---
 
-## Facilitator notes
-
-- Exercises 1–4 are the core material for absolute beginners and should comfortably fit a ~2 hour hands-on block; 5 is a natural extension once time allows; 6–7 are stretch goals for fast finishers or a follow-up session.
-- All code snippets above are self-contained and were checked against the parameter names used in the accompanying lecture slides (`McStas_McXtrace_Sources_and_Monitors.pptx`) and against the `templateDIFF` example instrument already in this repository (`instruments/mcstas/templateDIFF/templateDIFF.instr`).
-- Suggested next step: turn Exercises 2, 5 and 7 into ready-made starter `.instr` files (with a few `???` gaps for participants to fill in) rather than have participants type from scratch — happy to draft those next if useful.
+*(Facilitator notes for this session are collected separately in [`Facilitator_Notes.md`](./Facilitator_Notes.md), not shown here.)*

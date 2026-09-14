@@ -14,6 +14,8 @@ As always: `mcdoc PowderN` / `mxdoc PowderN` before guessing at a parameter, and
 
 ### A1 — Baseline: source, sample, detector, rings
 
+A ready-to-run starting point for this exact instrument is available in [`hints/`](./hints/) (`ex_powderN_mcstas_starter.instr`) if you'd rather not type it out — but if you want the full experience of building it from a blank file, ignore that folder and type along below.
+
 1. Build a minimal instrument: a `Source_simple` with a narrow wavelength band (e.g. `lambda0=2.5, dlambda=0.02`) focused onto a small aperture a few metres away — this is your sample position.
 2. At that position, insert a cylindrical `PowderN` sample:
    ```c
@@ -52,6 +54,8 @@ As always: `mcdoc PowderN` / `mxdoc PowderN` before guessing at a parameter, and
 
 ### B1 — Baseline: source, sample, detector, rings
 
+A ready-to-run starting point for this exact instrument is available in [`hints/`](./hints/) (`ex_powderN_mcxtrace_starter.instr`) if you'd rather not type it out — but if you want the full experience of building it from a blank file, ignore that folder and type along below.
+
 1. Build a minimal instrument: a near-monochromatic `Source_flat` (or `Source_gaussian`), e.g. around 10 keV with a narrow `dE`/`dlambda`, focused onto a small aperture a few metres away — your sample position.
 2. At that position, insert a cylindrical `PowderN` sample using a CIF-described material — LaB₆ is the standard McXtrace `PowderN` test case:
    ```c
@@ -83,9 +87,4 @@ For `PowderN` in McXtrace, `reflections=` accepts either a CIF file — a full c
 
 ---
 
-## Facilitator notes
-
-- Both parts are intentionally minimal (3–4 components) for the baseline — the point is to get to a recognisable Debye-Scherrer pattern fast, not to build a realistic diffractometer on the first pass.
-- Real bundled reference files used above: `Al.laz` and `LaB6.cif` are both standard example materials already used elsewhere in the McStas/McXtrace example suites (the `Tests_samples/Test_PowderN` McXtrace example is exactly the LaB₆-via-CIF case shown here, and produces the `PowderN.png` Debye-Scherrer image already referenced in this project's samples notes).
-- The exact McStas syntax for pointing `PowderN` at an NCrystal material (A2, step 6) is left as a doc-lookup/verification step deliberately — worth confirming against the installed McStas version before the session, and adjusting the exercise text once confirmed.
-- A natural Day-4 follow-on: turn the A3/B3 "attach yesterday's optics" option into the required starting point, i.e. build the full source → optics → sample → detector diffractometer in one pass, mirroring how the NECSA/ISIS school repositories build their powder diffractometer exercise directly on top of their monochromator exercise.
+*(Facilitator notes for this session are collected separately in [`Facilitator_Notes.md`](./Facilitator_Notes.md), not shown here.)*

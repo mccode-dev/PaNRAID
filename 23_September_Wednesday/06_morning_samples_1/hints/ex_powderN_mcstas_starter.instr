@@ -1,0 +1,63 @@
+/*******************************************************************************
+*         McStas instrument definition URL=http://www.mcstas.org
+*
+* Instrument: ex_powderN_mcstas_starter
+*
+* %Identification
+* Written by: PaNRAID School
+* Date: 2026
+* Origin: PaNRAID / PowderN exercises
+* %INSTRUMENT_SITE: Templates
+*
+* Starter instrument for Exercise A1 ("Baseline: source, sample, detector,
+* rings") of the PowderN hands-on exercises: a narrow-band Source_simple
+* focused onto a small aperture, a cylindrical PowderN aluminium sample at
+* that position, a Beamstop over the direct beam, and a large flat
+* PSD_monitor to catch the Debye-Scherrer rings.
+*
+* This is deliberately the A1 baseline only - Exercise A2 (NCrystal vs.
+* classic table) is for you to build as a second instrument (or a second
+* PowderN component with a different `reflections=` string) starting from
+* this one; it isn't done for you here.
+*
+* %Parameters
+* lambda0: [Angs]       Mean source wavelength
+* dlambda: [Angs]       Source wavelength half-width (kept narrow for sharp rings)
+* dist_sample: [m]      Source-to-sample distance
+* dist_detector: [m]    Sample-to-detector distance
+*
+* %End
+*******************************************************************************/
+DEFINE INSTRUMENT ex_powderN_mcstas_starter(lambda0=2.5, dlambda=0.02,
+                                             dist_sample=3, dist_detector=0.4)
+
+TRACE
+
+COMPONENT origin = Progress_bar()
+AT (0,0,0) ABSOLUTE
+
+/* Exercise A1, step 1: narrow-band source focused onto a small aperture -
+ * this aperture is the sample position. Keep dlambda small: a near-
+ * monochromatic beam is what gives sharp rings instead of smeared bands
+ * (see Exercise A1's checkpoint on widening dlambda). */
+COMPONENT src = Source_simple(radius=0.01, focus_xw=0.01, focus_yh=0.01,
+                               dist=dist_sample, lambda0=lambda0, dlambda=dlambda)
+AT (0,0,0) RELATIVE origin
+
+COMPONENT sample_pos = Arm()
+AT (0,0,dist_sample) RELATIVE src
+
+/* Exercise A1, step 2: the reference PowderN call from the exercise sheet,
+ * pointed at the bundled Al.laz table. */
+COMPONENT sample = PowderN(radius=0.005, yheight=0.03, reflections="Al.laz")
+AT (0,0,0) RELATIVE sample_pos
+
+/* Exercise A1, step 3: a small beamstop over the direct (unscattered) beam,
+ * so it doesn't swamp the much weaker diffracted rings on the monitor below. */
+COMPONENT beamstop = Beamstop(xwidth=0.01, yheight=0.01)
+AT (0,0,dist_detector-0.01) RELATIVE sample_pos
+
+COMPONENT det = PSD_monitor(xwidth=1, yheight=1, nx=200, ny=200, filename="rings.dat")
+AT (0,0,dist_detector) RELATIVE sample_pos
+
+END

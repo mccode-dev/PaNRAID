@@ -1,0 +1,61 @@
+/*******************************************************************************
+*         McStas instrument definition URL=http://www.mcstas.org
+*
+* Instrument: ex_battery_mcstas_host_starter
+*
+* %Identification
+* Written by: PaNRAID School
+* Date: 2026
+* Origin: PaNRAID / Battery imaging exercise
+* %INSTRUMENT_SITE: Templates
+*
+* Minimal working host instrument for the McStas track of the Li-ion
+* battery imaging exercise (../README.md): a plain neutron source, a
+* `sample_pos` Arm declared immediately before the %include, and a flat
+* PSD_monitor a short distance downstream. This is the smallest possible
+* demonstration of the "connecting point" mechanism described in that
+* README - it is NOT a substitute for copying and adapting Tomography.instr
+* or PSI_ICON.instr from $MCSTAS/examples, which is the exercise itself
+* (step 2 of the McStas track).
+*
+* How this works: everything inside LiIon_Battery_Union_Neutron.instr is
+* positioned relative to its own `sample_pos` Arm (a REMOVABLE COMPONENT).
+* Declaring another component instance also called `sample_pos` here, right
+* before the %include line, makes that instance - not the included file's
+* own AT (0,0,0) ABSOLUTE placement - the one the battery geometry actually
+* attaches to. Move or rotate the `sample_pos` Arm below and the whole
+* battery moves with it.
+*
+* %Parameters
+* lambda0: [Angs]        Mean source wavelength
+* dlambda: [Angs]        Source wavelength half-width
+* dist_sample: [m]       Source-to-sample distance
+* dist_detector: [m]     Sample-to-detector distance
+*
+* %End
+*******************************************************************************/
+DEFINE INSTRUMENT ex_battery_mcstas_host_starter(lambda0=2, dlambda=0.5,
+                                                  dist_sample=5, dist_detector=0.5)
+
+TRACE
+
+COMPONENT origin = Progress_bar()
+AT (0,0,0) ABSOLUTE
+
+COMPONENT src = Source_simple(radius=0.02, focus_xw=0.05, focus_yh=0.05,
+                               dist=dist_sample, lambda0=lambda0, dlambda=dlambda)
+AT (0,0,0) RELATIVE origin
+
+/* This is the connecting point: same name, same trick, as documented in
+ * ../README.md. Reposition or reorient THIS Arm (not anything inside the
+ * included file) to move the battery around in your own instrument. */
+COMPONENT sample_pos = Arm()
+AT (0,0,dist_sample) RELATIVE src
+
+%include "../LiIon_Battery_Union_Neutron.instr"
+
+COMPONENT det = PSD_monitor(xwidth=0.1, yheight=0.1, nx=200, ny=200,
+                             filename="radiograph.dat")
+AT (0,0,dist_detector) RELATIVE sample_pos
+
+END

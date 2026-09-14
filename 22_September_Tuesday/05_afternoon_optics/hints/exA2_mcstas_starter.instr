@@ -1,0 +1,71 @@
+/*******************************************************************************
+*         McStas instrument definition URL=http://www.mcstas.org
+*
+* Instrument: exA2_mcstas_starter
+*
+* %Identification
+* Written by: PaNRAID School
+* Date: 2026
+* Origin: PaNRAID / Optics exercises
+* %INSTRUMENT_SITE: Templates
+*
+* Starter instrument for Exercises A1-A2 ("A guide, gravity, and phase
+* space") of the Optics hands-on exercises: a source focused onto a
+* guide entrance, a straight Guide_gravity, and a position / wavelength
+* / divergence-position monitor trio at the guide exit.
+*
+* This is a completed, runnable starting point for A2 - if you'd rather
+* build the A1 (no-guide) baseline and add the guide yourself following
+* the exercise sheet, just ignore this file and start from a blank
+* .instr instead. Gravity itself is left OFF here (that's the point of
+* Exercise A3): re-run this same file with `-g` / `--gravitation` added
+* to your mcrun command line to switch it on, no instrument-file change
+* needed.
+*
+* %Example: -n 1e6 Detector: psd_I=1
+*
+* %Parameters
+* d_source_guide: [m]    Source-to-guide-entrance distance
+* guide_l: [m]           Guide length
+* guide_m: [1]           Guide coating m-value (multiple of Ni critical angle)
+* lambda0: [Angs]        Mean source wavelength
+* dlambda: [Angs]        Source wavelength half-width
+*
+* %End
+*******************************************************************************/
+DEFINE INSTRUMENT exA2_mcstas_starter(d_source_guide=10, guide_l=10, guide_m=2,
+                                       lambda0=3, dlambda=2.5)
+
+TRACE
+
+COMPONENT origin = Progress_bar()
+AT (0,0,0) ABSOLUTE
+
+/* Source focused onto a 3x3 cm aperture at the guide entrance - this
+ * aperture size becomes the guide's w1/h1 below (Exercise A1's step 1). */
+COMPONENT src = Source_simple(radius=0.02, focus_xw=0.03, focus_yh=0.03,
+                               dist=d_source_guide, lambda0=lambda0, dlambda=dlambda)
+AT (0,0,0) RELATIVE origin
+
+COMPONENT guide_entrance = Arm()
+AT (0,0,d_source_guide) RELATIVE src
+
+/* Exercise A2, step 4: a straight channel (w1=w2, h1=h2), m=2 to start. */
+COMPONENT guide = Guide_gravity(w1=0.03, h1=0.03, w2=0.03, h2=0.03, l=guide_l, m=guide_m)
+AT (0,0,0) RELATIVE guide_entrance
+
+/* Exercise A2, step 5: the L_monitor / PSD_monitor / DivPos_monitor trio,
+ * right after the guide exit. Check mcdoc DivPos_monitor for its full
+ * binning options (nh, ndiv, ...) if you want finer control than the
+ * defaults used here. */
+COMPONENT lm = L_monitor(xwidth=0.05, yheight=0.05, filename="lm.dat",
+                          Lmin=0, Lmax=lambda0+dlambda+1)
+AT (0,0,guide_l+0.01) RELATIVE guide_entrance
+
+COMPONENT psd = PSD_monitor(xwidth=0.05, yheight=0.05, filename="psd.dat")
+AT (0,0,guide_l+0.02) RELATIVE guide_entrance
+
+COMPONENT divpos = DivPos_monitor(xwidth=0.05, yheight=0.05, maxdiv_h=3, filename="divpos.dat")
+AT (0,0,guide_l+0.03) RELATIVE guide_entrance
+
+END

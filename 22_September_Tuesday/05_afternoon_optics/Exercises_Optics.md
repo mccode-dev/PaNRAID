@@ -22,6 +22,8 @@ As before: look things up with `mcdoc <Component>` / `mxdoc <Component>` as you 
 
 ### A2 — Add a straight guide, and explore its geometry
 
+A ready-to-run starting point for this exact instrument is available in [`hints/`](./hints/) (`exA2_mcstas_starter.instr`) if you'd rather not type it out — but if you want the full experience of building it from a blank file, ignore that folder and type along below.
+
 4. Replace the aperture with a `Guide_gravity` component of length `l`, matching entrance size `w1`×`h1` to your source's focused footprint, and a modest exit size `w2`×`h2` (start with `w1=w2`, `h1=h2` for a straight channel). Set `m=2` (a common real supermirror coating value).
 5. Put your `L_monitor`, `PSD_monitor` and `DivPos_monitor` trio again right after the guide exit.
 6. Run it, then repeat with the guide length doubled and halved (keep everything else fixed). Compare the transmitted intensity (`L_monitor` total) each time.
@@ -67,6 +69,8 @@ Gravity is switched off by default; `mcrun` (and `mcgui`) can enable it for ever
 ### B2 — Track 1: a single Bragg crystal, then a double-crystal monochromator (DCM)
 
 A `Bragg_crystal` is placed on a rotated `Arm`, exactly like the McStas monochromator exercise you may have seen before — only the rotation here happens in the vertical plane (rotation about the beam's horizontal axis), which is the usual convention for a synchrotron DCM.
+
+A ready-to-run starting point for the single-crystal geometry (through step 6) is available in [`hints/`](./hints/) (`exB2_mcxtrace_starter.instr`) if you'd rather not type it out — but if you want the full experience of building it from a blank file, ignore that folder and type along below. Turning it into the double-crystal monochromator (steps 9–11) is left for you either way.
 
 3. Add an `Arm` called `xtal1_arm` a good distance after your source, `ROTATED (A1,0,0) RELATIVE` the source, with `A1` a new instrument parameter (default 0 for now).
 4. Add a `Bragg_crystal` at that arm's position, using silicon's (111) reflection:
@@ -115,8 +119,4 @@ A multilayer works on the same interference principle as a crystal, but with a s
 
 ---
 
-## Facilitator notes
-
-- Part A (A1–A3) and Part B (B1–B2) are the core material; A4 and B2′ are natural extensions for fast finishers or a follow-up session, matching the "pick two of the three: CRLs, KB mirrors, monochromators" framing on the last lecture slide — a CRL-focused exercise (following the worked Be/Al stack example on slide 9) would be a natural third addition later.
-- Bragg-crystal numbers in Part B (Si, V=160.1826 Å³) match the syntax already documented in this project's X-ray optics component notes; the DCM arm/rotation pattern follows the lecture's own worked snippet directly.
-- As with the Sources & Monitors sheet, no starter `.instr` files are included here yet — happy to draft ready-to-run starters (and a `hints/` folder, as before) for either or both parts if that would help participants get moving faster.
+*(Facilitator notes for this session are collected separately in [`Facilitator_Notes.md`](./Facilitator_Notes.md), not shown here.)*
