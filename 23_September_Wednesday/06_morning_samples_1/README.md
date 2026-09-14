@@ -23,6 +23,7 @@ By the end of this session, participants should be able to:
 
 - [`../McStas_McXtrace_Sample_Components.pptx`](../McStas_McXtrace_Sample_Components.pptx) — lecture slides (shared with the afternoon session) [(PDF here)](../McStas_McXtrace_Sample_Components.pdf)
 - [`Exercises_PowderN.md`](./Exercises_PowderN.md) — McStas/McXtrace PowderN hands-on exercises (Debye-Scherrer rings, classic tables vs. NCrystal/CIF)
+- [`Batteries/README.md`](./Batteries/README.md) — McStas/McXtrace Li-ion battery imaging exercise (Union + NCrystal/xraylib, neutron vs. X-ray contrast, radiography and CT)
 
 # Day 3 — Thursday 23 September (Morning - 2 ): Imaging Samples
 

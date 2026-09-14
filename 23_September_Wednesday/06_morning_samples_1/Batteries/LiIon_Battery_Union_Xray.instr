@@ -9,7 +9,7 @@
 * An approximate McXtrace/Union model of a cylindrical (18650-type) Li-ion
 * battery cell "jellyroll" for X-ray simulation, built with the xraylib-
 * based Union processes (Compton_xrl_process, Rayleigh_xrl_process) instead
-* of NCrystal - the X-ray sibling of LiIon_Battery_Union.instr (the
+* of NCrystal - the X-ray sibling of LiIon_Battery_Union_Neutron.instr (the
 * neutron/NCrystal version of the same cell, written for McStas).
 *
 * %Description
@@ -109,11 +109,28 @@
 * verified .lau/.laz-type reflection file per material, not attempted
 * here).
 *
-* For full compatibility with e.g. mcstas-antlr, this is a complete,
-* valid DEFINE INSTRUMENT/TRACE/END file (matching the structure Peter
-* converted the neutron fragment to), with the sample position exposed
-* as a REMOVABLE COMPONENT Arm so it can still be trimmed out and the
-* Union block reused elsewhere if desired.
+* Like its neutron sibling LiIon_Battery_Union_Neutron.instr, this is a
+* complete, valid DEFINE INSTRUMENT/TRACE/END file rather than a bare
+* component list - nested DEFINE INSTRUMENT/TRACE/END blocks brought in
+* via %include are fully supported by McStas/McXtrace, so this file can
+* be %include'd straight into a host instrument's TRACE section, or
+* compiled/mxdisplay'd standalone (it has no source, so it's only useful
+* for a geometry check on its own).
+*
+* The sample position is exposed as a REMOVABLE COMPONENT Arm,
+* `sample_pos`, which is the connecting point between this "inner"
+* instrument and whatever "outer" host instrument %include's it: every
+* geometry component below is positioned relative to `sample_pos`,
+* directly or indirectly. REMOVABLE is what makes this work: declare a
+* component instance also named `sample_pos` in the host instrument,
+* positioned/rotated wherever the battery should sit, immediately before
+* the %include line, and that outer `sample_pos` is what the included
+* geometry actually attaches to (see LiIon_Battery_Union_Neutron.instr's
+* header for the worked-example pattern - e.g. adapting a copy of
+* Airport_scanner.instr fetched from your own $MCXTRACE/examples, which
+* does not ship in this folder). The same REMOVABLE Arm can,
+* alternatively, simply be trimmed out by hand if only the Union
+* material/geometry block is wanted, reused some other way.
 *
 * %Parameters
 * (none)
@@ -130,6 +147,10 @@ DEFINE INSTRUMENT battery_xray()
 
 TRACE
 
+/* Connecting point to the host ("outer") instrument - see header. A host
+ * instrument that declares its own component instance named sample_pos
+ * right before %include'ing this file takes over this position/rotation;
+ * everything below is positioned relative to sample_pos. */
 REMOVABLE COMPONENT sample_pos = Arm()
   AT (0,0,0) ABSOLUTE
 
@@ -246,12 +267,29 @@ AT (0,0,0) ABSOLUTE
 
 /* ---------------------------------------------------------------------
  * Geometry: five concentric cylindrical shells ("onion model" of the
- * wound jellyroll), built from largest radius/lowest priority to
- * smallest radius/highest priority so each inner cylinder cuts its own
- * annulus out of the ones further out. All lengths in metres.
- * The whole stack is centred wherever the %include lands (RELATIVE
- * PREVIOUS), with the cylinder axis along local y (vertical), matching
- * how these cells are normally stood up for X-ray radiography/CT.
+ * wound jellyroll), largest radius/lowest priority to smallest
+ * radius/highest priority so each inner cylinder cuts its own annulus
+ * out of the ones further out. All lengths in metres. Cylinder axis
+ * along local y (vertical), matching how these cells are normally stood
+ * up for X-ray/neutron radiography or CT.
+ *
+ * FIX [important, carried over from the neutron/NCrystal version of this
+ * file]: every nested cylinder's yheight is given a distinct value,
+ * shrinking by 0.2 mm per nesting level (0.060, 0.0598, 0.0596, 0.0594,
+ * 0.0592 m) instead of all five sharing yheight=0.060. With all five
+ * equal, every cylinder's flat top/bottom end-cap sat at exactly the
+ * same y=+-0.030 plane - and Union_cylinder's own header explicitly
+ * warns "it is not allowed to have two parallel planes that coincide.
+ * This will crash the code at run time." That produces the
+ * "no intersection time found, but still inside volume N" failure seen
+ * with the neutron version once it was dropped into a real beamline:
+ * with five coincident end-cap planes, Union's ray-volume bookkeeping
+ * can't consistently order which surface is entered/exited first at
+ * that shared plane, and a ray can get stuck thinking it's still inside
+ * a volume it has no remaining intersection with. Staggering each
+ * shell's height by a small, physically negligible margin (0.2 mm
+ * against a 60 mm cell) removes the degeneracy without changing the
+ * physical picture.
  * --------------------------------------------------------------------- */
 
 /* Outer steel can, radius 9.0 mm, wall thickness 0.2 mm [assumed,
@@ -290,9 +328,9 @@ AT (0,0,0) RELATIVE battery_can
 
 /* Central winding mandrel/core, modeled as an empty (Vacuum) hole -
  * some real cells instead have a solid plastic centre pin, which could
- * be represented by swapping "Vacuum" for a Polyethylene_CH2.ncmat-based
- * material analogous to separator_material above. yheight reduced by a
- * final 0.2 mm  */
+ * be represented by swapping "Vacuum" for a polyethylene-based material
+ * analogous to separator_material above. yheight reduced by a final
+ * 0.2 mm - see FIX note above. */
 COMPONENT battery_mandrel = Union_cylinder(
     radius = 0.0015, yheight = 0.0592,
     priority = 5,

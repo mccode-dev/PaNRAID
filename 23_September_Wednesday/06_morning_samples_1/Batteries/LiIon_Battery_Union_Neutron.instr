@@ -1,5 +1,5 @@
 /*******************************************************************************
-* McStas fragment (NOT a standalone instrument): LiIon_Battery_Union
+* McStas instrument: battery (LiIon_Battery_Union_Neutron.instr)
 *
 * Purpose
 * -------
@@ -7,19 +7,48 @@
 * lithium-ion battery cell "jellyroll", intended to be dropped in at the
 * sample position of a HOST instrument via:
 *
-*     %include "LiIon_Battery_Union.instr"
+*     %include "LiIon_Battery_Union_Neutron.instr"
 *
 * placed immediately after whatever Arm/component in the host TRACE section
 * marks the desired sample position and orientation (the geometry below is
 * positioned "AT (0,0,0) RELATIVE PREVIOUS", i.e. it lands wherever the
 * %include statement is inserted).
 *
-* As requested, this file contains ONLY Union framework components
-* (Union_init, NCrystal_process + Union_make_material for materials,
-* Union_cylinder for geometry, Union_master, Union_stop) - no source,
-* no monitors, no Arms, no DEFINE INSTRUMENT/TRACE/END wrapper. This mirrors
-* the "instrument-fragment-for-%include" style used e.g. by
-* Templates/templateTAS/templateTAS.instr in the shipped McStas examples.
+* This file contains only Union framework components (Union_init,
+* NCrystal_process + Union_make_material for materials, Union_cylinder for
+* geometry, Union_master, Union_stop) plus a single REMOVABLE Arm,
+* `sample_pos`, marking the sample position - no source, no monitors -
+* but, like any McStas instrument file, it is still wrapped in its own
+* complete DEFINE INSTRUMENT battery() / TRACE / END structure. Nested
+* DEFINE INSTRUMENT/TRACE/END blocks brought in via %include are fully
+* supported by McStas, so this file can be %include'd directly into a
+* host instrument's TRACE section exactly as shown above, and it can
+* equally well be compiled/mcdisplay'd on its own, as a standalone
+* (source-less) `battery` instrument, for a quick geometry check before
+* wiring it into a beamline. Its X-ray sibling,
+* LiIon_Battery_Union_Xray.instr, follows the same pattern.
+*
+* `sample_pos` is the connecting point between this "inner" instrument
+* and whatever "outer" host instrument %include's it: every geometry
+* component below is positioned relative to `sample_pos`, directly or
+* indirectly (battery_can is "AT (0,0,0) RELATIVE sample_pos", and
+* everything else hangs off battery_can). REMOVABLE is what makes this
+* connection work: if the host instrument declares its OWN component
+* instance also named `sample_pos` - of any component type, positioned
+* and rotated wherever the host wants the battery to sit - immediately
+* before the %include line, that outer `sample_pos` is the one the
+* included geometry actually attaches to, rather than this file's own
+* "AT (0,0,0) ABSOLUTE" declaration for it. This is the pattern to apply
+* when copying in e.g. Tomography.instr or PSI_ICON.instr from your own
+* $MCSTAS/examples (neither ships in this folder): find or add an Arm at
+* the sample position, name it exactly `sample_pos` - e.g.
+* `COMPONENT sample_pos = Arm() AT (0,0,1) RELATIVE Origin
+* ROTATED (-45,omega,10) RELATIVE Origin`, or
+* `SPLIT 100 COMPONENT sample_pos = Arm() AT (0,0,0) RELATIVE Goniometer`
+* - remove whatever sample component was there before, and put the
+* %include immediately after. The same recipe applies to any instrument
+* of your own: declare a component named `sample_pos` at your desired
+* location/orientation, then %include this file right after it.
 *
 * Physical picture (from Ziesche et al., "Neutron imaging of lithium
 * batteries", Joule 6, 35-52 (2022), and general 18650-cell teardown data)
@@ -115,6 +144,10 @@ DEFINE INSTRUMENT battery()
 
 TRACE
 
+/* Connecting point to the host ("outer") instrument - see header. A host
+ * instrument that declares its own component instance named sample_pos
+ * right before %include'ing this file takes over this position/rotation;
+ * everything below is positioned relative to sample_pos. */
 REMOVABLE COMPONENT sample_pos = Arm()
   AT (0,0,0) ABSOLUTE  
 
@@ -203,6 +236,23 @@ AT (0,0,0) ABSOLUTE
  * The whole stack is centred wherever the %include lands (RELATIVE
  * PREVIOUS), with the cylinder axis along local y (vertical), matching
  * how these cells are normally stood up for neutron radiography/CT.
+ *
+ * FIX [important]: every nested cylinder's yheight is given a distinct
+ * value, shrinking by 0.2 mm per nesting level (0.0600, 0.0598, 0.0596,
+ * 0.0594, 0.0592 m) instead of all five sharing yheight=0.060. With all
+ * five equal, every cylinder's flat top/bottom end-cap sat at exactly
+ * the same y=+-0.030 plane - and Union_cylinder's own header explicitly
+ * warns "it is not allowed to have two parallel planes that coincide.
+ * This will crash the code at run time." That produces a
+ * "no intersection time found, but still inside volume N" failure once
+ * dropped into a real beamline: with five coincident end-cap planes,
+ * Union's ray-volume bookkeeping can't consistently order which surface
+ * is entered/exited first at that shared plane, and a ray can get stuck
+ * thinking it's still inside a volume it has no remaining intersection
+ * with. Staggering each shell's height by a small, physically negligible
+ * margin (0.2 mm against a 60 mm cell) removes the degeneracy without
+ * changing the physical picture. The same fix is carried over into the
+ * X-ray sibling file, LiIon_Battery_Union_Xray.instr.
  * --------------------------------------------------------------------- */
 
 /* Outer steel can, radius 9.0 mm, wall thickness 0.2 mm [assumed,
