@@ -246,41 +246,43 @@ AT (0,0,0) ABSOLUTE
 
 /* ---------------------------------------------------------------------
  * Geometry: five concentric cylindrical shells ("onion model" of the
- * wound jellyroll), largest radius/lowest priority to smallest
- * radius/highest priority so each inner cylinder cuts its own annulus
- * out of the ones further out. All lengths in metres. Cylinder axis
- * along local y (vertical), matching how these cells are normally stood
- * up for X-ray/neutron radiography or CT.
+ * wound jellyroll), built from largest radius/lowest priority to
+ * smallest radius/highest priority so each inner cylinder cuts its own
+ * annulus out of the ones further out. All lengths in metres.
+ * The whole stack is centred wherever the %include lands (RELATIVE
+ * PREVIOUS), with the cylinder axis along local y (vertical), matching
+ * how these cells are normally stood up for X-ray radiography/CT.
  * --------------------------------------------------------------------- */
 
 /* Outer steel can, radius 9.0 mm, wall thickness 0.2 mm [assumed,
  * illustrative 18650-scale dimensions]. */
 COMPONENT battery_can = Union_cylinder(
-    radius = 0.0090, yheight = 0.060,
+    radius = 0.0090, yheight = 0.0600,
     priority = 1,
     material_string = "steel_can_material"
 )
 AT (0,0,0) RELATIVE sample_pos
 
-/* Cathode composite fills the can interior out to the can wall. */
+/* Cathode composite fills the can interior out to the can wall.
+ * yheight reduced by 0.2 mm from battery_can - see FIX note above. */
 COMPONENT battery_cathode = Union_cylinder(
-    radius = 0.0088, yheight = 0.060,
+    radius = 0.0088, yheight = 0.0598,
     priority = 2,
     material_string = "cathode_composite_material"
 )
 AT (0,0,0) RELATIVE battery_can
 
-/* Separator + electrolyte band. */
+/* Separator + electrolyte band. yheight reduced by another 0.2 mm. */
 COMPONENT battery_separator = Union_cylinder(
-    radius = 0.0046, yheight = 0.060,
+    radius = 0.0046, yheight = 0.0596,
     priority = 3,
     material_string = "separator_material"
 )
 AT (0,0,0) RELATIVE battery_can
 
-/* Anode composite band. */
+/* Anode composite band. yheight reduced by another 0.2 mm. */
 COMPONENT battery_anode = Union_cylinder(
-    radius = 0.0040, yheight = 0.060,
+    radius = 0.0040, yheight = 0.0594,
     priority = 4,
     material_string = "anode_composite_material"
 )
@@ -288,10 +290,11 @@ AT (0,0,0) RELATIVE battery_can
 
 /* Central winding mandrel/core, modeled as an empty (Vacuum) hole -
  * some real cells instead have a solid plastic centre pin, which could
- * be represented by swapping "Vacuum" for a polyethylene-based material
- * analogous to separator_material above. */
+ * be represented by swapping "Vacuum" for a Polyethylene_CH2.ncmat-based
+ * material analogous to separator_material above. yheight reduced by a
+ * final 0.2 mm  */
 COMPONENT battery_mandrel = Union_cylinder(
-    radius = 0.0015, yheight = 0.060,
+    radius = 0.0015, yheight = 0.0592,
     priority = 5,
     material_string = "Vacuum"
 )
