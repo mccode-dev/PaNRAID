@@ -36,10 +36,11 @@ This course develops an integrated approach to generating synthetic data for sup
 |   |            | lecture     | [22>05 Optics](./22_September_Tuesday/05_afternoon_optics/McStas_McXtrace_Optics.pptx) |
 |   |            | practicals  | [22>05 Optics](./22_September_Tuesday/05_afternoon_optics/Exercises_Optics.md) |
 | 3 | Wed 23 Sep | 09:00-12:00 | **[Samples 1](./23_September_Wednesday/06_morning_samples_1/)** |
-|   |            | lecture     | [23>06 Samples 1](./23_September_Wednesday/)|
-|   |            | practicals  | [23>06 Samples 1](./23_September_Wednesday/06_morning_samples_1/Exercises_PowderN.md) |
-| 3 | Wed 23 Sep | 14:00-17:00 | **[Samples 2](./23_September_Wednesday/07_afternoon_samples_2/)** |
-|   |            | practicals  | [23>07 Samples 2](./23_September_Wednesday/07_afternoon_samples_2/Exercise_McXtrace_spectroscopy.md) |
+|   |            | lecture     | [23>06 Samples 1](./23_September_Wednesday/06_morning_samples_1/McStas_McXtrace_Sample_Components.pptx)|
+|   |            | practicals  | [23>06 Samples: Powder Diffraction](./23_September_Wednesday/06_morning_samples_1/Exercises_PowderN.md) |
+| 3 | Wed 23 Sep | 14:00-17:00 | **[Samples 2: Spectroscopy](./23_September_Wednesday/07_afternoon_samples_2/)** |
+|   |            | practicals  | [23>07 Samples: Absorption](./23_September_Wednesday/07_afternoon_samples_2/Spectroscopy_abs/README.md) |
+|   |            | practicals  | [23>07 Samples: Fluorescence](./23_September_Wednesday/07_afternoon_samples_2/Spectroscopy_fluo/README.md) |
 | 4 | Thu 24 Sep | Full day | [AI Applications: Training](./24_September_Thursday/afternoon_ai_training/) |
 | 5 | Fri 25 Sep | Full day | [AI Applications: Inference](./25_September_Friday) |
 
