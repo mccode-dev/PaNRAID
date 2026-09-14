@@ -30,13 +30,13 @@ This course develops an integrated approach to generating synthetic data for sup
 |   |            | lecture     | [21>02 Intro and General Concepts](./21_September_Monday/02_Intro_and_General_Concepts/) |
 |   |            | lecture     | [21>03 Into Deep Learning](./21_September_Monday/03_intro_deep_learning/) |
 | 2 | Tue 22 Sep | 09:00-12:00 | **[Sources & Detectors](./22_September_Tuesday/04_morning_sources_detectors/)** |
-|   |            | lecture     | [22>04 Sources and Monitors](./22_September_Tuesday/04_morning_sources_detectors/Sources_Monitors/McStas_McXtrace_Sources_and_Monitors.pptx) |
+|   |            | lecture     | [22>04 Sources and Monitors](./22_September_Tuesday/04_morning_sources_detectors/Sources_Monitors/McStas_McXtrace_Sources_and_Monitors.pdf) |
 |   |            | practicals  | [22>04 Sources and Monitors](./22_September_Tuesday/04_morning_sources_detectors/Sources_Monitors/Exercises_Sources_and_Monitors.md) |
 | 2 | Tue 22 Sep | 14:00-17:00 | **[Optics](./22_September_Tuesday/05_afternoon_optics/)** |
-|   |            | lecture     | [22>05 Optics](./22_September_Tuesday/05_afternoon_optics/McStas_McXtrace_Optics.pptx) |
+|   |            | lecture     | [22>05 Optics](./22_September_Tuesday/05_afternoon_optics/McStas_McXtrace_Optics.pdf) |
 |   |            | practicals  | [22>05 Optics](./22_September_Tuesday/05_afternoon_optics/Exercises_Optics.md) |
 | 3 | Wed 23 Sep | 09:00-12:00 | **[Samples 1](./23_September_Wednesday/06_morning_samples_1/)** |
-|   |            | lecture     | [23>06 Sample - lecture](./23_September_Wednesday/McStas_McXtrace_Sample_Components.pptx)|
+|   |            | lecture     | [23>06 Sample - lecture](./23_September_Wednesday/McStas_McXtrace_Sample_Components.pdf)|
 |   |            | practicals  | [23>06 Samples: Powder Diffraction](./23_September_Wednesday/06_morning_samples_1/Exercises_PowderN.md) |
 | 3 | Wed 23 Sep | 14:00-17:00 | **[Samples 2: Spectroscopy](./23_September_Wednesday/07_afternoon_samples_2/)** |
 |   |            | practicals  | [23>07 Samples: Absorption](./23_September_Wednesday/07_afternoon_samples_2/Spectroscopy_abs/README.md) |
