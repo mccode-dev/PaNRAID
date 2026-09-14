@@ -25,12 +25,16 @@ This course develops an integrated approach to generating synthetic data for sup
 
 | Day | Date | Session | Topic |
 |-----|------|---------|-------|
-| 1 | Mon 21 Sep | 14:00-17:00 | [Introduction](./21_September_Monday/) |
-|   | |  | [21>01 Seeking for AI](./21_September_Monday/01_Seeking_for_AI/) |
-|   | |  | [21>02 Intro and General Concepts](./21_September_Monday/02_Intro_and_General_Concepts/) |
-|   | |  | [21>03 Into Deep Learning](./21_September_Monday/03_intro_deep_learning/) |
-| 2 | Tue 22 Sep | Morning | [Neutron and X-ray Sources & Detectors](./22_September_Tuesday/morning_sources_detectors/) |
-| 2 | Tue 22 Sep | Afternoon | [Optics](./22_September_Tuesday/afternoon_optics/) |
+| 1 | Mon 21 Sep | 14:00-17:00 | **[Introduction](./21_September_Monday/)** |
+|   | |  | [21>01 Seeking for AI (*lecture*)](./21_September_Monday/01_Seeking_for_AI/) |
+|   | |  | [21>02 Intro and General Concepts (*lecture*)](./21_September_Monday/02_Intro_and_General_Concepts/) |
+|   | |  | [21>03 Into Deep Learning (*lecture*)](./21_September_Monday/03_intro_deep_learning/) |
+| 2 | Tue 22 Sep | 09:00-12:00 | **[Sources & Detectors](./22_September_Tuesday/04_morning_sources_detectors/)** |
+|   | |  | [22>04 Sources and Monitors (*lecture*)](./22_September_Tuesday/04_morning_sources_detectors/Sources_Monitors/McStas_McXtrace_Sources_and_Monitors.pptx) |
+|   | |  | [22>04 Sources and Monitors (*practicals*)](./22_September_Tuesday/04_morning_sources_detectors/Sources_Monitors/Exercises_Sources_and_Monitors.md) |
+| 2 | Tue 22 Sep | 14:00-17:00 | **[Optics](./22_September_Tuesday/05_afternoon_optics/)** |
+|   | |  | [22>05 Optics (*lecture*)](./22_September_Tuesday/05_afternoon_optics/McStas_McXtrace_Optics.pptx) |
+|   | |  | [22>05 Optics (*practicals*)](./22_September_Tuesday/05_afternoon_optics/Exercises_Optics.md) |
 | 3 | Wed 23 Sep | Morning | [Samples 1](./23_September_Wednesday/morning_samples_1/) |
 | 3 | Wed 23 Sep | Afternoon | [Samples 2](./23_September_Wednesday/afternoon_samples_2/) |
 | 4 | Thu 24 Sep | Full day | [AI Applications: Training](./24_September_Thursday/afternoon_ai_training/) |

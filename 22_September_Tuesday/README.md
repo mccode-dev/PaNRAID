@@ -1,8 +1,8 @@
-# Day 2 — Tuesday 22 September (Morning): n/X Sources, Detectors.
+# Day 2 — Tuesday 22 September: n/X Sources, Detectors, Optics
 
 ## Topic
 
-Modeling of neutron and X-ray sources, as well as detector simulation. Understanding how these elements influence the quality of experimental data and how to integrate them into virtual setups to generate realistic data. 
+Modeling of neutron and X-ray sources, as well as detector simulation. Understanding how these elements influence the quality of experimental data and how to integrate them into virtual setups to generate realistic data. Add optics to shape the n/X beam.
 
 ## Content
 
