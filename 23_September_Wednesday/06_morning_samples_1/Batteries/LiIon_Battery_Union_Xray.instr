@@ -1,0 +1,311 @@
+/*******************************************************************************
+* McXtrace instrument: battery_xray
+*
+* %Identification
+* Written by: Claude (Cowork), for Peter Willendrup
+* Origin: McXtrace / Union framework demonstration
+* %INSTRUMENT_SITE: Templates
+*
+* An approximate McXtrace/Union model of a cylindrical (18650-type) Li-ion
+* battery cell "jellyroll" for X-ray simulation, built with the xraylib-
+* based Union processes (Compton_xrl_process, Rayleigh_xrl_process) instead
+* of NCrystal - the X-ray sibling of LiIon_Battery_Union.instr (the
+* neutron/NCrystal version of the same cell, written for McStas).
+*
+* %Description
+* Same "onion model" geometry as the neutron version: the wound jellyroll
+* is approximated as five concentric Union_cylinder shells (steel can,
+* cathode composite, separator+electrolyte, anode composite, central
+* mandrel), nested by giving smaller-radius shells higher `priority` so
+* each one punches its own annulus out of the shell outside it.
+*
+* The physics is genuinely different from the neutron model, which is the
+* interesting part of this exercise:
+*
+* - McXtrace's xraylib Union processes (Compton_xrl_process,
+*   Rayleigh_xrl_process, KN_xrl_process) are single-ELEMENT processes
+*   (density + atomic number), not compound "cfg string" materials like
+*   NCrystal. A compound is therefore built the "long way": one
+*   Compton_xrl_process + Rayleigh_xrl_process pair per element, each
+*   given a `density` equal to (bulk compound density) x (mass fraction
+*   of that element) x (volume fraction of that phase in the shell),
+*   then all combined into one Union_make_material via a comma-separated
+*   process_string. This is the standard mixture rule for X-ray mass
+*   attenuation coefficients, (mu/rho)_compound = sum_i w_i (mu/rho)_i,
+*   applied per-shell exactly as the neutron file mixed NCrystal cfgs by
+*   volume fraction.
+* - Because elements are addressed directly, the cathode active material
+*   no longer needs an oxide "proxy": LiCoO2 (a real, common cathode
+*   chemistry, simpler to enumerate than NMC) is built exactly from its
+*   Li/Co/O stoichiometry, rather than standing in for it.
+* - The neutron/X-ray contrast mechanisms are different, which is worth
+*   seeing explicitly: in the neutron model, the cathode shell's
+*   absorption was completely dominated by natural lithium (huge Li-6
+*   capture cross section). Here, Li (Z=3) is essentially invisible to
+*   X-rays, and the cathode shell's absorption is instead completely
+*   dominated by cobalt (Z=27) - illustrating exactly the complementary-
+*   contrast point the source paper (Ziesche et al., Joule 6, 35-52,
+*   2022) makes about combining neutron and X-ray imaging of the same
+*   cell. The steel can is also comparatively much more strongly
+*   absorbing to hard X-rays than it is to thermal neutrons, consistent
+*   with that paper's note that cylindrical steel-canned cells usually
+*   need higher-energy/synchrotron X-rays (rather than a lab tube) to be
+*   imaged at all - see the energy caveat below.
+*
+* Geometric approximation [assumed] - unchanged from the neutron model
+* -----------------------------------------------------------------------
+* Illustrative 18650-type dimensions (not a teardown of a specific cell):
+* overall can outer radius 9.0 mm, wall 0.2 mm, active winding height
+* 60 mm. Concentric shells, outside in:
+*
+*   r  8.8 - 9.0 mm : steel outer can                    -> Fe (elemental proxy)
+*   r  4.6 - 8.8 mm : cathode composite (85/15 vol%)      -> LiCoO2 + Al
+*   r  4.0 - 4.6 mm : separator + liquid electrolyte      -> polyethylene proxy
+*   r  1.5 - 4.0 mm : anode composite (90/10 vol%)        -> graphite + Cu
+*   r  0.0 - 1.5 mm : central winding mandrel/core hole   -> Vacuum
+*
+* Not modeled: end caps/vent/tabs/headspace, the true helical winding, and
+* (as in the neutron file) pouch/prismatic stacked-electrode cells, which
+* would need Union_box volumes instead.
+*
+* Beam-energy / my_absorption caveat [important, X-ray-specific]
+* -----------------------------------------------------------------------
+* Compton_xrl_process and Rayleigh_xrl_process compute their own
+* (energy-dependent) scattering cross section from xraylib at run time -
+* that part is exact for whatever beam energy the host instrument uses.
+* Photoelectric absorption, however, is NOT computed by either of those
+* processes (their `_physics_my` functions only return CS_Compt/CS_Rayl),
+* so - exactly as with the neutron model's my_absorption standing in for
+* NCrystal's (n,gamma) capture - it has to be supplied manually to
+* Union_make_material via `my_absorption` [1/m]. Unlike thermal-neutron
+* capture (which is a mild 1/v energy dependence away from resonances),
+* X-ray photoelectric attenuation scales roughly as E^-3, so a fixed
+* my_absorption is only valid near the ONE energy it was computed for.
+* The values below were hand-estimated (order-of-magnitude, from memory
+* of typical XCOM-style photoelectric mass-attenuation coefficients) for
+* a representative hard-X-ray/synchrotron energy of 60 keV, in line with
+* the source paper's point that a steel 18650 can typically needs such an
+* energy (or higher) to be imaged in transmission at all. If you run this
+* at a different energy, or care about absolute attenuation quantitatively,
+* replace them with a proper lookup - xraylib is already a hard dependency
+* of these components, so from Python:
+*     import xraylib
+*     xraylib.CS_Photo(Z, E_keV)   # photoelectric mass atten. coeff, cm^2/g
+* then my_absorption = density[g/cm^3] * CS_Photo(Z,E) * 100  [1/m], summed
+* over the elements in a shell exactly as done below. The two reference
+* Union+xraylib examples shipped with McXtrace (PowderCompton_union.instr,
+* Test_KN_Comp_Rayl_union.instr) simply set my_absorption=0 throughout
+* (i.e. they ignore photoelectric absorption entirely) - that is a valid,
+* simpler starting point too, but for a cell this steel- and cobalt-heavy
+* it will visibly under-attenuate the beam relative to reality.
+*
+* Also available in McXtrace's Union/xraylib set but NOT used here, to
+* keep this file's structure a direct parallel to the neutron version
+* (one dominant scattering-physics choice per material, plus the manual
+* absorption term): KN_xrl_process (free-electron Klein-Nishina Compton,
+* density-only, ignoring atomic binding - a cruder alternative to
+* Compton_xrl_process) and Powder_process (Bragg diffraction from a
+* reflection list, for a genuinely crystalline sample - would need a
+* verified .lau/.laz-type reflection file per material, not attempted
+* here).
+*
+* For full compatibility with e.g. mcstas-antlr, this is a complete,
+* valid DEFINE INSTRUMENT/TRACE/END file (matching the structure Peter
+* converted the neutron fragment to), with the sample position exposed
+* as a REMOVABLE COMPONENT Arm so it can still be trimmed out and the
+* Union block reused elsewhere if desired.
+*
+* %Parameters
+* (none)
+*
+* %Link
+* Ziesche, R.F. et al., "Neutron imaging of lithium batteries", Joule 6,
+* 35-52 (2022), https://doi.org/10.1016/j.joule.2021.12.003
+* %Link
+* McXtrace Union/xraylib examples: Tests_union/PowderCompton_union.instr,
+* Tests_union/Test_KN_Comp_Rayl_union.instr (shipped with McXtrace)
+* %End
+*******************************************************************************/
+DEFINE INSTRUMENT battery_xray()
+
+TRACE
+
+REMOVABLE COMPONENT sample_pos = Arm()
+  AT (0,0,0) ABSOLUTE
+
+COMPONENT init = Union_init()
+AT (0,0,0) ABSOLUTE
+
+/* ---------------------------------------------------------------------
+ * Materials. density=... below is always the EFFECTIVE density of that
+ * one element's contribution within its shell (bulk density of the
+ * element or compound x mass fraction in the compound, if any, x volume
+ * fraction of that phase in the shell) - see header for the mixing rule.
+ * my_absorption [1/m] on each Union_make_material is the sum of the
+ * (photoelectric-only, 60 keV, [assumed]) contributions of its
+ * constituent elements, computed the same way: density_eff * CS_Photo *100.
+ * --------------------------------------------------------------------- */
+
+/* Steel can, proxied by elemental iron (Z=26). [assumed proxy: real
+ * cans are low-carbon/stainless steel alloys, not pure Fe] */
+COMPONENT steel_can_compt = Compton_xrl_process(density = 7.87, atomno = 26)
+AT (0,0,0) ABSOLUTE
+
+COMPONENT steel_can_rayl = Rayleigh_xrl_process(density = 7.87, atomno = 26)
+AT (0,0,0) ABSOLUTE
+
+COMPONENT steel_can_material = Union_make_material(
+    process_string = "steel_can_compt,steel_can_rayl",
+    my_absorption = 141.7 /* [assumed, hand-estimated at 60 keV, see header] */
+)
+AT (0,0,0) ABSOLUTE
+
+/* Anode composite: graphite active material (Z=6, 90 vol%, [assumed]) +
+ * Cu current-collector foil (Z=29, 10 vol%, [assumed]), homogenized. */
+COMPONENT anode_C_compt = Compton_xrl_process(density = 2.23*0.90, atomno = 6)
+AT (0,0,0) ABSOLUTE
+
+COMPONENT anode_C_rayl = Rayleigh_xrl_process(density = 2.23*0.90, atomno = 6)
+AT (0,0,0) ABSOLUTE
+
+COMPONENT anode_Cu_compt = Compton_xrl_process(density = 8.96*0.10, atomno = 29)
+AT (0,0,0) ABSOLUTE
+
+COMPONENT anode_Cu_rayl = Rayleigh_xrl_process(density = 8.96*0.10, atomno = 29)
+AT (0,0,0) ABSOLUTE
+
+COMPONENT anode_composite_material = Union_make_material(
+    process_string = "anode_C_compt,anode_C_rayl,anode_Cu_compt,anode_Cu_rayl",
+    my_absorption = 20.0 /* [assumed] = 2.007*0.0015*100 (C) + 0.896*0.22*100 (Cu), 1/m */
+)
+AT (0,0,0) ABSOLUTE
+
+/* Separator + liquid electrolyte, proxied by polyethylene (C: Z=6,
+ * H: Z=1). Real separators are PE/PP; the liquid carbonate-solvent
+ * electrolyte has no simple single-compound treatment here either, so
+ * its H content is folded into this proxy too - see header. */
+COMPONENT separator_C_compt = Compton_xrl_process(density = 0.94*0.8560, atomno = 6)
+AT (0,0,0) ABSOLUTE
+
+COMPONENT separator_C_rayl = Rayleigh_xrl_process(density = 0.94*0.8560, atomno = 6)
+AT (0,0,0) ABSOLUTE
+
+COMPONENT separator_H_compt = Compton_xrl_process(density = 0.94*0.1437, atomno = 1)
+AT (0,0,0) ABSOLUTE
+
+COMPONENT separator_H_rayl = Rayleigh_xrl_process(density = 0.94*0.1437, atomno = 1)
+AT (0,0,0) ABSOLUTE
+
+COMPONENT separator_material = Union_make_material(
+    process_string = "separator_C_compt,separator_C_rayl,separator_H_compt,separator_H_rayl",
+    my_absorption = 0.12 /* [assumed, hand-estimated at 60 keV, see header]; H's
+                             contribution is negligible at X-ray energies, unlike
+                             its dominant role in the neutron model */
+)
+AT (0,0,0) ABSOLUTE
+
+/* Cathode composite: real LiCoO2 stoichiometry (Li: Z=3, Co: Z=27,
+ * O: Z=8; mass fractions 0.0709/0.6021/0.3270, bulk density 5.05 g/cm^3
+ * [assumed typical value]) at 85 vol% [assumed], + Al current-collector
+ * foil (Z=13) at 15 vol% [assumed]. Unlike the neutron model, no oxide
+ * "proxy" is needed - xraylib works per element, so the real compound
+ * can be entered directly. */
+COMPONENT cathode_Li_compt = Compton_xrl_process(density = 5.05*0.0709*0.85, atomno = 3)
+AT (0,0,0) ABSOLUTE
+
+COMPONENT cathode_Li_rayl = Rayleigh_xrl_process(density = 5.05*0.0709*0.85, atomno = 3)
+AT (0,0,0) ABSOLUTE
+
+COMPONENT cathode_Co_compt = Compton_xrl_process(density = 5.05*0.6021*0.85, atomno = 27)
+AT (0,0,0) ABSOLUTE
+
+COMPONENT cathode_Co_rayl = Rayleigh_xrl_process(density = 5.05*0.6021*0.85, atomno = 27)
+AT (0,0,0) ABSOLUTE
+
+COMPONENT cathode_O_compt = Compton_xrl_process(density = 5.05*0.3270*0.85, atomno = 8)
+AT (0,0,0) ABSOLUTE
+
+COMPONENT cathode_O_rayl = Rayleigh_xrl_process(density = 5.05*0.3270*0.85, atomno = 8)
+AT (0,0,0) ABSOLUTE
+
+COMPONENT cathode_Al_compt = Compton_xrl_process(density = 2.70*0.15, atomno = 13)
+AT (0,0,0) ABSOLUTE
+
+COMPONENT cathode_Al_rayl = Rayleigh_xrl_process(density = 2.70*0.15, atomno = 13)
+AT (0,0,0) ABSOLUTE
+
+COMPONENT cathode_composite_material = Union_make_material(
+    process_string = "cathode_Li_compt,cathode_Li_rayl,cathode_Co_compt,cathode_Co_rayl,cathode_O_compt,cathode_O_rayl,cathode_Al_compt,cathode_Al_rayl",
+    my_absorption = 52.8 /* [assumed] = 0.006 (Li) + 51.67 (Co) + 0.49 (O) + 0.61 (Al), 1/m;
+                             completely dominated by cobalt - the X-ray
+                             mirror image of the neutron model, where this
+                             same shell's absorption was completely
+                             dominated by lithium instead */
+)
+AT (0,0,0) ABSOLUTE
+
+/* ---------------------------------------------------------------------
+ * Geometry: five concentric cylindrical shells ("onion model" of the
+ * wound jellyroll), built from largest radius/lowest priority to
+ * smallest radius/highest priority so each inner cylinder cuts its own
+ * annulus out of the ones further out. All lengths in metres.
+ * The whole stack is centred wherever the %include lands (RELATIVE
+ * PREVIOUS), with the cylinder axis along local y (vertical), matching
+ * how these cells are normally stood up for X-ray radiography/CT.
+ * --------------------------------------------------------------------- */
+
+/* Outer steel can, radius 9.0 mm, wall thickness 0.2 mm [assumed,
+ * illustrative 18650-scale dimensions]. */
+COMPONENT battery_can = Union_cylinder(
+    radius = 0.0090, yheight = 0.0600,
+    priority = 1,
+    material_string = "steel_can_material"
+)
+AT (0,0,0) RELATIVE sample_pos
+
+/* Cathode composite fills the can interior out to the can wall.
+ * yheight reduced by 0.2 mm from battery_can - see FIX note above. */
+COMPONENT battery_cathode = Union_cylinder(
+    radius = 0.0088, yheight = 0.0598,
+    priority = 2,
+    material_string = "cathode_composite_material"
+)
+AT (0,0,0) RELATIVE battery_can
+
+/* Separator + electrolyte band. yheight reduced by another 0.2 mm. */
+COMPONENT battery_separator = Union_cylinder(
+    radius = 0.0046, yheight = 0.0596,
+    priority = 3,
+    material_string = "separator_material"
+)
+AT (0,0,0) RELATIVE battery_can
+
+/* Anode composite band. yheight reduced by another 0.2 mm. */
+COMPONENT battery_anode = Union_cylinder(
+    radius = 0.0040, yheight = 0.0594,
+    priority = 4,
+    material_string = "anode_composite_material"
+)
+AT (0,0,0) RELATIVE battery_can
+
+/* Central winding mandrel/core, modeled as an empty (Vacuum) hole -
+ * some real cells instead have a solid plastic centre pin, which could
+ * be represented by swapping "Vacuum" for a Polyethylene_CH2.ncmat-based
+ * material analogous to separator_material above. yheight reduced by a
+ * final 0.2 mm  */
+COMPONENT battery_mandrel = Union_cylinder(
+    radius = 0.0015, yheight = 0.0592,
+    priority = 5,
+    material_string = "Vacuum"
+)
+AT (0,0,0) RELATIVE battery_can
+
+/* Single Union_master simulates all five geometries defined above in one
+ * scattering step at the cell's position. */
+COMPONENT battery_master = Union_master()
+AT (0,0,0) RELATIVE battery_can
+
+COMPONENT battery_stop = Union_stop()
+AT (0,0,0) ABSOLUTE
+
+END

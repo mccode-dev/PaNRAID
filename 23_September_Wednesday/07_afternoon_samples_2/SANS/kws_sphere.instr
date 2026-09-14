@@ -1,0 +1,166 @@
+DEFINE INSTRUMENT KWS1_sphere(Lam=4.5,
+                      InstSetting=1, // 1. 8-1.2; 2. 8-8; 3. 20-20; 4. 4-4
+                      SlitSetting=1, // 1. wide thin; 2. Wide larg; 3. narrow thinnest.
+                      vheight=0.0, // height of slit before the detector and detector position
+                      hwidth=0.0, // width of the slit before the detector and detector position
+                      zdepth=0.001, // sampleholder thickness 0.001 or 0.002
+
+                      // model parameters
+                      sld=1, sld_solvent=6, radius=50, pd_radius=0.0, 
+                      model_abs=0.0
+                      )
+
+DECLARE
+%{
+ double dLam;
+ double MINLam;
+ double MAXLam;
+ double numberslits;
+ double frecv;
+ double alph;
+ double slen;
+ double qinc;
+ double incl;
+ double CLen;
+ double DLen;
+ double sel_ang;
+ double xwidth;
+ double yheight;
+ double sslitw;
+ double sslith;
+%}
+
+INITIALIZE
+%{
+ dLam   = 0.25*Lam;
+ MINLam = Lam - dLam;
+ MAXLam = Lam + dLam;
+ sel_ang = 0.0;
+ alph   = 48.3;
+ slen   = 0.25;
+ frecv  = 3956.0*alph/360.0/Lam/slen;
+ numberslits = 36.000;
+ qinc = 0.01/0.1/(4.0*3.141592654);
+ incl = 0.0002 / 4.0;
+
+ if (InstSetting == 1){
+  CLen = 8;
+  DLen = 1.2;
+ } else if(InstSetting == 2){
+  CLen = 8;
+  DLen = 8; 
+ } else if (InstSetting == 3){
+  CLen = 20;
+  DLen = 20;
+ } else if (InstSetting == 4){
+  CLen = 4;
+  DLen = 4;
+ } else{
+  printf("Instrument setting not recognized. Setting default values 8-8.\n");
+  CLen = 8;
+  DLen = 8; 
+ }
+
+ if (SlitSetting == 1){
+  sslitw = 0.01;
+  sslith = 0.01;
+  xwidth = 0.02; // wide  Hellma cell
+  yheight = 0.03;
+ } else if (SlitSetting == 2){
+  sslitw = 0.012;
+  sslith = 0.012;
+  xwidth = 0.02; // wide Hellma cell
+  yheight = 0.03;
+ } else if (SlitSetting == 3){
+  sslitw = 0.007;
+  sslith = 0.01;
+  xwidth = 0.01; // narrow Hellma cell
+  yheight = 0.03;
+ } else{
+  printf("Slit setting not recognized. Setting default values: Wide Hellma Cell option 1.\n");
+  sslitw = 0.01;
+  sslith = 0.01;
+  xwidth = 0.02; // wide  Hellma cell
+  yheight = 0.03;
+ }
+
+%}
+TRACE
+
+/*********************************  Cold source  *****************************************/
+
+COMPONENT a1 = Arm()
+  AT (0, 0, 0) ABSOLUTE
+  
+COMPONENT ColdSource = Source_gen(
+   yheight =  0.12, xwidth = 0.10,
+   focus_xw = 0.051, focus_yh = 0.051, dist = 1.884,
+   lambda0 = Lam, dlambda = dLam,
+   T1=361.9,I1=7.22e13,
+   T2=159.0,I2=6.74e13,
+   T3=35.66,I3=6.435e13)
+  AT (0, 0, 0)  RELATIVE a1
+
+COMPONENT NL_3_part2 = Guide_gravity(w1=0.05, h1=0.05, w2=0.05, h2=0.05, l=8.0,
+                                     R0=0.99, Qc=0.02174, alpha=4.25, W=0.001,
+                                     mleft=2.0, mright=2.0, mtop=2.0, mbottom=2.0)
+  AT (0, 0, 1.884) RELATIVE ColdSource
+
+COMPONENT vsel = Selector(xmin=-0.075, xmax=0.075, ymin=-0.03, ymax=0.03, length=slen,
+                          nslit=numberslits, d=0.0004, radius=0.115, alpha=alph, nu=frecv)
+  AT (0, 0, 8.01) RELATIVE NL_3_part2
+  ROTATED (0, sel_ang, 0) RELATIVE NL_3_part2
+
+
+COMPONENT Collimation = Guide_gravity(w1=0.0505, h1=0.0505, w2=0.050, h2=0.050, l=20.0-CLen,
+                                      R0=0.99, Qc=0.02174, alpha=4.25, W=0.001,
+                                      mleft=1.2, mright=1.2, mtop=1.2, mbottom=1.2)
+  AT (0, 0, 0.03+slen) RELATIVE vsel
+  ROTATED (0, 0, 0) RELATIVE NL_3_part2
+
+COMPONENT ApCollim = Slit(xwidth=0.05, yheight=0.05)
+  AT (0, 0, 20.01-CLen) RELATIVE Collimation
+
+COMPONENT SamAp = Slit(xwidth=sslitw, yheight=sslith)
+  AT (0, 0, 19.91) RELATIVE Collimation
+
+SPLIT 1000 COMPONENT Sholder1 = Guide_gravity(w1=0.014+4*incl, h1=0.014+4*incl, w2=0.014+3*incl, h2=0.014+3*incl, l=0.01,
+                                              R0=0.99, Qc=0.02174, alpha=4.25, W=0.001,
+                                              mleft=1.2, mright=1.2, mtop=1.2, mbottom=1.2)
+  AT (0, 0, 20.01) RELATIVE Collimation
+
+SPLIT COMPONENT sample = SasView_sphere(
+        sld=sld, sld_solvent=sld_solvent, radius=radius, pd_radius=pd_radius,  
+        model_scale=1, model_abs=model_abs,
+        xwidth=xwidth, yheight=yheight, zdepth=zdepth, R=0, 
+        target_x=hwidth, target_y=vheight, target_z=DLen, target_index=0,
+        focus_xw=1.20384, focus_yh=1.20384, focus_aw=0, focus_ah=0,focus_r=0)
+AT (0,0,20.030) RELATIVE Collimation
+EXTEND %{
+       if (!SCATTERED) ABSORB;
+%}
+
+COMPONENT void_ = Slit(xwidth=0.10, yheight=0.10)
+  AT (0, 0, 20.037) RELATIVE Collimation
+
+COMPONENT Sholder2 = Guide_gravity(w1=0.014+incl, h1=0.014+incl, w2=0.014, h2=0.014, l=0.01,
+                                   R0=0.99, Qc=0.02174, alpha=4.25, W=0.001,
+                                   mleft=1.2, mright=1.2, mtop=1.2, mbottom=1.2)
+  AT (0, 0, 20.04) RELATIVE Collimation
+
+COMPONENT STOP = TBeamstop(xmin=-0.035, xmax=0.035, ymin=-0.035, ymax=0.035, Attenuation=3e-5)
+  AT (0, 0, DLen) RELATIVE Sholder2
+
+COMPONENT frame = Tslit(x01=-0.60192, x02=0.60192, y01=-0.17974, y02=0.17974,
+                        x11=-0.40546, x12=0.40546, y11=-0.39710, y12=0.39710,
+                        x21=-0.20482, x22=0.20482, y21=-0.49742, y22=0.49742)
+  AT (hwidth, vheight, 0.01+DLen) RELATIVE sample
+
+COMPONENT PSD_scattering = PSD_monitor(xmin=-0.60192, xmax=0.60192, ymin=-0.60192, ymax=0.60192,
+                                  nx=144, ny=256, filename="PSD_scattering.psd")
+  AT (hwidth, vheight, 0.02+DLen) RELATIVE sample
+
+COMPONENT detector2 = PSD_monitor_rad(rmax=0.6, nr=300, filename="PSDr.dat", filename_av="PSDr_av.dat")
+  AT (0, 0, 0.001) RELATIVE PSD_scattering
+
+END
