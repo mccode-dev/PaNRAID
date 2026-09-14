@@ -11,10 +11,13 @@ Introduction to the challenges of simulation for generating realistic data in su
 - Motivation for synthetic data generation in supervised learning contexts
 - Survey of experimental artefacts and instrumental effects that must be captured in realistic datasets
 
+## Sessions
+
 Talk | Description
 -----|-------------
-[01_Intro_and_General_Concepts](01_Intro_and_General_Concepts/McStas_McXtrace_Common_Introduction.pptx) | McStas_McXtrace_Common_Introduction
 [02_Seeking_for_AI](02_Seeking_for_AI/02_Seeking_for_AI.pptx) | Why use AI with BL/instrument models
+[01_Intro_and_General_Concepts](01_Intro_and_General_Concepts/McStas_McXtrace_Common_Introduction.pptx) | McStas_McXtrace_Common_Introduction
+[03_intro_deep_learning](03_intro_deep_learning/robledo_intro_DL.pdf) | The role of Neutron and X-ray Scattering simulations in the AI era
 
 ## Key Tools
 
