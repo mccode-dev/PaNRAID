@@ -25,7 +25,10 @@ This course develops an integrated approach to generating synthetic data for sup
 
 | Day | Date | Session | Topic |
 |-----|------|---------|-------|
-| 1 | Mon 21 Sep | Afternoon | [Introduction](./21_September_Monday/) |
+| 1 | Mon 21 Sep | 14:00-17:00 | [Introduction](./21_September_Monday/) |
+|   | |  | [21>01 Intro and General Concepts](./21_September_Monday/01_Intro_and_General_Concepts/) |
+|   | |  | [21>02 Seeking for AI](./21_September_Monday/02_Seeking_for_AI/) |
+|   | |  | [21>03 Into Deep Learning](./21_September_Monday/03_intro_deep_learning/) |
 | 2 | Tue 22 Sep | Morning | [Neutron and X-ray Sources & Detectors](./22_September_Tuesday/morning_sources_detectors/) |
 | 2 | Tue 22 Sep | Afternoon | [Optics](./22_September_Tuesday/afternoon_optics/) |
 | 3 | Wed 23 Sep | Morning | [Samples 1](./23_September_Wednesday/morning_samples_1/) |
