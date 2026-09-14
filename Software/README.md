@@ -1,7 +1,5 @@
 ![DIADEM banner](../images/toplogo-diadem.png)
-# <img src="../images/Under_Construction_small.png" alt="under construction" align="middle"> <img src="../images/brainhelmet_small.png" alt="Si-brain helmet construction" align="middle"> <img src="../images/panraid_small.png" alt="PaNRAID logo" align="middle"> PaNRAID Software <img src="../images/panraid_small.png" alt="PaNRAID logo" align="middle"> <img src="../images/brainhelmet_small.png" alt="Si-brain helmet construction" align="middle"> <img src="../images/Under_Construction_small.png" alt="under construction" align="middle">
-
-### -—> Work in progress! Subject to change! <—- 
+# <img src="../images/panraid_small.png" alt="PaNRAID logo" align="middle"> PaNRAID Software <img src="../images/panraid_small.png" alt="PaNRAID logo" align="middle">
 
 _Work and tutorials during PaNRAID is based on open source software + optional NVIDIA infrastructure_
 
@@ -33,6 +31,7 @@ _______
 
 # B. Installation for MESONET account <img src="../images/hpc.png" alt="hpc" align="middle"> <img src="../images/Under_Construction_small.png" alt="under construction" align="middle"> <img src="../images/brainhelmet_small.png" alt="Si-brain helmet construction" align="middle">
 
+### -—> Work in progress! Subject to change! <—- 
 
 Description pending, but:
 * The above `.yml` files should work
