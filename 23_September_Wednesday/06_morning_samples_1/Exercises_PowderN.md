@@ -244,6 +244,8 @@ AT (0,0,0) RELATIVE sample_pos
 
 **Checkpoint / solution.** You should have one `scan_grid/` output tree spanning every (material, energy) combination, and be able to explain in your own words why deliberately *crossing* material and energy (the `-M` grid) rather than confounding them (two separate lockstep scans) is necessary for a resulting dataset to teach a model the right thing.
 
+**Optional extension.** Re-perform the scan, but recompile to include `NeXus`/`HDF5` suppor (add `-c --format=NeXus and -d NeXus_scan_grid` to your previous command). Inspect the generated `mccode.h5` file using `nexpy` or `silx` that have both been included in your PaNRAID enviroment.
+
 ---
 
 *(Facilitator notes for this session are collected separately in [`Facilitator_Notes.md`](./Facilitator_Notes.md), not shown here.)*
