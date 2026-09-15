@@ -20,16 +20,23 @@
 * PowderN component with a different `reflections=` string) starting from
 * this one; it isn't done for you here.
 *
+* The `reflections` parameter is exposed as a command-line-settable string
+* specifically so this file can be used directly for Exercise A4's
+* wavelength x material scan, e.g.:
+*   mcrun ex_powderN_mcstas_starter.instr -N 5 lambda0=1.5,3.5 reflections=Cu.laz
+*
 * %Parameters
 * lambda0: [Angs]       Mean source wavelength
 * dlambda: [Angs]       Source wavelength half-width (kept narrow for sharp rings)
 * dist_sample: [m]      Source-to-sample distance
 * dist_detector: [m]    Sample-to-detector distance
+* reflections: [str]    PowderN material description (.laz/.lau file, or an NCrystal cfg-string on installs that support it)
 *
 * %End
 *******************************************************************************/
 DEFINE INSTRUMENT ex_powderN_mcstas_starter(lambda0=2.5, dlambda=0.02,
-                                             dist_sample=3, dist_detector=0.4)
+                                             dist_sample=3, dist_detector=0.4,
+                                             string reflections="Al.laz")
 
 TRACE
 
@@ -48,8 +55,9 @@ COMPONENT sample_pos = Arm()
 AT (0,0,dist_sample) RELATIVE src
 
 /* Exercise A1, step 2: the reference PowderN call from the exercise sheet,
- * pointed at the bundled Al.laz table. */
-COMPONENT sample = PowderN(radius=0.005, yheight=0.03, reflections="Al.laz")
+ * pointed at the bundled Al.laz table by default - override with
+ * reflections=<file> on the command line for Exercise A2/A4. */
+COMPONENT sample = PowderN(radius=0.005, yheight=0.03, reflections=reflections)
 AT (0,0,0) RELATIVE sample_pos
 
 /* Exercise A1, step 3: a small beamstop over the direct (unscattered) beam,
