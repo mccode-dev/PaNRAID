@@ -126,11 +126,11 @@ AT (0,0,0) RELATIVE sample_pos
 - If you trained a model on all the grid's images with only "wavelength" as a label — no material label — what would it likely end up confusing wavelength effects with?
 - Why would the lockstep (non-`-M`) version of this scan be the wrong tool for building a labelled dataset that needs every material seen at every wavelength?
 
-**Optional extension.** Add a seed dimension too, using `--seeds=` (check `mcrun --help` for the exact list/range syntax on your installed version) to get multiple Monte Carlo noise realisations per `(material, wavelength)` grid point, natively, without a separate loop — directly the repeated-seed scenario discussed in [`Data_Generation_Pipeline.md`](../../../Data_Generation_Pipeline.md)'s section on splitting without leakage: those repeats must stay together in whichever split (train/validation/test) they land in.
-
 **Data-export step.** This is the natural home for the full per-sample metadata schema from [`Data_Generation_Pipeline.md`](../../../Data_Generation_Pipeline.md) — build one manifest row per run (material, wavelength, `ncount`, seed, output path) from the scan's own output directory structure, rather than eyeballing each plot by hand. The worked example in that document is drawn directly from this exercise.
 
 **Checkpoint / solution.** You should have one `scan_grid/` output tree with a subdirectory per (material, wavelength) combination, and be able to explain, in your own words, the difference between the lockstep and `-M` (cartesian/grid) scan modes, and why a labelled dataset needs the latter.
+
+**Optional extension.** Re-perform the scan, but recompile to include `NeXus`/`HDF5` suppor (add `-c --format=NeXus and -d NeXus_scan_grid` to your previous command). Inspect the generated `mccode.h5` file using `nexpy` or `silx` that have both been included in your PaNRAID enviroment.
 
 ---
 
