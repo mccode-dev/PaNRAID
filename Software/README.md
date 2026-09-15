@@ -45,7 +45,7 @@ Lors des connexions aux nœuds de Juliet, il peut s'écouler environ 30 sec avan
 
 Documentation de Juliet : https://www.mesonet.fr/documentation/user-documentation/code_form/juliet/
 ```
-* <option value="GB">United Kingdom 🇬🇧</option> [Google'd docs for Juliet](https://www-mesonet-fr.translate.goog/documentation/user-documentation/code_form/juliet/?_x_tr_sl=fr&_x_tr_tl=en&_x_tr_hl=en-US&_x_tr_pto=wapp)
+* <option value="GB">United Kingdom 🇬🇧</option> [Docs for Juliet](https://www-mesonet-fr.translate.goog/documentation/user-documentation/code_form/juliet/?_x_tr_sl=fr&_x_tr_tl=en&_x_tr_hl=en-US&_x_tr_pto=wapp)
 ```
 When connecting to Juliet nodes, it may take approximately 30 seconds for the prompt to become available.
 
