@@ -33,14 +33,28 @@ _______
 
 ### -—> Work in progress! Subject to change! <—- 
 
-* You should have received a participant invitation via email - keep this email handy!
-* Next step is to request an account at MesoNET via this documentation [<option value="FR">Français 🇫🇷</option>](https://www.mesonet.fr/documentation/user-documentation/acces/portail/) [<option value="GB">United Kingdom 🇬🇧</option> (google translate)](https://www-mesonet-fr.translate.goog/documentation/user-documentation/acces/portail/?_x_tr_sl=fr&_x_tr_tl=en&_x_tr_hl=en-US&_x_tr_pto=wapp)
-* Once your account exists (needs to match the email registered with the PaNRAID secretariat), follow the link in the invitation-email. This should add your account to the relevant PaNRAID 'Project' (definitions at [<option value="FR">Français 🇫🇷</option>](https://www.mesonet.fr/documentation/user-documentation/acces/projet) [<option value="GB">United Kingdom 🇬🇧</option> (google translate)](https://www-mesonet-fr.translate.goog/documentation/user-documentation/acces/projets/?_x_tr_sl=fr&_x_tr_tl=en&_x_tr_hl=en-US&_x_tr_pto=wapp) )
-* Once you are on Project, add an ssh key to your account / Project via this documentation [<option value="FR">Français 🇫🇷</option>](https://www.mesonet.fr/documentation/user-documentation/acces/ssh) [<option value="GB">United Kingdom 🇬🇧</option> (google translate)](https://www-mesonet-fr.translate.goog/documentation/user-documentation/acces/ssh/?_x_tr_sl=fr&_x_tr_tl=en&_x_tr_hl=en-US&_x_tr_pto=wapp)
+1. You should have received a participant invitation via email - keep this email handy!
+2. Next step is to request an account at MesoNET via this documentation [<option value="FR">Français 🇫🇷</option>](https://www.mesonet.fr/documentation/user-documentation/acces/portail/) [<option value="GB">United Kingdom 🇬🇧</option> (google translate)](https://www-mesonet-fr.translate.goog/documentation/user-documentation/acces/portail/?_x_tr_sl=fr&_x_tr_tl=en&_x_tr_hl=en-US&_x_tr_pto=wapp)
+3. Once your account exists (needs to match the email registered with the PaNRAID secretariat), follow the link in the invitation-email. This should add your account to the relevant PaNRAID 'Project' (definitions at [<option value="FR">Français 🇫🇷</option>](https://www.mesonet.fr/documentation/user-documentation/acces/projet) [<option value="GB">United Kingdom 🇬🇧</option> (google translate)](https://www-mesonet-fr.translate.goog/documentation/user-documentation/acces/projets/?_x_tr_sl=fr&_x_tr_tl=en&_x_tr_hl=en-US&_x_tr_pto=wapp) )
+4. Once you are on Project, add an `ssh` key to your account / Project via this documentation [<option value="FR">Français 🇫🇷</option>](https://www.mesonet.fr/documentation/user-documentation/acces/ssh) [<option value="GB">United Kingdom 🇬🇧</option> (google translate)](https://www-mesonet-fr.translate.goog/documentation/user-documentation/acces/ssh/?_x_tr_sl=fr&_x_tr_tl=en&_x_tr_hl=en-US&_x_tr_pto=wapp) (Our system of use is `juliet`, setting up a shorthand-config in your `.ssh/config` is recommended...)
+5. Once `ssh` key(s) are added, there is a waiting time of ~1 hour
+6. Log in to `juliet` and **nota bene:**
+* <option value="FR">Français 🇫🇷</option> [Docs Juliet](https://www.mesonet.fr/documentation/user-documentation/code_form/juliet/)
+```
+Lors des connexions aux nœuds de Juliet, il peut s'écouler environ 30 sec avant que le prompt ne soit disponible.
 
-Description pending, but:
-* The above `.yml` files should work
-* `nvhpc` is probably available as a module
+Documentation de Juliet : https://www.mesonet.fr/documentation/user-documentation/code_form/juliet/
+```
+* <option value="GB">United Kingdom 🇬🇧</option> [Google'd docs for Juliet](https://www-mesonet-fr.translate.goog/documentation/user-documentation/code_form/juliet/?_x_tr_sl=fr&_x_tr_tl=en&_x_tr_hl=en-US&_x_tr_pto=wapp)
+```
+When connecting to Juliet nodes, it may take approximately 30 seconds for the prompt to become available.
+
+Juliet documentation: https://www.mesonet.fr/documentation/user-documentation/code_form/juliet/
+```
+7. Do you have a shell? Success!
+8. Proceed to set up the PaNRAID software like you did for your laptop!
+
+* `nvhpc` is probably available as a module - pending...
 _______
 
 # C. Known issues + workarounds
