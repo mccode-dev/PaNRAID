@@ -22,8 +22,10 @@
 *
 * The `reflections` parameter is exposed as a command-line-settable string
 * specifically so this file can be used directly for Exercise A4's
-* wavelength x material scan, e.g.:
-*   mcrun ex_powderN_mcstas_starter.instr -N 5 lambda0=1.5,3.5 reflections=Cu.laz
+* wavelength x material grid scan, e.g.:
+*   mcrun ex_powderN_mcstas_starter.instr -M -L lambda0=1.5:0.5:2.5 reflections=Al.laz,Cu.laz,Nb.laz
+* (requires an mcrun with -M/-L scan support; on older installs, a single
+* material at a time still works via -N lambda0=1.5,3.5 reflections=Cu.laz)
 *
 * %Parameters
 * lambda0: [Angs]       Mean source wavelength

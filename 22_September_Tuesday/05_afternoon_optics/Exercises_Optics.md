@@ -76,8 +76,12 @@ Whenever a monitor output changes after you add or adjust a component, sort what
    ```sh
    mcrun exA2_mcstas_starter.instr -N 5 guide_l=5,50 -n 1e6
    ```
-   runs 5 evenly-spaced guide lengths between 5 m and 50 m in one command (check `mcrun --help` for the exact scan syntax in your installed version — this has been stable across recent releases, but always verify). Compare the transmitted intensity (`L_monitor` total) across the 5 points.
-5. Repeat as a second scan over `m` instead (e.g. `mcrun exA2_mcstas_starter.instr -N 3 guide_m=1,3 -n 1e6`). If your installed version supports an independent ("multi" / Cartesian) scan mode — check `mcrun --help` for a flag such as `--multi` — try scanning `guide_l` and `guide_m` together in one command and inspect how the output directory structure reflects the two-parameter grid.
+   runs 5 evenly-spaced guide lengths between 5 m and 50 m in one command. Compare the transmitted intensity (`L_monitor` total) across the 5 points.
+5. Now combine `guide_l` and `guide_m` into a single two-parameter **grid** scan using `-M`/`--multi`, which takes the cartesian product of every scanned parameter's points, together with `-N` given as a comma-separated list (one point count per parameter, in the order listed on the command line):
+   ```sh
+   mcrun exA2_mcstas_starter.instr -M -N 5,3 guide_l=5,50 guide_m=1,3 -n 1e6
+   ```
+   This runs 5 guide lengths × 3 `m`-values = 15 simulations in one command, each in its own output subdirectory — inspect that directory structure and confirm it matches the 5×3 grid. (`-M` support is a comparatively recent `mcrun` addition; check `mcrun --help` under "Parameter scan options" if this doesn't work on your installed version — older installations may only support the single-parameter form used in step 4.)
 
 **Expected output.** Compared to A1: a narrower `DivPos_monitor` divergence spread (acceptance/collimation), a possible drop in `L_monitor` total intensity especially at longer wavelengths (intensity loss + spectral effect), but the same wavelength *centre* (the guide doesn't change the source spectrum, only which parts of it survive). The length scan should show intensity roughly flat or slowly falling with length for a good guide, and the `m` scan should show higher throughput and a wider accepted divergence at higher `m`.
 
@@ -191,11 +195,11 @@ Whenever a monitor output changes after you add or adjust a component, sort what
 3. Add a second `Arm`, `xtal1_out`, `AT (0,0,0) RELATIVE xtal1_arm`, `ROTATED (2*A1,0,0) RELATIVE xtal1_arm` — this carries the reflected beam's new direction forward, the same trick as the `Mono_out` arm in a neutron monochromator instrument.
 4. Put an `E_monitor`/`L_monitor` and a `PSD_monitor` some distance after `xtal1_out`.
 5. Use Bragg's law to work out `theta` (and hence `A1`) for a chosen photon energy in your source's range (Si(111) has `d = 3.1356` Å; convert energy to wavelength with `lambda[Angstrom] = 12.398 / E[keV]`). Set `A1` to that value and confirm the monitors downstream show your chosen energy coming through. Compare this `E_monitor` output directly to your B1 baseline — this is step 3 of the general method.
-6. Instead of hand-scanning `A1` one value at a time, run the rocking curve as a proper `mcrun`/`mxrun` scan:
+6. Instead of hand-scanning `A1` one value at a time, run the rocking curve as a proper `mxrun` scan:
    ```sh
    mxrun exB2_mcxtrace_starter.instr -N 21 A1=A1_calc-0.05,A1_calc+0.05 -n 1e6
    ```
-   (substitute your calculated `A1_calc`; check `mxrun --help` for the exact scan syntax in your installed version). Plot the transmitted intensity against `A1` — you should see a peak right at your calculated angle.
+   (substitute your calculated `A1_calc` on both ends of the range). Plot the transmitted intensity against `A1` — you should see a peak right at your calculated angle. If you also want to scan energy `E0` alongside `A1` as a two-parameter grid (to see how the rocking-curve peak position tracks with energy), use `-M`/`--multi` the same way as the guide-length/`m` grid in Part A, step 5.
 
 Now turn your single crystal into a **double-crystal monochromator (DCM)**: a second crystal, mounted so the outgoing beam ends up parallel to the original incoming beam again (just displaced), which is what makes a DCM practical to use on a beamline where the sample and everything downstream shouldn't move every time you change energy.
 

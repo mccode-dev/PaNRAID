@@ -92,9 +92,9 @@ As always: `mcdoc PowderN` / `mxdoc PowderN` before guessing at a parameter, and
 
 ### A4 (optional) — Multi-dimensional scans: wavelength × material
 
-**Learning objectives.** Build a small, structured two-dimensional dataset (wavelength × material) using `mcrun`'s native scanning for the numeric dimension and a shell loop for the categorical one — and see why those need two different mechanisms.
+**Learning objectives.** Build a small, structured two-dimensional dataset (wavelength × material) as a single `mcrun` invocation, using its list-mode, multi-dimensional scan support — and understand the difference between a "locked-step" scan and a full grid ("cartesian product") scan, since both are useful in different situations.
 
-**Physical background.** `mcrun`'s built-in parameter scan (`-N <npts>` together with `par=min,max`) interpolates *numeric* instrument parameters between two values; it has no notion of a categorical parameter such as a material's filename. A wavelength scan is exactly what this mechanism is for. A material scan is not — a list like `Al.laz, Cu.laz, Nb.laz` isn't a numeric range — so the material dimension has to become an outer shell loop around an inner `mcrun` wavelength scan, with each (material, wavelength) combination landing in its own output directory. This is the same pattern behind the per-sample metadata schema in [`Data_Generation_Pipeline.md`](../../../Data_Generation_Pipeline.md): a batch of runs, one manifest row each.
+**Physical background.** Current `mcrun` releases support scanning any instrument parameter — numeric *or* string-valued — as an explicit list via `-L`/`--list`. A parameter given as `min:delta:max` (e.g. `lambda0=1.5:0.5:2.5`) is expanded into its own equidistant list of values, and can be freely mixed under `-L` with other, explicitly-listed parameters — including a list of filenames, such as `reflections=Al.laz,Cu.laz,Nb.laz`. By default, multiple `-L` lists are scanned together in lockstep (element 1 of each list together, then element 2, and so on — this requires all lists to have the same length). Adding `-M`/`--multi` instead scans the *cartesian product* of every parameter's list — every wavelength with every material — which is what a real two-dimensional dataset needs, and lets the lists have different lengths. This is exactly the structure behind the per-sample metadata schema in [`Data_Generation_Pipeline.md`](../../../Data_Generation_Pipeline.md): a batch of runs, one manifest row each — only now `mcrun` itself generates the batch, rather than a hand-written shell loop. (This scan support is a recent addition to `mcrun`/`mxrun` — check `mcrun --help` under "Parameter scan options" to confirm your installed version has `-M`/`-L`; older installations may only support the single-parameter `-N`/`par=min,max` form used in step 1 below.)
 
 **Starting instrument.** The [`hints/`](./hints/) starter `ex_powderN_mcstas_starter.instr` already exposes `reflections` as a string instrument parameter for exactly this exercise. If you built your own A1 instrument by hand instead, promote its hard-coded `reflections="Al.laz"` to a parameter first:
 ```c
@@ -106,32 +106,31 @@ AT (0,0,0) RELATIVE sample_pos
 ```
 
 **Task.**
-1. Run the wavelength dimension alone first, to confirm the scan mechanism: 
+1. Run the wavelength dimension alone first, to confirm the basic scan mechanism: 
    ```sh
    mcrun ex_powderN_mcstas_starter.instr -N 5 lambda0=1.5,3.5 -n 1e6 -d scan_lambda_Al
    ```
-   Check `mcrun --help` for the exact scan syntax in your installed version. Confirm you get 5 scan points and that ring radii shift systematically with wavelength.
-2. Now add the material dimension as an outer shell loop:
+   Confirm you get 5 scan points and that ring radii shift systematically with wavelength.
+2. Now scan wavelength and material together, as a single-command two-dimensional grid:
    ```sh
-   for mat in Al.laz Cu.laz Nb.laz; do
-     mcrun ex_powderN_mcstas_starter.instr -N 5 lambda0=1.5,3.5 reflections=$mat -n 1e6 -d scan_${mat%.laz}
-   done
+   mcrun ex_powderN_mcstas_starter.instr -M -L lambda0=1.5:0.5:2.5 reflections=Al.laz,Cu.laz,Nb.laz -n 1e6 -d scan_grid
    ```
-   This produces 3 materials × 5 wavelengths = 15 runs, each a distinct point in a two-dimensional (wavelength, material) grid.
-3. If your installed `mcrun` supports an independent multi-parameter ("multi"/Cartesian) scan flag (check `mcrun --help`, commonly something like `--multi`), note that it still only combines *numeric* parameters — useful for e.g. wavelength × `dist_detector` in one command, but not for the material string. The shell-loop pattern above is the general solution whenever one of your "dimensions" is categorical.
+   `-L` expands `lambda0=1.5:0.5:2.5` into its own explicit list of equidistant wavelengths, and takes `reflections=...` as an explicit list of three materials; `-M` then runs the cartesian product of the two lists — every wavelength with every material — all in one command, each combination in its own subdirectory under `scan_grid/`.
+3. For comparison, try the same two lists *without* `-M` (drop the flag, and make sure both lists have the same length, e.g. three wavelengths and three materials): this scans them together in lockstep instead — (wavelength 1, material 1), (wavelength 2, material 2), (wavelength 3, material 3) — not the full grid. Compare the number of output subdirectories between the two commands, and make sure you understand why they differ.
 
-**Expected output.** 15 output directories, each holding one `PSD_monitor` "rings" file, addressable by `(material, wavelength)`.
+**Expected output.** The `-M -L` grid command produces one subdirectory per (material, wavelength) combination — 3 materials × however many wavelength points the `1.5:0.5:2.5` delta produces — each holding one `PSD_monitor` "rings" file; the lockstep command instead produces only as many subdirectories as there are elements in each list.
 
 **Questions for interpretation.**
 - How does the ring radius change with wavelength, for the same material? Does it match what Bragg's law predicts?
 - How does the ring *pattern* (number of rings, relative radii and intensities) differ between materials at the same wavelength? Is that driven by d-spacings, structure factors, or both?
-- If you trained a model on all 15 images with only "wavelength" as a label — no material label — what would it likely end up confusing wavelength effects with?
+- If you trained a model on all the grid's images with only "wavelength" as a label — no material label — what would it likely end up confusing wavelength effects with?
+- Why would the lockstep (non-`-M`) version of this scan be the wrong tool for building a labelled dataset that needs every material seen at every wavelength?
 
-**Optional extension.** Add an outer seed loop (`--seed=<N>`) around the material/wavelength loops to get multiple Monte Carlo noise realisations per `(material, wavelength)` point — directly the repeated-seed scenario discussed in [`Data_Generation_Pipeline.md`](../../../Data_Generation_Pipeline.md)'s section on splitting without leakage: those repeats must stay together in whichever split (train/validation/test) they land in.
+**Optional extension.** Add a seed dimension too, using `--seeds=` (check `mcrun --help` for the exact list/range syntax on your installed version) to get multiple Monte Carlo noise realisations per `(material, wavelength)` grid point, natively, without a separate loop — directly the repeated-seed scenario discussed in [`Data_Generation_Pipeline.md`](../../../Data_Generation_Pipeline.md)'s section on splitting without leakage: those repeats must stay together in whichever split (train/validation/test) they land in.
 
-**Data-export step.** This is the natural home for the full per-sample metadata schema from [`Data_Generation_Pipeline.md`](../../../Data_Generation_Pipeline.md) — build one manifest row per run (material, wavelength, `ncount`, seed, output path) rather than eyeballing 15 separate plots. The worked example in that document is drawn directly from this exercise.
+**Data-export step.** This is the natural home for the full per-sample metadata schema from [`Data_Generation_Pipeline.md`](../../../Data_Generation_Pipeline.md) — build one manifest row per run (material, wavelength, `ncount`, seed, output path) from the scan's own output directory structure, rather than eyeballing each plot by hand. The worked example in that document is drawn directly from this exercise.
 
-**Checkpoint / solution.** You should have 15 (or more) organised output directories and be able to state which mechanism (mcrun's native scan vs. your shell loop) produced each of the two dimensions, and why that distinction matters when this pattern is scaled up to a much larger dataset.
+**Checkpoint / solution.** You should have one `scan_grid/` output tree with a subdirectory per (material, wavelength) combination, and be able to explain, in your own words, the difference between the lockstep and `-M` (cartesian/grid) scan modes, and why a labelled dataset needs the latter.
 
 ---
 
@@ -214,9 +213,9 @@ AT (0,0,0) RELATIVE sample_pos
 
 ### B4 (optional) — Multi-dimensional scans: energy × material
 
-**Learning objectives.** Build the same kind of structured two-dimensional dataset as A4, for X-rays: energy × material, again splitting the numeric and categorical dimensions across `mxrun`'s native scan and a shell loop.
+**Learning objectives.** Build the same kind of structured two-dimensional dataset as A4, for X-rays: energy × material, as a single `mxrun` grid-scan invocation.
 
-**Physical background.** As in A4: `mxrun`'s built-in scan handles numeric parameters like photon energy; a list of material files (`LaB6.cif`, `Si.lau`, …) is categorical and needs an outer shell loop instead.
+**Physical background.** As in A4: `mxrun` shares the same extended scan support — `-L`/`--list` for explicit (numeric or string) value lists, with a `min:delta:max` range expanded automatically, and `-M`/`--multi` to take the cartesian product across every scanned parameter rather than a locked-step scan. Energy and material become the two axes of one grid, generated in one command rather than a shell loop. (As in A4: confirm your installed `mxrun` has `-M`/`-L` via `mxrun --help` — this is a comparatively recent addition.)
 
 **Starting instrument.** The [`hints/`](./hints/) starter `ex_powderN_mcxtrace_starter.instr` already exposes `reflections` as a string instrument parameter for this exercise.
 
@@ -225,27 +224,25 @@ AT (0,0,0) RELATIVE sample_pos
    ```sh
    mxrun ex_powderN_mcxtrace_starter.instr -N 5 E0=8,15 -n 1e6 -d scan_energy_LaB6
    ```
-   Check `mxrun --help` for the exact scan syntax in your installed version.
-2. Add the material dimension as an outer shell loop, e.g. over `LaB6.cif` and a second CIF/`.laz` file of your choice (Si is a common second choice — check the McXtrace example suite for a bundled Si powder file):
+2. Now scan energy and material together as a single-command grid, e.g. over `LaB6.cif` and a second CIF/`.laz` file of your choice (Si is a common second choice — check the McXtrace example suite for a bundled Si powder file):
    ```sh
-   for mat in LaB6.cif Si.laz; do
-     mxrun ex_powderN_mcxtrace_starter.instr -N 5 E0=8,15 reflections=$mat -n 1e6 -d scan_${mat%.*}
-   done
+   mxrun ex_powderN_mcxtrace_starter.instr -M -L E0=8:3.5:15 reflections=LaB6.cif,Si.laz -n 1e6 -d scan_grid
    ```
-3. As in A4, note that any built-in multi-parameter scan flag your `mxrun` version offers is still numeric-only — the material dimension always needs the shell-loop form.
+   `-L` expands `E0=8:3.5:15` into an explicit list of energies and takes `reflections=...` as an explicit two-material list; `-M` runs their cartesian product in one command.
+3. As in A4, try dropping `-M` (with matching list lengths) to see the lockstep scan instead, and confirm it produces far fewer runs than the grid.
 
-**Expected output.** One output directory per material, each containing 5 energy points, holding one `PSD_monitor` "rings" file per run.
+**Expected output.** One `scan_grid/` output tree with one subdirectory per (material, energy) combination — 2 materials × however many energy points the `8:3.5:15` delta produces — each holding one `PSD_monitor` "rings" file.
 
 **Questions for interpretation.**
 - How does ring radius change with energy for the same material, and does that match Bragg's law's inverse relationship between energy and wavelength?
 - How does the ring pattern differ between the two materials at the same energy?
 - Which one dimension of this grid would you expect a well-trained model to use to predict *material identity*, and which to predict *beam energy* — and could a model confuse the two if the dataset were built carelessly (e.g. always pairing one material with only one energy)?
 
-**Optional extension.** Deliberately build a *confounded* version of this dataset — pair material A only with low energies and material B only with high energies — and discuss (without necessarily training anything) why a model trained on it could appear to "identify material" while actually just detecting energy. This is the shortcut-learning risk flagged in [`Data_Generation_Pipeline.md`](../../../Data_Generation_Pipeline.md).
+**Optional extension.** Deliberately build a *confounded* version of this dataset — pair material A only with low energies and material B only with high energies (this is easiest to do by constructing two separate, non-`-M` lockstep scans rather than one grid) — and discuss (without necessarily training anything) why a model trained on it could appear to "identify material" while actually just detecting energy. This is the shortcut-learning risk flagged in [`Data_Generation_Pipeline.md`](../../../Data_Generation_Pipeline.md).
 
 **Data-export step.** Build the manifest exactly as in A4, one row per run, using the metadata schema in [`Data_Generation_Pipeline.md`](../../../Data_Generation_Pipeline.md).
 
-**Checkpoint / solution.** You should have one organised output directory per material, each spanning the same energy range, and be able to explain in your own words why deliberately *crossing* material and energy (rather than confounding them) is necessary for a resulting dataset to teach a model the right thing.
+**Checkpoint / solution.** You should have one `scan_grid/` output tree spanning every (material, energy) combination, and be able to explain in your own words why deliberately *crossing* material and energy (the `-M` grid) rather than confounding them (two separate lockstep scans) is necessary for a resulting dataset to teach a model the right thing.
 
 ---
 

@@ -22,8 +22,10 @@
 *
 * The `reflections` parameter is exposed as a command-line-settable string
 * specifically so this file can be used directly for Exercise B4's
-* energy x material scan, e.g.:
-*   mxrun ex_powderN_mcxtrace_starter.instr -N 5 E0=8,15 reflections=Si.laz
+* energy x material grid scan, e.g.:
+*   mxrun ex_powderN_mcxtrace_starter.instr -M -L E0=8:3.5:15 reflections=LaB6.cif,Si.laz
+* (requires an mxrun with -M/-L scan support; on older installs, a single
+* material at a time still works via -N E0=8,15 reflections=Si.laz)
 *
 * %Parameters
 * E0: [keV]              Mean source photon energy
