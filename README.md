@@ -8,6 +8,8 @@
 
 This course develops an integrated approach to generating synthetic data for supervised learning, combining multi-scale material simulations (DFT, MD, XAS spectroscopy) with comprehensive digital twins of experimental X-ray and neutron facilities — including instrumental effects and experimental artefacts.
 
+See [`Data_Generation_Pipeline.md`](./Data_Generation_Pipeline.md) for how a single McStas/McXtrace simulation run, made throughout Days 2–3, becomes one labelled record in a Day 4/5 training dataset — the explicit bridge between the instrument-side and AI-side halves of the programme below.
+
 ## Audience
 
 - Doctoral and post-doctoral students
@@ -19,7 +21,7 @@ This course develops an integrated approach to generating synthetic data for sup
 - English proficiency at B2 level (course delivered in English)
 - Basic knowledge of X-ray and/or neutron instrumentation
 - Familiarity with scientific data processing tools: Python, numerical computation, simulation
-- Personal laptop with [McStas](https://mcstas.org/) and [McXtrace](https://mcxtrace.org/) pre-installed
+- Personal laptop with [McStas](https://mcstas.org/) and [McXtrace](https://mcxtrace.org/) pre-installed, at best via [these instructions](Software).
 
 ## Programme Overview
 

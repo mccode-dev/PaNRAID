@@ -27,15 +27,37 @@ After the above finishes, also run:
 
 ### Got an NVIDIA GPU on Linux and want to run McCode with that?
 * Manually install [NVHPC](https://developer.nvidia.com/hpc-sdk/downloads) from NVIDIA
+
 _______
 
-# B. Installation for MESONET account <img src="../images/hpc.png" alt="hpc" align="middle"> <img src="../images/Under_Construction_small.png" alt="under construction" align="middle"> <img src="../images/brainhelmet_small.png" alt="Si-brain helmet construction" align="middle">
+# B. PaNRAD on your MESONET account 
 
-### -—> Work in progress! Subject to change! <—- 
+1. You should have received a participant invitation via email - keep this email handy!
+2. Next step is to request an account at MesoNET via this documentation:<br> [<option value="FR">Français 🇫🇷</option>](https://www.mesonet.fr/documentation/user-documentation/acces/portail/) [<option value="GB">United Kingdom 🇬🇧</option> (google translate)](https://www-mesonet-fr.translate.goog/documentation/user-documentation/acces/portail/?_x_tr_sl=fr&_x_tr_tl=en&_x_tr_hl=en-US&_x_tr_pto=wapp)
+3. Once your account exists (needs to match the email registered with the PaNRAID secretariat), follow the link in the invitation-email. This should add your account to the relevant PaNRAID 'Project', see definitions at:<br> [<option value="FR">Français 🇫🇷</option>](https://www.mesonet.fr/documentation/user-documentation/acces/projet) [<option value="GB">United Kingdom 🇬🇧</option> (google translate)](https://www-mesonet-fr.translate.goog/documentation/user-documentation/acces/projets/?_x_tr_sl=fr&_x_tr_tl=en&_x_tr_hl=en-US&_x_tr_pto=wapp)
+4. Once you are on Project, add an `ssh` key to your account / Project via this documentation:<br> [<option value="FR">Français 🇫🇷</option>](https://www.mesonet.fr/documentation/user-documentation/acces/ssh) [<option value="GB">United Kingdom 🇬🇧</option> (google translate)](https://www-mesonet-fr.translate.goog/documentation/user-documentation/acces/ssh/?_x_tr_sl=fr&_x_tr_tl=en&_x_tr_hl=en-US&_x_tr_pto=wapp) <br>(Our system of use is `juliet`, setting up a shorthand-config in your `.ssh/config` is recommended...)
+5. Once `ssh` key(s) are added, there is a waiting time of ~1 hour
+6. Log in to `juliet` and **nota bene:**
 
-Description pending, but:
-* The above `.yml` files should work
-* `nvhpc` is probably available as a module
+* [<option value="FR">Français 🇫🇷</option> Docs Juliet](https://www.mesonet.fr/documentation/user-documentation/code_form/juliet/)
+
+```
+Lors des connexions aux nœuds de Juliet, il peut s'écouler environ 30 sec avant que le prompt ne soit disponible.
+
+Documentation de Juliet : https://www.mesonet.fr/documentation/user-documentation/code_form/juliet/
+```
+* [<option value="GB">United Kingdom 🇬🇧</option> Docs for Juliet](https://www-mesonet-fr.translate.goog/documentation/user-documentation/code_form/juliet/?_x_tr_sl=fr&_x_tr_tl=en&_x_tr_hl=en-US&_x_tr_pto=wapp)
+
+```
+When connecting to Juliet nodes, it may take approximately 30 seconds for the prompt to become available.
+
+Juliet documentation: https://www.mesonet.fr/documentation/user-documentation/code_form/juliet/
+```
+
+## Do you have a shell? Success! Then you should simply run
+* `source /projects/m26216/INSTALL/panraid.sh`
+* (The above script loads a central software deployment on our Project directory + GPU-related modules from MesoNET)
+* Quick interactive session <br>`srun -p mesonet --account=m2xxxx --tasks=1 --gres=gpu:1 --exclusive --time=0:30:0 --pty /bin/bash`
 _______
 
 # C. Known issues + workarounds

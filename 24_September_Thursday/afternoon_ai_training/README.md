@@ -22,6 +22,8 @@ By the end of this session, participants should be able to:
 
 ## Resources
 
+- [`../../Data_Generation_Pipeline.md`](../../Data_Generation_Pipeline.md) — how the Days 2–3 McStas/McXtrace exercises turn into labelled training data: the per-sample metadata schema and dataset-manifest idea this session's practical is meant to build on.
+
 _Add slides, notebooks, or reference materials here._
 
 Talks:

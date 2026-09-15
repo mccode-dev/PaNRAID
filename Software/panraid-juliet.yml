@@ -1,0 +1,49 @@
+# panraid — base environment for Juliet
+#
+# Everyone at the workshop, run this in your account on Juliet
+#   mamba env create -f panraid-juliet.yml
+#
+
+name: panraid
+
+channels:
+  - conda-forge
+  - nodefaults
+
+dependencies:
+  # loose/floor pin — let the solver pick the newest compatible Python
+  - python>=3.12
+
+  # McStas / McXtrace ray-tracing suites (conda-forge carries 3.8.5)
+  - mcstas>=3.8.5
+  - mcxtrace>=3.8.5
+
+  # 3D visualization widget (Jupyter)
+  - pythreejs
+
+  # scientific Python / ML stack
+  - joblib
+  - numpy
+  - scipy
+  - scikit-learn
+  - scikit-image
+  - pytorch          # CPU build — works everywhere, incl. macOS
+  - pytorch-gpu
+  - xgboost          # CPU build unless panraid-cuda.yml is added
+
+  # HDF5/NeXus extra
+  - silx # McStas/McXtrace already include nexpy
+
+  # dev-tools etc.
+  - git
+  - cmake
+
+  # pytorch-tabnet: must be installed via pip, not conda-forge — conda-forge's
+  # recipe hard-pins numpy<2.0 and pytorch<2.0 (stale since Dec 2023),
+  # which would drag every other package back to 2020-era versions and
+  # rule out pytorch-gpu entirely. The PyPI package has no such ceiling.
+  # Note: upstream hasn't updated tabnet's code against numpy 2.x / recent
+  # pytorch either, so if you hit runtime errors from it, that's why.
+  - pip
+  - pip:
+      - pytorch-tabnet

@@ -20,16 +20,25 @@
 * a second PowderN component with reflections="LaB6.laz" once you've
 * generated it) starting from this one; it isn't done for you here.
 *
+* The `reflections` parameter is exposed as a command-line-settable string
+* specifically so this file can be used directly for Exercise B4's
+* energy x material grid scan, e.g.:
+*   mxrun ex_powderN_mcxtrace_starter.instr -M -L E0=8:3.5:15 reflections=LaB6.cif,Si.laz
+* (requires an mxrun with -M/-L scan support; on older installs, a single
+* material at a time still works via -N E0=8,15 reflections=Si.laz)
+*
 * %Parameters
-* E0: [keV]             Mean source photon energy
-* dE: [keV]              Source energy half-width (kept narrow for sharp rings)
-* dist_sample: [m]      Source-to-sample distance
-* dist_detector: [m]    Sample-to-detector distance
+* E0: [keV]              Mean source photon energy
+* dE: [keV]               Source energy half-width (kept narrow for sharp rings)
+* dist_sample: [m]       Source-to-sample distance
+* dist_detector: [m]     Sample-to-detector distance
+* reflections: [str]     PowderN material description (CIF file, converted on the fly, or a pre-computed .lau/.laz/.hkl file)
 *
 * %End
 *******************************************************************************/
 DEFINE INSTRUMENT ex_powderN_mcxtrace_starter(E0=10, dE=0.05,
-                                               dist_sample=3, dist_detector=0.4)
+                                               dist_sample=3, dist_detector=0.4,
+                                               string reflections="LaB6.cif")
 
 TRACE
 
@@ -46,10 +55,11 @@ AT (0,0,0) RELATIVE origin
 COMPONENT sample_pos = Arm()
 AT (0,0,dist_sample) RELATIVE src
 
-/* Exercise B1, step 2: the reference PowderN call from the exercise sheet.
- * The first run transparently calls cif2hkl to turn LaB6.cif into
- * structure factors - no separate step needed. */
-COMPONENT sample = PowderN(radius=0.5e-4, yheight=1e-3, reflections="LaB6.cif")
+/* Exercise B1, step 2: the reference PowderN call from the exercise sheet,
+ * pointed at LaB6.cif by default - override with reflections=<file> on the
+ * command line for Exercise B2/B4. The first run against a given CIF
+ * transparently calls cif2hkl to turn it into structure factors. */
+COMPONENT sample = PowderN(radius=0.5e-4, yheight=1e-3, reflections=reflections)
 AT (0,0,0) RELATIVE sample_pos
 
 /* Exercise B1, step 3: a small beamstop over the direct (unscattered) beam. */
