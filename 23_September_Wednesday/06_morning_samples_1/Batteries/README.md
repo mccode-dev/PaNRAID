@@ -17,7 +17,10 @@ The point of doing both is the contrast, not just the imaging: for neutrons the 
 3. **Radiography.** Run a single-angle transmission image. Where does the beam attenuate most? Check that against the header's absorption estimates — the cathode shell should dominate, and should be the shell where natural lithium is doing almost all the work.
 4. **A crude stand-in for charge/discharge.** There's no real electrochemistry here, but you can mimic a change in lithiation state by editing the NCrystal `cfg` strings — e.g. changing the `Li2O_sg225_LithiumOxide.ncmat;density=0.85x` volume-fraction scaling on the cathode shell, or its `temp=` — and see how much the radiograph actually changes. Be explicit with yourself about what this is and isn't modelling.
 5. **Bragg-edge imaging (conceptual).** A Bragg edge is the sudden jump in a polycrystalline material's total scattering cross-section at the wavelength matching `λ = 2d` for its largest `d`-spacing. Seeing it requires a wavelength- (or time-of-flight-) resolved measurement, not a single-wavelength radiograph — so this is a natural next step for a pulsed/TOF-capable host instrument rather than the continuous sources used here. Worth discussing even if you don't build it: which of the battery's shells would show the clearest Bragg edges, and why might that matter for imaging state-of-charge?
-6. **Full CT.** `Tomography.instr`'s own header already documents the recipe: `mcrun Tomography.instr -n1e4 -N18 omega=0,340 -d TomoScan` (note: real statistics need far higher `ncount` than that).  followed by the shipped `tomo_recon.m` (needs Matlab's imaging toolbox) to reconstruct a 3D volume — `isosurface` is a reasonable way to pull out a rendered surface once you have it.
+6. **Full CT.** `Tomography.instr`'s own header already documents the recipe: `mcrun Tomography.instr -n1e4 -N18 omega=0,340 -d TomoScan` (note: real statistics need far higher `ncount` than that). 
+  * For reconstruction:
+    1. use an LLM to convert the (ancient) shipped `tomo_recon.m` (Matlab + imaging toolbox) solution to a Python code.
+    2. Reconstruct a 3D volume — an `isosurface` is a reasonable way to pull out a rendered surface once you have it.
 
 ## McXtrace (X-rays)
 
