@@ -21,7 +21,7 @@ See [`Data_Generation_Pipeline.md`](./Data_Generation_Pipeline.md) for how a sin
 - English proficiency at B2 level (course delivered in English)
 - Basic knowledge of X-ray and/or neutron instrumentation
 - Familiarity with scientific data processing tools: Python, numerical computation, simulation
-- Personal laptop with [McStas](https://mcstas.org/) and [McXtrace](https://mcxtrace.org/) pre-installed
+- Personal laptop with [McStas](https://mcstas.org/) and [McXtrace](https://mcxtrace.org/) pre-installed, at best via [these instructions](Software).
 
 ## Programme Overview
 
