@@ -36,7 +36,7 @@ To select an energy we need to insert a channel cut double crystal monochromator
 If not done yet, add an input parameter E0=8 in the DEFINE INSTRUMENT line. We will calculate the Bragg angle from this energy. Use this variable at the Bending\_magnet as well.
 From the Bragg law we can deduce the dcm\_theta : `dcm_theta = asin(m*lambda/(2*d))`. Where `d` is the interplanar distance (d = 3.1355 Angström for Si 111) and _m_ the Bragg order (here _m_ = 1). Lambda is the incident wavelength. To easily convert E(keV) to lambda(Angström) use the relation : `E(keV) = 12.39842 / lambda(Angström)`.
 In the DECLARE section, declare the dcm\_theta variable by adding the line: `double dcm_theta;`
-Do the angle calculation in the INITIALIZE section. The angle needs to be in degrees so use RAD2DEG to convert radians into degrees.
+Do the angle calculation in the INITIALIZE section. The angle needs to be in degrees so use `*RAD2DEG` to convert radians into degrees.
 
 The channel cut is made up of two parallel crystals placed at a certain attack angle. To do this :
 
@@ -69,7 +69,7 @@ linear plot              |  log plot
 
 
 ### Absorption sample
-Finally, let us add an absorption sample after the Monitor\_nD. We shall use the Fluorescence component. We want the sample in a box configuration. Choose a material as "ZnCu" for zinc and copper. Make sure the sample isn't too thick (e.g. 2 x 10 x 1 mm3). 
+Finally, let us add an absorption sample after the Monitor\_nD. We shall use the `Fluorescence` component. We want the sample in a box configuration. Choose a material as "ZnCu" for zinc and copper. Make sure the sample isn't too thick (e.g. 2 x 10 x 1 mm3). 
 
 Add an energy monitor right after the sample. Check the [edge energy tables](https://www.ruppweb.org/Xray/elements.html) for Zn and Cu.
 

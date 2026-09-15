@@ -44,8 +44,9 @@ This course develops an integrated approach to generating synthetic data for sup
 |   |            | practicals  | [23>07 Samples: Absorption](./23_September_Wednesday/07_afternoon_samples_2/Spectroscopy_abs/README.md) |
 |   |            | practicals  | [23>07 Samples: Fluorescence](./23_September_Wednesday/07_afternoon_samples_2/Spectroscopy_fluo/README.md) |
 |   |            | practicals  | [23>07 Samples: SANS -> AI](./23_September_Wednesday/07_afternoon_samples_2/SANS/README.md) |
-| 4 | Thu 24 Sep | Full day | [AI Applications: Training](./24_September_Thursday/afternoon_ai_training/) |
-| 5 | Fri 25 Sep | Full day | [AI Applications: Inference](./25_September_Friday) |
+| 4 | Thu 24 Sep | Full day    | [AI Applications](./24_September_Thursday/) |
+|   |            | practical   | [Optimization](./24_September_Thursday/08_morning_ai_optimise) |
+| 5 | Fri 25 Sep | morning  | [AI Applications: Inference](./25_September_Friday) |
 
 ## Practical Details
 
