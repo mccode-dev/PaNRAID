@@ -30,9 +30,7 @@ After the above finishes, also run:
 
 _______
 
-# B. Installation for MESONET account <img src="../images/hpc.png" alt="hpc" align="middle"> <img src="../images/Under_Construction_small.png" alt="under construction" align="middle"> <img src="../images/brainhelmet_small.png" alt="Si-brain helmet construction" align="middle">
-
-### -—> Work in progress! Subject to change! <—- 
+# B. PaNRAD on your MESONET account 
 
 1. You should have received a participant invitation via email - keep this email handy!
 2. Next step is to request an account at MesoNET via this documentation:<br> [<option value="FR">Français 🇫🇷</option>](https://www.mesonet.fr/documentation/user-documentation/acces/portail/) [<option value="GB">United Kingdom 🇬🇧</option> (google translate)](https://www-mesonet-fr.translate.goog/documentation/user-documentation/acces/portail/?_x_tr_sl=fr&_x_tr_tl=en&_x_tr_hl=en-US&_x_tr_pto=wapp)
@@ -56,13 +54,9 @@ When connecting to Juliet nodes, it may take approximately 30 seconds for the pr
 Juliet documentation: https://www.mesonet.fr/documentation/user-documentation/code_form/juliet/
 ```
 
-* Do you have a shell? Success!
-* Proceed to set up the PaNRAID software via the dedicated `juliet` yml file:
-* `micromamba env create -f panraid-juliet.yml`
-
-* The NVIDIA nvhpc environment can be loaded on juliet via `spack load nvhpc@25.7` (allows you to run GPU-accelerated McStas/McXtrace simulations)
-* CUDA can be loaded on juliet via `spack load cuda@12.6.2` (for the AI business...)
-* Juliet runs slurm - see the above page for details.
+* Do you have a shell? Success! Then you should simply run
+* `source /projects/m26216/INSTALL/panraid.sh`
+* (The above script loads a central software deployment on our Project directory + GPU-related modules from MesoNET)
 * Quick interactive session <br>`srun -p mesonet --account=m2xxxx --tasks=1 --gres=gpu:1 --exclusive --time=0:30:0 --pty /bin/bash`
 _______
 
