@@ -46,8 +46,8 @@ See [`Data_Generation_Pipeline.md`](./Data_Generation_Pipeline.md) for how a sin
 |   |            | practicals  | [23>07 Samples: Absorption](./23_September_Wednesday/07_afternoon_samples_2/Spectroscopy_abs/README.md) |
 |   |            | practicals  | [23>07 Samples: Fluorescence](./23_September_Wednesday/07_afternoon_samples_2/Spectroscopy_fluo/README.md) |
 |   |            | practicals  | [23>07 Samples: SANS -> AI](./23_September_Wednesday/07_afternoon_samples_2/SANS/README.md) |
-| 4 | Thu 24 Sep | Full day    | [AI Applications](./24_September_Thursday/) |
-|   |            | practical   | [Optimization](./24_September_Thursday/08_morning_ai_optimise) |
+| 4 | Thu 24 Sep | 09:00-12:00 | **[AI Applications](./24_September_Thursday/)** |
+|   |            | practical   | [Optimisation](./24_September_Thursday/08_morning_ai_optimise) |
 | 5 | Fri 25 Sep | morning  | [AI Applications: Inference](./25_September_Friday) |
 
 ## Practical Details
