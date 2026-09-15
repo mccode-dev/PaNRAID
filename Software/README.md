@@ -17,6 +17,7 @@ _______
 ## Required:
 ### Create your `panraid` environment:
 * `micromamba env create -f panraid.yml`
+* For those of you on Windows, please follow the steps to install MSVC compilers [outlined at McStas/McXtrace GitHub](https://github.com/mccode-dev/McCode/tree/main/INSTALL-McStas/conda#note-for-use-on-windows)
 
 _______
 ## Optional:
