@@ -54,7 +54,7 @@ When connecting to Juliet nodes, it may take approximately 30 seconds for the pr
 Juliet documentation: https://www.mesonet.fr/documentation/user-documentation/code_form/juliet/
 ```
 
-* Do you have a shell? Success! Then you should simply run
+## Do you have a shell? Success! Then you should simply run
 * `source /projects/m26216/INSTALL/panraid.sh`
 * (The above script loads a central software deployment on our Project directory + GPU-related modules from MesoNET)
 * Quick interactive session <br>`srun -p mesonet --account=m2xxxx --tasks=1 --gres=gpu:1 --exclusive --time=0:30:0 --pty /bin/bash`
