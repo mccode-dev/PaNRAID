@@ -54,7 +54,9 @@ Juliet documentation: https://www.mesonet.fr/documentation/user-documentation/co
 7. Do you have a shell? Success!
 8. Proceed to set up the PaNRAID software like you did for your laptop!
 
-* `nvhpc` is probably available as a module - pending...
+* The NVIDIA nvhpc environment can be loaded on juliet via `spack load nvhpc@25.7` (allows you to run GPU-accelerated McStas/McXtrace simulations)
+* CUDA can be loaded on juliet via `spack load cuda@12.6.2` (for the AI business...)
+
 _______
 
 # C. Known issues + workarounds
