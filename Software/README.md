@@ -31,7 +31,7 @@ After the above finishes, also run:
 
 _______
 
-# B. PaNRAD on your MESONET account 
+# B. PaNRAD on your MESONET account <img src="../images/hpc.png" alt="hpc" align="middle">
 
 1. You should have received a participant invitation via email - keep this email handy!
 2. Next step is to request an account at MesoNET via this documentation:<br> [<option value="FR">Français 🇫🇷</option>](https://www.mesonet.fr/documentation/user-documentation/acces/portail/) [<option value="GB">United Kingdom 🇬🇧</option> (google translate)](https://www-mesonet-fr.translate.goog/documentation/user-documentation/acces/portail/?_x_tr_sl=fr&_x_tr_tl=en&_x_tr_hl=en-US&_x_tr_pto=wapp)
