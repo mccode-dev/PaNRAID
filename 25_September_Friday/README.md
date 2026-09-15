@@ -22,4 +22,6 @@ By the end of this session, participants should be able to:
 
 ## Resources
 
+- [`../Data_Generation_Pipeline.md`](../Data_Generation_Pipeline.md) — the full physical-parameters-to-inference pipeline this week has been building; relevant here for the "sim-to-real" discussion (Day 5's models were trained on data whose simulation contract and metadata should be traceable back through this pipeline).
+
 _Add slides, notebooks, or reference materials here._
