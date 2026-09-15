@@ -33,6 +33,11 @@ _______
 
 ### -—> Work in progress! Subject to change! <—- 
 
+* You should have received a participant invitation via email - keep this email handy!
+* Next step is to request an account at MesoNET via this documentation [<option value="FR">Français 🇫🇷</option>](https://www.mesonet.fr/documentation/user-documentation/acces/portail/) [<option value="GB">United Kingdom 🇬🇧</option> (google translate)](https://www-mesonet-fr.translate.goog/documentation/user-documentation/acces/portail/?_x_tr_sl=fr&_x_tr_tl=en&_x_tr_hl=en-US&_x_tr_pto=wapp)
+* Once your account exists (needs to match the email registered with the PaNRAID secretariat), follow the link in the invitation-email. This should add your account to the relevant PaNRAID 'Project' (definitions at [<option value="FR">Français 🇫🇷</option>](https://www.mesonet.fr/documentation/user-documentation/acces/projet) [<option value="GB">United Kingdom 🇬🇧</option> (google translate)](https://www-mesonet-fr.translate.goog/documentation/user-documentation/acces/projets/?_x_tr_sl=fr&_x_tr_tl=en&_x_tr_hl=en-US&_x_tr_pto=wapp) )
+* Once you are on Project, add an ssh key to your account / Project via this documentation [<option value="FR">Français 🇫🇷</option>](https://www.mesonet.fr/documentation/user-documentation/acces/ssh) [<option value="GB">United Kingdom 🇬🇧</option> (google translate)](https://www-mesonet-fr.translate.goog/documentation/user-documentation/acces/ssh/?_x_tr_sl=fr&_x_tr_tl=en&_x_tr_hl=en-US&_x_tr_pto=wapp)
+
 Description pending, but:
 * The above `.yml` files should work
 * `nvhpc` is probably available as a module
