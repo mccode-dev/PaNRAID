@@ -39,13 +39,13 @@ _______
 4. Once you are on Project, add an `ssh` key to your account / Project via this documentation [<option value="FR">Français 🇫🇷</option>](https://www.mesonet.fr/documentation/user-documentation/acces/ssh) [<option value="GB">United Kingdom 🇬🇧</option> (google translate)](https://www-mesonet-fr.translate.goog/documentation/user-documentation/acces/ssh/?_x_tr_sl=fr&_x_tr_tl=en&_x_tr_hl=en-US&_x_tr_pto=wapp) (Our system of use is `juliet`, setting up a shorthand-config in your `.ssh/config` is recommended...)
 5. Once `ssh` key(s) are added, there is a waiting time of ~1 hour
 6. Log in to `juliet` and **nota bene:**
-* <option value="FR">Français 🇫🇷</option> [Docs Juliet](https://www.mesonet.fr/documentation/user-documentation/code_form/juliet/)
+* [<option value="FR">Français 🇫🇷</option> Docs Juliet](https://www.mesonet.fr/documentation/user-documentation/code_form/juliet/)
 ```
 Lors des connexions aux nœuds de Juliet, il peut s'écouler environ 30 sec avant que le prompt ne soit disponible.
 
 Documentation de Juliet : https://www.mesonet.fr/documentation/user-documentation/code_form/juliet/
 ```
-* <option value="GB">United Kingdom 🇬🇧</option> [Docs for Juliet](https://www-mesonet-fr.translate.goog/documentation/user-documentation/code_form/juliet/?_x_tr_sl=fr&_x_tr_tl=en&_x_tr_hl=en-US&_x_tr_pto=wapp)
+* [<option value="GB">United Kingdom 🇬🇧</option> Docs for Juliet](https://www-mesonet-fr.translate.goog/documentation/user-documentation/code_form/juliet/?_x_tr_sl=fr&_x_tr_tl=en&_x_tr_hl=en-US&_x_tr_pto=wapp)
 ```
 When connecting to Juliet nodes, it may take approximately 30 seconds for the prompt to become available.
 
