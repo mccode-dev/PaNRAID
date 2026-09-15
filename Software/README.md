@@ -57,7 +57,8 @@ Juliet documentation: https://www.mesonet.fr/documentation/user-documentation/co
 * The NVIDIA nvhpc environment can be loaded on juliet via `spack load nvhpc@25.7` (allows you to run GPU-accelerated McStas/McXtrace simulations)
 * CUDA can be loaded on juliet via `spack load cuda@12.6.2` (for the AI business...)
 * pythorch-gpu <-- we need a solution! segfault on micromamba install
-* Juliet runs slurm - see the above page for details. Quick interactive session `srun -p mesonet --account=m2xxxx --tasks=1 --gres=gpu:1 --exclusive --time=0:30:0 --pty /bin/bash`
+* Juliet runs slurm - see the above page for details.
+* Quick interactive session `srun -p mesonet --account=m2xxxx --tasks=1 --gres=gpu:1 --exclusive --time=0:30:0 --pty /bin/bash`
 _______
 
 # C. Known issues + workarounds
