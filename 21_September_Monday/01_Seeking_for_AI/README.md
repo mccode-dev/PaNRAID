@@ -8,10 +8,10 @@
 
 `X -> [ AI ] -> Y`
 
-The AI is a model with way-many internal 'weights'.
+The AI is a model with many internal 'weights'.
 
-- The **training** consists in correlating 'X' and 'Y'. The methodology uses e.g. 'gradient backpropagation'. 
-- The **inference** consists in inputing new 'X' and get corresponding 'Y'.
+- The **training** consists in correlating 'X' and 'Y'. The implementation uses e.g. 'gradient back-propagation' to minimise a 'loss' function. 
+- The **inference** consists in inputting new 'X' and get corresponding 'Y'.
 
 ## AI categories
 

@@ -15,12 +15,14 @@ The **DIFFABS beamline** at Synchrotron SOLEIL is designed for **combined X-ray 
 | Component        | Role                                                                                | Parameters to Optimize                                 |
 | ---------------- | ----------------------------------------------------------------------------------- | ------------------------------------------------------ |
 | **BM D13-1**     | Bending magnet source (B=1.71 T, critical energy 8.6 keV).                          | None (fixed source properties).                        |
-| **Primary Slit** | Collimates the beam.                                                                | `xwidth`, `yheight` (fixed).                        |
+| **Primary Slit** | Collimates the beam.                                                                | None (fixed).                                          |
 | **M1 Mirror**    | Vertically focuses the beam onto the DCM. Coated with Rh/Si.                        | `M1_radius` (curvature), `M1_angle` (incidence angle). |
 | **DCM**          | Double Crystal Monochromator (Si 111) for energy selection and horizontal focusing. | `DCM_theta` (Bragg angle).                             |
 | **M2 Mirror**    | Horizontally focuses the beam onto the sample. Coated with Rh.                      | `M2_radius` (curvature).                               |
 | **Sample Stage** | Hosts the sample and detectors (PowderN, Fluorescence, XRD).                        | None.                                                  |
 
+
+In order to improve the beam-line configuration while keeping the geometry fixed, we may touch the mirror curvatures `M1_radius` and `M2_radius`.
 
 ## Optimization Goals
 
@@ -72,7 +74,8 @@ mxrun/mcrun Instr params={min,max|min,guess,max}...
 
 ## Step 1: Run a Baseline Simulation
 
-Load the McXtrace simulation model from the File menu. On the neutron side, you may experiment with the `Templates/templateDIFF.instr` diffractometer model, and aim to optimize its monochromator vertical curvature `RV`.
+Load the McXtrace simulation model from the File menu. 
+On the neutron side, you may experiment with the `Templates/templateDIFF.instr` diffractometer model, and aim to optimize its monochromator vertical curvature `RV`.
 
 Run a simulation with default parameters. Inspect the `sample_stage` monitor output file, and search for metadata:
   - `intensity`: Total counts at the sample.
@@ -80,8 +83,8 @@ Run a simulation with default parameters. Inspect the `sample_stage` monitor out
   
 ## Step 2: Simple Optimization
 
-Re-run, and this time, select the 'Optimize' simulation mode. 
-Choose the `sample_stage` monitor in the *Inspect* drop-down list.
+Re-run, and this time, select the **Optimize** simulation mode. 
+Choose the `sample_stage` monitor in the **Inspect** drop-down list.
 Indicate the parameters to optimize by setting their variation range, e.g. `M1_radius=1000,1800` and `M2_radius=1000,1800`.
 Press 'Run' and wait for completion. 
 
@@ -108,11 +111,12 @@ NOTE: this step can be started while the previous one is still running.
 
 The metric to optimize can be defined either directly as a monitor in the model (and then we search for its maximum value), or can combine metadata from specific monitor(s). 
 In our case, the `mxrun`/`mcrun` command allows to set the monitor and its value to maximize with the `--optimize-eval` option. 
-At least one fixed parameter must be specified (here we use `E0`).
+At least one fixed parameter must be specified in the command line (here we use `E0`).
 
 Open a terminal from the File menu, and start the optimization:
 ```
-mxrun --optimize --optimize-monitor=sample_stage --optimize-eval=d.intensity/d.dX/d.dY SOLEIL_DIFFABS.instr E0=13 M1_radius=1000,1800 M2_radius=1000,1800
+mxrun --optimize --optimize-monitor=sample_stage --optimize-eval=d.intensity/d.dX/d.dY \
+  SOLEIL_DIFFABS.instr E0=13 M1_radius=1000,1800 M2_radius=1000,1800
 ```
 
 This time, the intensity reaching the monitor is scaled with the inverse widths, which is quite common to maximize brightness.
