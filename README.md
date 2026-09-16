@@ -52,7 +52,7 @@ See [`Data_Generation_Pipeline.md`](./Data_Generation_Pipeline.md) for how a sin
 |   |            | practical   | Surrogate  (approximator) |
 | 4 | [Thu 24 Sept](./24_September_Thursday/) | 14:00-17:00 | **[AI Applications 2](./24_September_Thursday/)** |
 |   |            | practical   | Inverse problems: classification/regression |
-|   |            | excursion   | **Social activity: Fort Boyard** :boat: :arrow_right: :european_castle: |
+|   |            | excursion   | **Social activity: [Fort Boyard](https://en.wikipedia.org/wiki/Fort_Boyard_(fortification))** :boat: :arrow_right: :european_castle: |
 | 5 | [Fri 25 Sept](./25_September_Friday) | morning  | [AI Applications: Inference](./25_September_Friday) |
 
 ## Practical Details
@@ -61,9 +61,11 @@ See [`Data_Generation_Pipeline.md`](./Data_Generation_Pipeline.md) for how a sin
 - **Modality:** In-person (présentiel)
 - **Price:** €700 which includes return shuttle to La Rochelle, 4 nights accommodation, meals 21st evening – 25th midday, bike hire, group outing at Fort Boyard.
 
-The **shuttle** on Sept 21st is planned at 1pm from La Rochelle (right side from the train station exit, Bd Joffre next to Hotel B&B - bus will be names 'SPECIAL').
+The **shuttle** on Sept 21st is planned at 1pm from La Rochelle (right side from the train station exit, Bd Joffre next to Hotel B&B - bus will be labelled 'SPECIAL').
+
 The **shuttle** on Sept 25th is planned at 11:45am to La Rochelle train station.
-The **boat trip** on Sept 24th in planned at 5:45pm from Boyardville (2 km away by bike), 1h sea cruise around Fort Boyard.
+
+The **boat trip** on Sept 24th in planned at 5:45pm from Boyardville (2 km away by bike), 1h sea cruise around [Fort Boyard](https://en.wikipedia.org/wiki/Fort_Boyard_(fortification)).
 
 ## Trainers
 
