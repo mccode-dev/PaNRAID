@@ -50,6 +50,7 @@ See [`Data_Generation_Pipeline.md`](./Data_Generation_Pipeline.md) for how a sin
 |   |            | practical   | [Optimisation](./24_September_Thursday/08_morning_ai_optimise) |
 |   |            | practical   | De-noising/de-convolution/segmentation |
 |   |            | practical   | Surrogate  (approximator) |
+|   |            | excursion   | Fort Boyard |
 | 4 | Thu 24 Sep | 14:00-17:00 | **[AI Applications 2](./24_September_Thursday/)** |
 |   |            | practical   | Inverse problems: classification/regression |
 | 5 | Fri 25 Sep | morning  | [AI Applications: Inference](./25_September_Friday) |
