@@ -52,7 +52,7 @@ See [`Data_Generation_Pipeline.md`](./Data_Generation_Pipeline.md) for how a sin
 |   |            | practical   | Surrogate  (approximator) |
 | 4 | Thu 24 Sep | 14:00-17:00 | **[AI Applications 2](./24_September_Thursday/)** |
 |   |            | practical   | Inverse problems: classification/regression |
-|   |            | excursion   | Fort Boyard |
+|   |            | excursion   | **Social activity: Fort Boyard** :boat: :arrow_right: :european_castle: |
 | 5 | Fri 25 Sep | morning  | [AI Applications: Inference](./25_September_Friday) |
 
 ## Practical Details
