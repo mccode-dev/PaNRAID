@@ -4,7 +4,9 @@
 
 For this exercise, we shall use an existing model, and search to optimize its parameters to get better flux and resolution.
 
-The **DIFFABS beamline** at Synchrotron SOLEIL is designed for **combined X-ray diffraction and absorption studies**. It covers an energy range of **3–23 keV** and is optimized for:
+ML Optimize: `Parameters` -> [ AI ] -> better `Parameters`
+
+The **DIFFABS beamline** at Synchrotron SOLEIL is designed for combined X-ray diffraction and absorption studies. It covers an energy range of **3–23 keV** and is optimized for:
 
 - **High flux** at the sample.
 - **Low divergence** for high-resolution experiments.

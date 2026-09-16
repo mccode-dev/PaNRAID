@@ -2,9 +2,11 @@
 
 *PaNRAID School, Day 4 morning — deconvolution, denoising, segmentation*
 
-In this exercise, we use a simple SAXS beam-line.
+In this exercise, we aim to process some "measurement" data.
 
-We process the simulated images to:
+AI Processing: `Measurement` -> [ AI ] -> better `Measurement`
+
+We process the simulated images from a simple SAXS mosdel to:
 - deconvolve the instrument response by learning the difference between low and high resolution datasets.
 - denoise detector images by learning how the noise evolves.
 - segment areas in the detector image.
@@ -147,7 +149,7 @@ done
 
 The noise2noise method requires to _pair_ `PSDMonitor.dat` files from different NCOUNT/SEED dirs (noisy data) in order to infer the noise shape. 
 
-Request an AI to import `PSD_monitor.dat` files from directory pairs, for all directories. 
+Request an AI to import `PSDmonitor.dat` files from directory pairs, for all directories. 
 Normaize the data.
 Ask the AI to reuse the previous U-Net but train it to map moisy pairs.
 Then use it th denoise data.

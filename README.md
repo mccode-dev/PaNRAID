@@ -48,7 +48,7 @@ See [`Data_Generation_Pipeline.md`](./Data_Generation_Pipeline.md) for how a sin
 |   |            | practicals  | [23>07 Samples: SANS -> AI](./23_September_Wednesday/07_afternoon_samples_2/SANS/README.md) |
 | 4 | [Thu 24 Sept](./24_September_Thursday/) | 09:00-12:00 | **[AI Applications 1](./24_September_Thursday/)** |
 |   |            | practical   | [Optimisation](./24_September_Thursday/08_morning_ai_optimise) |
-|   |            | practical   | [Image processing - De-noising/de-convolution/segmentation](24_September_Thursday/08_morning_ai_deconvolve/) |
+|   |            | practical   | [Image processing - De-noising/de-convolution/segmentation](24_September_Thursday/08_morning_ai_imaging/) |
 |   |            | practical   | Surrogate  (approximator) |
 | 4 | [Thu 24 Sept](./24_September_Thursday/) | 14:00-17:00 | **[AI Applications 2](./24_September_Thursday/)** |
 |   |            | practical   | Inverse problems: classification/regression |
