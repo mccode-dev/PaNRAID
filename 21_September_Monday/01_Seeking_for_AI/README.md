@@ -20,5 +20,5 @@ There are 4 different AI 'algorithm' types.
 
 | AI            | X=parameters | X=measurement |
 | --------------|--------------|----------------|
-| **Y=parameters**  | optimisation         | inverse problem |
+| **Y=parameters**  | optimisation         | inverse problem: classification/regression |
 | **Y=measurement** | surrogate/simulation | denoising/segmentation/deconvolution |

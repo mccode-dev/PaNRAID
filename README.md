@@ -48,10 +48,10 @@ See [`Data_Generation_Pipeline.md`](./Data_Generation_Pipeline.md) for how a sin
 |   |            | practicals  | [23>07 Samples: SANS -> AI](./23_September_Wednesday/07_afternoon_samples_2/SANS/README.md) |
 | 4 | Thu 24 Sep | 09:00-12:00 | **[AI Applications 1](./24_September_Thursday/)** |
 |   |            | practical   | [Optimisation](./24_September_Thursday/08_morning_ai_optimise) |
-|   |            | practical   | Surrogate |
-| 4 | Thu 24 Sep | 14:00-17:00 | **[AI Applications 2](./24_September_Thursday/)** |
-|   |            | practical   | Inverse problems |
 |   |            | practical   | De-noising/de-convolution/segmentation |
+|   |            | practical   | Surrogate  (approximator) |
+| 4 | Thu 24 Sep | 14:00-17:00 | **[AI Applications 2](./24_September_Thursday/)** |
+|   |            | practical   | Inverse problems: classification/regression |
 | 5 | Fri 25 Sep | morning  | [AI Applications: Inference](./25_September_Friday) |
 
 ## Practical Details
