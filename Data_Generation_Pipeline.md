@@ -47,7 +47,7 @@ Each arrow in this diagram is a session, or part of one, somewhere in the progra
 |---|---|
 | Physical parameters | Set by you, as instrument/component parameters, in every exercise from Day 2 onward |
 | Material / sample model | Day 3 morning (`PowderN`, NCrystal/xraylib materials — [`Exercises_PowderN.md`](./23_September_Wednesday/06_morning_samples_1/Exercises_PowderN.md), [`Batteries/README.md`](./23_September_Wednesday/06_morning_samples_1/Batteries/README.md)) and Day 3 afternoon (spectroscopy, SANS) |
-| McStas/McXtrace instrument | Day 2 morning (sources & monitors), Day 2 afternoon (optics), Day 3 (samples) |
+| McStas/McXtrace instrument | Day 2 morning (sources & monitors, optics — combined), Day 3 (samples) |
 | Raw detector/monitor output | Every `mcrun`/`mxrun` invocation — governed by the simulation contract |
 | Instrument corrections & artefacts | Discussed per-exercise (e.g. finite binning, beamstop shadow, guide acceptance) — not yet a dedicated pass; a natural Day 3/4 bridge topic |
 | Preprocessing | Not yet formalised in this repo — a concrete candidate for the start of Day 4 |

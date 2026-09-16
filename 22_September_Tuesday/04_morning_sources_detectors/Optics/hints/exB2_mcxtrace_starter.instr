@@ -9,18 +9,20 @@
 * Origin: PaNRAID / Optics exercises
 * %INSTRUMENT_SITE: Templates
 *
-* Starter instrument for Exercises B1-B2 ("A synchrotron monochromator",
-* Track 1) of the Optics hands-on exercises: a synchrotron-like source,
-* monitors at the aperture, and a single Si(111) Bragg_crystal on a
-* rotated arm - the geometry from B2 steps 3-6.
+* Starter instrument for Exercise 2 ("McXtrace: a Bragg-crystal
+* monochromator") of the Optics hands-on exercises: a synchrotron-like
+* source, monitors at the aperture, and a single Si(111) Bragg_crystal
+* on a rotated arm. (Filename is unchanged from an earlier numbering
+* where this was "Exercise B2, Track 1".)
 *
 * Deliberately NOT done for you: the crystal angle. `A1` defaults to 0,
 * i.e. no reflection condition is met and the downstream monitors will
 * show nothing coming through. Work out theta from Bragg's law for a
-* photon energy in range (see the exercise sheet, step 7) and set A1
+* photon energy in range (see the exercise sheet, step 2) and set A1
 * yourself - that calculation, and the rocking-curve scan around it
-* (step 8), are the actual exercise. Extending this into a double-crystal
-* monochromator (steps 9-11) is left to you too.
+* (step 3), are the actual exercise. Extending this into a double-crystal
+* monochromator, or swapping in a multilayer, is an "if time allows"
+* extension in the exercise sheet.
 *
 * %Parameters
 * E0: [keV]   Mean source photon energy
@@ -49,24 +51,24 @@ AT (0,0,30) RELATIVE src
 COMPONENT aperture_mon_psd = PSD_monitor(xwidth=0.002, yheight=0.002, filename="psd0.dat")
 AT (0,0,0.001) RELATIVE PREVIOUS
 
-/* Exercise B2, step 3: A1 is exposed as an instrument parameter -
- * compute it yourself from Bragg's law (step 7) rather than reading it
- * off here. */
+/* Exercise 2, step 2: A1 is exposed as an instrument parameter -
+ * compute it yourself from Bragg's law rather than reading it off
+ * here. */
 COMPONENT xtal1_arm = Arm()
 AT (0,0,1) RELATIVE PREVIOUS
 ROTATED (A1,0,0) RELATIVE PREVIOUS
 
-/* Exercise B2, step 4: Si(111), V=160.1826 Angs^3 is silicon's unit-cell
- * volume, h,k,l=1,1,1 selects the (111) reflection. */
+/* Exercise 2, step 2 (continued): Si(111), V=160.1826 Angs^3 is
+ * silicon's unit-cell volume, h,k,l=1,1,1 selects the (111) reflection. */
 COMPONENT xtal1 = Bragg_crystal(length=0.05, width=0.02, V=160.1826, h=1, k=1, l=1, alpha=0)
 AT (0,0,0) RELATIVE xtal1_arm
 
-/* Exercise B2, step 5: carries the reflected beam's new direction forward. */
+/* Exercise 2, step 2 (continued): carries the reflected beam's new direction forward. */
 COMPONENT xtal1_out = Arm()
 AT (0,0,0) RELATIVE xtal1_arm
 ROTATED (2*A1,0,0) RELATIVE xtal1_arm
 
-/* Exercise B2, step 6: monitors after the (single) crystal. */
+/* Exercise 2, step 2 (continued): monitors after the (single) crystal. */
 COMPONENT mono_mon_E = E_monitor(xwidth=0.01, yheight=0.01, filename="e1.dat",
                                   Emin=E0-2*dE, Emax=E0+2*dE)
 AT (0,0,1) RELATIVE xtal1_out

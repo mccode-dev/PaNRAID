@@ -6,12 +6,15 @@ Modeling of neutron and X-ray sources, as well as detector simulation. Understan
 
 ## Content
 
+Sources & Monitors and Optics now share this single morning session (see
+[`04_morning_sources_detectors/README.md`](04_morning_sources_detectors/README.md)
+for the combined topic/content/learning-outcomes writeup)
+
 ## Sessions
 
 Talk | Description
 -----|-------------
-[04_morning_sources_detectors](04_morning_sources_detectors) | McStas_McXtrace Sources and Monitors/Detectors
-[05_afternoon_optics](05_afternoon_optics) | McStas_McXtrace Optics
+[04_morning_sources_detectors](04_morning_sources_detectors) | McStas_McXtrace Sources and Monitors/Detectors, and Optics
 
 ## Key Tools
 

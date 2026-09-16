@@ -32,12 +32,12 @@ See [`Data_Generation_Pipeline.md`](./Data_Generation_Pipeline.md) for how a sin
 |   |            | lecture     | [21>02 Intro and General Concepts (PDF slides)](./21_September_Monday/02_Intro_and_General_Concepts/02_McStas_McXtrace_Common_Introduction.pdf) [(pptx)](./21_September_Monday/02_Intro_and_General_Concepts/02_McStas_McXtrace_Common_Introduction.pptx) | 
 |   |            |                 | [21>02.1 vibe-code examples (PDF)](21_September_Monday/02_Intro_and_General_Concepts/Vibe/Vibing.pdf) [(pptx)](21_September_Monday/02_Intro_and_General_Concepts/Vibe/Vibing.pptx)|
 |   |            | lecture     | [21>03 Into Deep Learning (PDF slides)](./21_September_Monday/03_intro_deep_learning/03_robledo_intro_DL.pdf) |
-| 2 | Tue 22 Sep | 09:00-12:00 | **[Sources & Detectors](./22_September_Tuesday/04_morning_sources_detectors/)** |
+| 2 | Tue 22 Sep | 09:00-12:00 | **[Sources, Detectors & Optics](./22_September_Tuesday/04_morning_sources_detectors/)** |
 |   |            | lecture     | [22>04 Sources and Monitors (PDF slides)](./22_September_Tuesday/04_morning_sources_detectors/Sources_Monitors/McStas_McXtrace_Sources_and_Monitors.pdf) [(pptx)](./22_September_Tuesday/04_morning_sources_detectors/Sources_Monitors/McStas_McXtrace_Sources_and_Monitors.pptx) |
+|   |            | lecture     | [22>04 Optics (PDF slides)](./22_September_Tuesday/04_morning_sources_detectors/Optics/McStas_McXtrace_Optics.pdf) [(pptx)](./22_September_Tuesday/04_morning_sources_detectors/Optics/McStas_McXtrace_Optics.pptx) |
 |   |            | practicals  | [22>04 Sources and Monitors](./22_September_Tuesday/04_morning_sources_detectors/Sources_Monitors/Exercises_Sources_and_Monitors.md) |
-| 2 | Tue 22 Sep | 14:00-17:00 | **[Optics](./22_September_Tuesday/05_afternoon_optics/)** |
-|   |            | lecture     | [22>05 Optics (PDF slides)](./22_September_Tuesday/05_afternoon_optics/McStas_McXtrace_Optics.pdf) [(pptx)](./22_September_Tuesday/05_afternoon_optics/McStas_McXtrace_Optics.pptx) |
-|   |            | practicals  | [22>05 Optics](./22_September_Tuesday/05_afternoon_optics/Exercises_Optics.md) |
+|   |            | practicals  | [22>04 Optics](./22_September_Tuesday/04_morning_sources_detectors/Optics/Exercises_Optics.md) |
+| 2 | Tue 22 Sep | 14:00-17:00 | [22>05 Data generation for ML/AI - setting the scene](./22_September_Tuesday/05_afternoon_data_generation/README.md)
 | 3 | Wed 23 Sep | 09:00-12:00 | **[Samples 1: Diffraction and Imaging](./23_September_Wednesday/06_morning_samples_1/)** |
 |   |            | lecture     | [23>06 Samples (PDF slides)](./23_September_Wednesday/McStas_McXtrace_Sample_Components.pdf) [(pptx)](./23_September_Wednesday/McStas_McXtrace_Sample_Components.pptx)|
 |   |            | practicals  | [23>06 Samples: Powder Diffraction](./23_September_Wednesday/06_morning_samples_1/Exercises_PowderN.md) |

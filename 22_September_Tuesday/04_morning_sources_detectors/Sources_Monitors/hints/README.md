@@ -10,9 +10,12 @@ compile, run and start modifying right away, instead of typing from scratch.
 
 | File | Corresponds to |
 |------|-----------------|
-| `ex2_mcstas_starter.instr` | Exercise 2, McStas track (source + PSD/L monitors) |
-| `ex2_mcxtrace_starter.instr` | Exercise 2, McXtrace track (source + PSD/L monitors) |
+| `ex2_mcstas_starter.instr` | Exercise 1, McStas track (source + PSD/L monitors) |
+| `ex2_mcxtrace_starter.instr` | Exercise 1, McXtrace track (source + PSD/L monitors) |
 
-These are exactly the code listed under Exercise 2 of the exercise sheet —
-copying them out here just saves typing. Exercises 3–5 are done by editing
-this same instrument; Exercises 6–7 branch off it.
+These are exactly the code listed under Exercise 1 of the exercise sheet —
+copying them out here just saves typing (filenames are unchanged from an
+earlier numbering where this was "Exercise 2"). Exercises 2–3 are done by
+editing this same instrument; the "Further material, if time allows"
+section at the end of the sheet points to a few more things you can try
+starting from it.

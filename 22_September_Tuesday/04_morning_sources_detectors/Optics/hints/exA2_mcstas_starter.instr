@@ -9,18 +9,19 @@
 * Origin: PaNRAID / Optics exercises
 * %INSTRUMENT_SITE: Templates
 *
-* Starter instrument for Exercises A1-A2 ("A guide, gravity, and phase
-* space") of the Optics hands-on exercises: a source focused onto a
+* Starter instrument for Exercise 1 ("McStas: a guide, and gravity in
+* one flag") of the Optics hands-on exercises: a source focused onto a
 * guide entrance, a straight Guide_gravity, and a position / wavelength
-* / divergence-position monitor trio at the guide exit.
+* / divergence-position monitor trio at the guide exit. (Filename is
+* unchanged from an earlier numbering where this was "Exercise A2".)
 *
-* This is a completed, runnable starting point for A2 - if you'd rather
-* build the A1 (no-guide) baseline and add the guide yourself following
-* the exercise sheet, just ignore this file and start from a blank
-* .instr instead. Gravity itself is left OFF here (that's the point of
-* Exercise A3): re-run this same file with `-g` / `--gravitation` added
-* to your mcrun command line to switch it on, no instrument-file change
-* needed.
+* This is a completed, runnable starting point for the guide step - if
+* you'd rather build the no-guide baseline and add the guide yourself
+* following the exercise sheet, just ignore this file and start from a
+* blank .instr instead. Gravity itself is left OFF here (that's the
+* point of the exercise's gravity step): re-run this same file with
+* `-g` / `--gravitation` added to your mcrun command line to switch it
+* on, no instrument-file change needed.
 *
 * %Example: -n 1e6 Detector: psd_I=1
 *
@@ -50,14 +51,14 @@ AT (0,0,0) RELATIVE origin
 COMPONENT guide_entrance = Arm()
 AT (0,0,d_source_guide) RELATIVE src
 
-/* Exercise A2, step 4: a straight channel (w1=w2, h1=h2), m=2 to start. */
+/* Exercise 1, step 2: a straight channel (w1=w2, h1=h2), m=2 to start. */
 COMPONENT guide = Guide_gravity(w1=0.03, h1=0.03, w2=0.03, h2=0.03, l=guide_l, m=guide_m)
 AT (0,0,0) RELATIVE guide_entrance
 
-/* Exercise A2, step 5: the L_monitor / PSD_monitor / DivPos_monitor trio,
- * right after the guide exit. Check mcdoc DivPos_monitor for its full
- * binning options (nh, ndiv, ...) if you want finer control than the
- * defaults used here. */
+/* Exercise 1, step 2 (continued): the L_monitor / PSD_monitor /
+ * DivPos_monitor trio, right after the guide exit. Check mcdoc
+ * DivPos_monitor for its full binning options (nh, ndiv, ...) if you
+ * want finer control than the defaults used here. */
 COMPONENT lm = L_monitor(xwidth=0.05, yheight=0.05, filename="lm.dat",
                           Lmin=0, Lmax=lambda0+dlambda+1)
 AT (0,0,guide_l+0.01) RELATIVE guide_entrance
