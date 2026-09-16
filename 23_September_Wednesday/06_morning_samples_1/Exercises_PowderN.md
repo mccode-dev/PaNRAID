@@ -6,7 +6,7 @@
 
 Keep both instruments deliberately tiny at first: **source → powder sample → flat detector**, nothing else. A monochromatic (or nearly so) beam gives the cleanest rings, since each (h,k,l) reflection then lands at one well-defined angle instead of smearing over a range of radii.
 
-As always: `mcdoc PowderN` / `mxdoc PowderN` before guessing at a parameter, and plot with `mcplot*` / `mxplot-*`. Every exercise below follows the same nine-part structure used throughout the week — **Learning objectives, Physical background, Starting instrument, Task, Expected output, Questions for interpretation, Optional extension, Data-export step, Checkpoint / solution.**
+As always: `mcdoc PowderN` / `mxdoc PowderN` before guessing at a parameter, and plot with `mcplot*` / `mxplot-*`. Several exercises below ask you to compare two ring patterns directly — `mcplotdiff`/`mxplotdiff <run1>/rings.dat <run2>/rings.dat` plots the pixel-by-pixel difference between exactly two runs' output (any monitor present in both, 1D or 2D), which is a much more precise way to check "do these rings actually agree" than comparing two plots by eye; `mccoplot`/`mxcoplot` overlays several 1D datasets on one graph, useful for the wavelength/energy scans in Exercises A4/B4. Both tools match files by name across two *different run directories* — they can't compare two differently-named monitors within one run, so every "compare the two ring patterns" instruction below assumes your `PSD_monitor`'s `filename=` stays the same across the two instruments being compared (which it will, if you build the second instrument as a copy of the first with just one thing changed, as instructed). Every exercise below follows the same nine-part structure used throughout the week — **Learning objectives, Physical background, Starting instrument, Task, Expected output, Questions for interpretation, Optional extension, Data-export step, Checkpoint / solution.**
 
 ---
 
@@ -38,7 +38,7 @@ As always: `mcdoc PowderN` / `mxdoc PowderN` before guessing at a parameter, and
 - What happens to the sharpness of the rings if you widen `dlambda` a lot? Why?
 - Try moving the detector further away, or closer. What changes about the ring radii, and why doesn't the *angle* of each ring change?
 
-**Optional extension.** Run at a deliberately low `ncount` (e.g. `1e4`) and compare — does the "ring" survive, or does it dissolve into noise? This is the same finite-sampling artefact discussed in the Sources & Monitors sheet, now showing up as broken-looking rings rather than a grainy spot.
+**Optional extension.** Run at a deliberately low `ncount` (e.g. `1e4`) and compare — does the "ring" survive, or does it dissolve into noise? `mcplotdiff` on the low- and high-`ncount` `rings.dat` files shows the noise directly, as the part of the image that doesn't match. This is the same finite-sampling artefact discussed in the Sources & Monitors sheet, now showing up as broken-looking rings rather than a grainy spot.
 
 **Data-export step.** Log the simulation contract (parameters, seed, `ncount`, monitor settings, output files, software version) for your baseline run — you'll need it for comparison in A2 and A4.
 
@@ -55,7 +55,7 @@ As always: `mcdoc PowderN` / `mxdoc PowderN` before guessing at a parameter, and
 **Task.**
 1. Use `nctool -b` (or browse the [NCrystal material list](https://github.com/mctools/ncrystal/wiki)) to find the built-in NCrystal entry for aluminium (something like `Al_sg225.ncmat`).
 2. Check `mcdoc PowderN` carefully for exactly how to point `reflections=` (or a related parameter — check your installed version) at an NCrystal material/cfg-string, and build a second instrument identical to A1 except for that one change.
-3. Run both instruments with the same statistics and compare the two `PSD_monitor` ring patterns for what should be the *same* material (aluminium).
+3. Run both instruments with the same statistics and compare the two `PSD_monitor` ring patterns for what should be the *same* material (aluminium). `mcplotdiff` on the two `rings.dat` files is the direct way to do this — any genuine disagreement between the two physics routes shows up as structure in the difference image, rather than noise.
 
 **Expected output.** Two ring patterns with the same ring positions (angles), for a genuinely comparable material description; intensities may differ somewhat given the two routes' different underlying physics models.
 
@@ -68,7 +68,7 @@ As always: `mcdoc PowderN` / `mxdoc PowderN` before guessing at a parameter, and
 
 **Data-export step.** Log the simulation contract for both runs, being explicit in `input_parameters` about *which* material description (`.laz` filename vs. NCrystal cfg-string) was used — this single field is the difference between the two runs and is easy to lose track of later.
 
-**Checkpoint / solution.** You should be able to overlay (or eyeball-compare) the two ring patterns and state whether they agree within statistics, plus name one physical effect NCrystal captures that a plain `.laz` table does not.
+**Checkpoint / solution.** You should be able to show, via `mcplotdiff`, that the two ring patterns agree within statistics (a difference image that looks like noise, not structure), plus name one physical effect NCrystal captures that a plain `.laz` table does not.
 
 ### A3 (optional) — Attach yesterday's optics
 
@@ -84,7 +84,7 @@ As always: `mcdoc PowderN` / `mxdoc PowderN` before guessing at a parameter, and
 
 **Questions for interpretation.** Does the beam divergence coming out of the guide broaden your rings into bands? If so, is that a guide problem or simply more realistic than a perfectly parallel pencil beam?
 
-**Optional extension.** Compare quantitatively: measure the angular width of one ring band and check whether it's consistent with the guide exit's `DivPos_monitor` divergence spread from the Optics exercises.
+**Optional extension.** Compare quantitatively: measure the angular width of one ring band and check whether it's consistent with the guide exit's `DivPos_monitor` divergence spread from the Optics exercises. `mcplotdiff` between this exercise's `rings.dat` and A1's baseline `rings.dat` visualises the broadening directly, ring by ring.
 
 **Data-export step.** Log the simulation contract, noting under `source_parameters` that the source is now "guide exit from `<your Optics instrument>`" rather than a bare analytic source — this provenance matters for anyone reusing the dataset later.
 
@@ -110,7 +110,7 @@ AT (0,0,0) RELATIVE sample_pos
    ```sh
    mcrun ex_powderN_mcstas_starter.instr -N 5 lambda0=1.5,3.5 -n 1e6 -d scan_lambda_Al
    ```
-   Confirm you get 5 scan points and that ring radii shift systematically with wavelength.
+   Confirm you get 5 scan points and that ring radii shift systematically with wavelength — since `rings.dat` is a 2D `PSD_monitor`, `mccoplot` won't overlay it directly, but if you add a 1D `L_monitor`/`Monitor_nD` alongside it, `mccoplot` across the 5 scan points' wavelength files is a quick way to confirm the scan swept the range you expected before looking at any rings at all.
 2. Now scan wavelength and material together, as a single-command two-dimensional grid:
    ```sh
    mcrun ex_powderN_mcstas_starter.instr -M -L lambda0=1.5:0.5:2.5 reflections=Al.laz,Cu.laz,Nb.laz -n 1e6 -d scan_grid
@@ -176,7 +176,7 @@ AT (0,0,0) RELATIVE sample_pos
 **Task.**
 1. Generate a pre-computed file for the *same* LaB₆ structure, e.g. with `cif2hkl --powder --mode NUC -o LaB6.laz <your LaB6 CIF>` (you can get a LaB₆ CIF from the Crystallography Open Database, or reuse whichever CIF `cif2hkl` produced/consumed in step B1).
 2. Build a second instrument identical to B1, except `reflections="LaB6.laz"` instead of `reflections="LaB6.cif"`.
-3. Compare the two ring patterns, and compare how long each simulation took to start up.
+3. Compare the two ring patterns with `mxplotdiff` on the two `rings.dat` files, and compare how long each simulation took to start up.
 
 **Expected output.** Matching ring positions and (within statistics) intensities between the two routes; a measurable difference in simulation start-up time (CIF conversion vs. reading a pre-computed table).
 
