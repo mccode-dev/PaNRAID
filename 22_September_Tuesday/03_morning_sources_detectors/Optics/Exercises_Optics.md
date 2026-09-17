@@ -2,7 +2,7 @@
 
 *PaNRAID School, Day 2 morning — follows the `McStas_McXtrace_Optics` lecture*
 
-**Time note.** Optics now shares a single Tuesday-morning session with Sources & Monitors instead of a full afternoon on its own, so this sheet has been trimmed to two core exercises (one per code) plus optional "if time allows" material. Because of that, it deliberately does **not** use the nine-part exercise template used elsewhere in the school this week — each exercise here is just **Goal / Task / Checkpoints**, with occasional short "If time allows" notes. If a future run of the school restores a dedicated block for this topic, the fuller template (and the material trimmed out below) is easy to reinstate.
+**Time note.** Optics shares the Tuesday-morning session with Sources & Monitors instead of an exercise session on its own, so this sheet has been trimmed to two core exercises (one per code) plus optional "if time allows" material. 
 
 Unlike the Sources & Monitors exercises, the two tracks below build genuinely different instruments — a neutron guide is not "the same component under a different name" as an X-ray monochromator. Do whichever matches the code you're working in; if you have both installed and time to spare, doing both is the best way to see where the shared physics (grazing-incidence reflection, Bragg's law) diverges in practice.
 
