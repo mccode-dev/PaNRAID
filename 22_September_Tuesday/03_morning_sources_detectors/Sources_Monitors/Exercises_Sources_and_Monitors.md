@@ -2,7 +2,7 @@
 
 *McStas (neutrons) & McXtrace (X-rays) — PaNRAID School, Day 2 morning*
 
-**Time note.** Sources & Monitors and Optics now share a single Tuesday-morning session instead of a full morning each, so this sheet has been trimmed to three core exercises plus optional "if time allows" material. Because of that, it deliberately does **not** use the nine-part exercise template (Learning objectives / Physical background / Starting instrument / Task / Expected output / Questions for interpretation / Optional extension / Data-export step / Checkpoint) used elsewhere in the school this week — each exercise here is just **Goal / Task / Checkpoints**, with occasional short "If time allows" notes. If a future run of the school restores a dedicated block for this topic, the fuller template (and the material trimmed out below) is easy to reinstate.
+**Time note.** Sources & Monitors shares the Tuesday-morning session with and Optics so this sheet has been trimmed to three core exercises plus optional "if time allows" material. Because of that, it deliberately does **not** use the nine-part exercise template (Learning objectives / Physical background / Starting instrument / Task / Expected output / Questions for interpretation / Optional extension / Data-export step / Checkpoint) used elsewhere. Each exercise here is just **Goal / Task / Checkpoints**, with occasional short "If time allows" notes. I
 
 These exercises follow directly on from the `McStas_McXtrace_Sources_and_Monitors.pptx` lecture and are written for absolute beginners: no prior `.instr`-file experience is assumed, only that McStas and/or McXtrace are installed and the lecture has been seen once.
 
