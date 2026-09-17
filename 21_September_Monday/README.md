@@ -17,7 +17,7 @@ Talk | Description
 -----|-------------
 [01_Seeking_for_AI](01_Seeking_for_AI/02_Seeking_for_AI.pptx) | Why use AI with BL/instrument models
 [02_Intro_and_General_Concepts](02_Intro_and_General_Concepts/McStas_McXtrace_Common_Introduction.pptx) + [McCode Vibing]([02_Intro_and_General_Concepts/McStas_McXtrace_Common_Introduction.pptx](https://github.com/mccode-dev/PaNRAID/tree/main/21_September_Monday/02_Intro_and_General_Concepts/Vibe/Vibing.pptx))| McStas_McXtrace_Common_Introduction
-[The PaNRAID Team Challenge](challenge.pdf) | Our vision for group teamwork and PaNRAID outcomes!
+[03 The PaNRAID Team Challenge](challenge.pdf) | Our vision for group teamwork and PaNRAID outcomes!
 
 ## Key Tools
 
