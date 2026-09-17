@@ -38,7 +38,7 @@ See [`Data_Generation_Pipeline.md`](./Data_Generation_Pipeline.md) for how a sin
 |   |            | lecture     | [22>03 Optics (PDF slides)](./22_September_Tuesday/03_morning_sources_detectors/Optics/McStas_McXtrace_Optics.pdf) [(pptx)](./22_September_Tuesday/04_morning_sources_detectors/Optics/McStas_McXtrace_Optics.pptx) |
 |   |            | practicals  | [22>03 Optics](./22_September_Tuesday/03_morning_sources_detectors/Optics/Exercises_Optics.md) |
 | 2 | [Tue 22 Sept](./22_September_Tuesday/)  | 14:00-17:00 | **[Intro to AI](./22_September_Tuesday/04_intro_deep_learning/)**
-|   |            | lecture     | [22>04 Into Deep Learning (PDF slides)](./21_September_Monday/04_intro_deep_learning/04_robledo_intro_DL.pdf) |
+|   |            | lecture     | [22>04 Into Deep Learning (PDF slides)](./22_September_Tuesday/04_intro_deep_learning/04_robledo_intro_DL.pdf) |
 |   |            | practicals  | [22>05 Data generation for ML/AI - setting the scene](./22_September_Tuesday/05_afternoon_data_generation/README.md)
 | 3 | [Wed 23 Sept](./22_September_Tuesday/) | 09:00-12:00 | **[Samples 1: Diffraction and Imaging](./23_September_Wednesday/06_morning_samples_1/)** |
 |   |            | lecture     | [23>06 Samples (PDF slides)](./23_September_Wednesday/McStas_McXtrace_Sample_Components.pdf) [(pptx)](./23_September_Wednesday/McStas_McXtrace_Sample_Components.pptx)|
