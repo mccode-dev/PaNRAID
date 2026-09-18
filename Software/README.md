@@ -58,7 +58,12 @@ Juliet documentation: https://www.mesonet.fr/documentation/user-documentation/co
 ## Do you have a shell? Success! Then you should simply run
 * `source /projects/m26216/INSTALL/panraid.sh`
 * (The above script loads a central software deployment on our Project directory + GPU-related modules from MesoNET)
-* Quick interactive session <br>`srun -p mesonet --account=m2xxxx --tasks=1 --gres=gpu:1 --exclusive --time=0:30:0 --pty /bin/bash`
+* Quick interactive session (1 GPU reserved)
+<br>`srun -p mesonet --account=m26216 --tasks=1 --gres=gpu:1 --exclusive --time=0:30:0 --pty /bin/bash`
+* Example slurm batch files: 
+<br>(`mctest`/`mxtest` is a tool that runs a series of `McStas`/`McXtrace` instruments from `${MCSTAS}/examples` / `${MCXTRACE}/examples`
+* [mcstas-GPU-test.sh](mcstas-GPU-test.sh)
+* [mcxtrace-GPU-test.sh](mcxtrace-GPU-test.sh)
 _______
 
 # C. Known issues + workarounds
