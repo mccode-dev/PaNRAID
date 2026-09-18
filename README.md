@@ -53,9 +53,9 @@ See [`Data_Generation_Pipeline.md`](./Data_Generation_Pipeline.md) for how a sin
 |   |            | practical   | [24>08 Image processing - De-noising/de-convolution/segmentation](24_September_Thursday/08_morning_ai_imaging/) |
 |   |            | practical   | 24>08 Surrogate  (approximator) |
 | 4 | [Thu 24 Sept](./24_September_Thursday/) | 14:00-17:00 | **[AI Applications 2](./24_September_Thursday/)** |
-|   |            | practical   | Inverse problems: classification/regression |
+|   |            | practical   | Team Challenge work |
 |   |            | excursion   | **Social activity: [Fort Boyard](https://en.wikipedia.org/wiki/Fort_Boyard_(fortification))** :boat: :arrow_right: :european_castle: |
-| 5 | [Fri 25 Sept](./25_September_Friday) | 08:30:11:30  | [AI Applications: Inference](./25_September_Friday) |
+| 5 | [Fri 25 Sept](./25_September_Friday) | 08:30:11:30  | Team Challenge wrap-up |
 
 ## Practical Details
 
