@@ -1,5 +1,7 @@
 # The Whole Story
 
+[(PDF slides)](./01_Seeking_for_AI.pdf) [(pptx)](./01_Seeking_for_AI.pptx)
+
 ## The real or virtual world
 
 `parameters -> [ Instrument or Simulation ] -> measurement`
