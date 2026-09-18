@@ -17,11 +17,12 @@ Preserve the instrument source, manifest, seeds, environment information, SLURM 
 To start the exercise, refer to:
 
 - [01_dataset_generation.ipynb](./01_dataset_generation.ipynb)
+- [02_PyTorch_training.ipynb](./02_PyTorch_training.ipynb)
 
 which uses the following McStas instruments and components:
 
 - [kws_core_shell.instr](./kws_core_shell.instr)
-- [kws_core_shell.instr](./kws_core_shell.instr)
+- [kws_linear_pearls.instr](./kws_linear_pearls.instr)
 - [kws_sphere.instr](./kws_sphere.instr)
 - [Tslit.comp](./Tslit.comp)
 - [TBeamstop.comp](./TBeamstop.comp)
