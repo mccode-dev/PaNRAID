@@ -35,6 +35,7 @@ dependencies:
   - scikit-image
   - pytorch          # CPU build — works everywhere, incl. macOS
   - xgboost          # CPU build unless panraid-cuda.yml is added
+  - torchvision
 
   # HDF5/NeXus extra
   - silx # McStas/McXtrace already include nexpy

@@ -30,6 +30,7 @@ dependencies:
   - pytorch          # CPU build — works everywhere, incl. macOS
   - pytorch-gpu
   - xgboost          # CPU build unless panraid-cuda.yml is added
+  - torchvision
 
   # HDF5/NeXus extra
   - silx # McStas/McXtrace already include nexpy
