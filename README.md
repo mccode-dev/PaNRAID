@@ -47,7 +47,7 @@ See [`Data_Generation_Pipeline.md`](./Data_Generation_Pipeline.md) for how a sin
 |   |            | practicals  | [23>07 Samples: Absorption](./23_September_Wednesday/07_afternoon_samples_2/Spectroscopy_abs/README.md) |
 | 3 | [Wed 23 Sept](./23_September_Tuesday/) | 14:00-17:00 | **[Samples 2: X-ray Spectroscopy and SANS](./23_September_Wednesday/07_afternoon_samples_2/)** |
 |   |            | practicals  | [23>07 Samples: Fluorescence](./23_September_Wednesday/07_afternoon_samples_2/Spectroscopy_fluo/README.md) |
-|   |            | practicals  | [22>05 (cont.) Inverse problem classifier (SANS)](./22_September_Tuesday/05_afternoon_data_generation/README.md) [Notebook] (./22_September_Tuesday/05_afternoon_data_generation/02_PyTorch_training.ipynb) |
+|   |            | practicals  | [22>05 (cont.) Inverse problem classifier (SANS)](./22_September_Tuesday/05_afternoon_data_generation/README.md) [Notebook](./22_September_Tuesday/05_afternoon_data_generation/02_PyTorch_training.ipynb) |
 | 4 | [Thu 24 Sept](./24_September_Thursday/) | 09:00-12:00 | **[AI Applications 1](./24_September_Thursday/)** |
 |   |            | practical   | [Optimisation](./24_September_Thursday/08_morning_ai_optimise) |
 |   |            | practical   | [Image processing - De-noising/de-convolution/segmentation](24_September_Thursday/08_morning_ai_imaging/) |
