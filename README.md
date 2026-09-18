@@ -39,14 +39,15 @@ See [`Data_Generation_Pipeline.md`](./Data_Generation_Pipeline.md) for how a sin
 |   |            | practicals  | [22>03 Optics](./22_September_Tuesday/03_morning_sources_detectors/Optics/Exercises_Optics.md) |
 | 2 | [Tue 22 Sept](./22_September_Tuesday/)  | 14:00-17:00 | **[Intro to AI](./22_September_Tuesday/04_intro_deep_learning/)**
 |   |            | lecture     | [22>04 Into Deep Learning (PDF slides)](./22_September_Tuesday/04_intro_deep_learning/04_robledo_intro_DL.pdf) |
-|   |            | practicals  | [22>05 Data generation for ML/AI - setting the scene](./22_September_Tuesday/05_afternoon_data_generation/README.md)
+|   |            | practicals  | [22>05 Samples: SANS / Data generation](./22_September_Tuesday/05_afternoon_data_generation/README.md) |
 | 3 | [Wed 23 Sept](./23_September_Tuesday/) | 09:00-12:00 | **[Samples 1: Diffraction and Imaging](./23_September_Wednesday/06_morning_samples_1/)** |
 |   |            | lecture     | [23>06 Samples (PDF slides)](./23_September_Wednesday/McStas_McXtrace_Sample_Components.pdf) [(pptx)](./23_September_Wednesday/McStas_McXtrace_Sample_Components.pptx)|
 |   |            | practicals  | [23>06 Samples: Powder Diffraction](./23_September_Wednesday/06_morning_samples_1/Exercises_PowderN.md) |
-| 3 | [Wed 23 Sept](./23_September_Tuesday/) | 14:00-17:00 | **[Samples 2: X-ray Spectroscopy and SANS](./23_September_Wednesday/07_afternoon_samples_2/)** |
 |   |            | practicals  | [23>06 Samples: Imaging](./23_September_Wednesday/06_morning_samples_1/Batteries/README.md) |
 |   |            | practicals  | [23>07 Samples: Absorption](./23_September_Wednesday/07_afternoon_samples_2/Spectroscopy_abs/README.md) |
+| 3 | [Wed 23 Sept](./23_September_Tuesday/) | 14:00-17:00 | **[Samples 2: X-ray Spectroscopy and SANS](./23_September_Wednesday/07_afternoon_samples_2/)** |
 |   |            | practicals  | [23>07 Samples: Fluorescence](./23_September_Wednesday/07_afternoon_samples_2/Spectroscopy_fluo/README.md) |
+|   |            | practicals  | [22>05 (cont.) Inverse problem classifier (SANS)](./22_September_Tuesday/05_afternoon_data_generation/README.md) [Notebook] (./22_September_Tuesday/05_afternoon_data_generation/02_PyTorch_training.ipynb) |
 | 4 | [Thu 24 Sept](./24_September_Thursday/) | 09:00-12:00 | **[AI Applications 1](./24_September_Thursday/)** |
 |   |            | practical   | [Optimisation](./24_September_Thursday/08_morning_ai_optimise) |
 |   |            | practical   | [Image processing - De-noising/de-convolution/segmentation](24_September_Thursday/08_morning_ai_imaging/) |
