@@ -21,7 +21,18 @@ micromamba activate panraid
 spack load cuda@12.6.2
 spack load nvhpc@25.7
 
+# Run all instruments in ${MCSTAS} that match filename PSI
 mctest --ncount=1e7 --verbose --openacc --compilemax=1200 --runmax=600 --instr=PSI
+
+# You could also run a single instrument via mcrun, i.e. for GPU:
+# mcrun -c --openacc My_instrument.instr par1=1 -n1e8 -d output1
+
+# Same using CPU/mpi
+# mcrun -c --mpi=64 My_instrument.instr par1=1 -n1e8 -d output2
+
+# Use 'auto' to use whatever is reserved via slurm ('ntasks')
+# mcrun -c --mpi=auto My_instrument.instr par1=1 -n1e8 -d output3
+
 
 ### END of McSub script
 
