@@ -21,7 +21,17 @@ micromamba activate panraid
 spack load cuda@12.6.2
 spack load nvhpc@25.7
 
+# Run all instruments in ${MCXTRACE} that match filename SOLEIL
 mxtest --ncount=1e7 --verbose --openacc --compilemax=1200 --runmax=600 --instr=SOLEIL
+
+# You could also run a single instrument via mcrun, i.e. for GPU:
+# mxrun -c --openacc My_instrument.instr par1=1 -n1e8 -d output1
+
+# Same using CPU/mpi
+# mxrun -c --mpi=64 My_instrument.instr par1=1 -n1e8 -d output2
+
+# Use 'auto' to use whatever is reserved via slurm ('ntasks')
+# mxrun -c --mpi=auto My_instrument.instr par1=1 -n1e8 -d output3
 
 ### END of McSub script
 
