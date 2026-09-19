@@ -1,10 +1,10 @@
-# Day 4 — Wednesday 24 September (Morning): ML Optimization
+# Day 4 — Wednesday 24 September (Morning): ML Parameter Optimization
 
 *PaNRAID School, Day 4 morning — optimization*
 
 For this exercise, we shall use an existing model, and search to optimize its parameters to get better flux and resolution.
 
-ML Optimize: `Parameters` -> [ AI ] -> better `Parameters`
+ML Parameter Optimize: `Parameters` -> [ AI ] -> better `Parameters`
 
 The **DIFFABS beamline** at Synchrotron SOLEIL is designed for combined X-ray diffraction and absorption studies. It covers an energy range of **3–23 keV** and is optimized for:
 
@@ -76,8 +76,10 @@ mxrun/mcrun Instr params={min,max|min,guess,max}...
 
 ## Step 1: Run a Baseline Simulation
 
-Load the McXtrace simulation model from the File menu. 
+Load the McXtrace `SOLEIL_DIFFABS` simulation model from the File menu. 
 On the neutron side, you may experiment with the `Templates/templateDIFF.instr` diffractometer model, and aim to optimize its monochromator vertical curvature `RV`.
+
+Edit the instrument file and identify its parts. You may as well run the simulation in _Trace_ mode to visualize its geometry.
 
 Run a simulation with default parameters. Inspect the `sample_stage` monitor output file, and search for metadata:
   - `intensity`: Total counts at the sample.

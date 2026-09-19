@@ -13,7 +13,9 @@ We process the simulated images from a simple powder diffractometer model to:
 
 ## Baseline
 
-We here use a simple powder diffractometer beam-line. the idea is to generate some detector images and learn some data processing methodologies. We use the `Test_PowderN` model. A similar neutron instrument exists. 
+We here use a simple powder diffractometer beam-line. the idea is to generate some detector images and learn some data processing methodologies. We use the McXtrace `Test_PowderN` model. A similar McStas neutron instrument exists. 
+
+Edit the instrument file and identify its parts.
 
 A single powder diffraction simulation step can be launched with e.g.:
 ```
