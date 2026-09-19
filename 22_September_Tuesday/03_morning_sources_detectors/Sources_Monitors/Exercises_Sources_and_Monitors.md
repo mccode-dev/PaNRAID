@@ -35,9 +35,9 @@ Every exercise's Task ends with a short note to write down six facts about the r
 1. **Instrument parameters** — the full set of values you actually ran with, as `name=value`, not "defaults".
 2. **Random seed** — set explicitly with `--seed=<N>`, or left to vary?
 3. **Number of rays (`ncount`)** — your `-n`/`--ncount` value (Monte Carlo statistics, not physical source strength).
-4. **Monitor settings** — binning, limits, `options=` string for every monitor.
+4. **Monitor settings** — binning, limits, for every monitor (and `options=` string for `Monitor_nD`).
 5. **Output files** — where the run's `.dat`/`.h5` files ended up.
-6. **Software version** — `mcstas --version`/`mcxtrace --version`.
+6. ( **Software version** — `mcstas --version`/`mcxtrace --version` ).
 
 None of this needs a special tool — a short text file next to your output is enough. These six facts are exactly what a later, automated dataset-generation pipeline needs for every run — see [`Data_Generation_Pipeline.md`](../../../Data_Generation_Pipeline.md) for how this scales into a per-sample metadata schema.
 
