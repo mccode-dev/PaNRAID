@@ -51,7 +51,7 @@ See [`Data_Generation_Pipeline.md`](./Data_Generation_Pipeline.md) for how a sin
 | 4 | [Thu 24 Sept](./24_September_Thursday/) | 09:00-12:00 | **[AI Applications 1](./24_September_Thursday/)** |
 |   |            | practical   | [24>08 Optimisation](./24_September_Thursday/08_morning_ai_optimise) |
 |   |            | practical   | [24>08 Image processing - De-noising/de-convolution/segmentation](24_September_Thursday/08_morning_ai_imaging/) |
-|   |            | practical   | 24>08 Surrogate  (approximator) |
+|   |            | practical   | [24>08 Surrogate  (approximator)](./24_September_Thursday/08_morning_ai_surrogate) |
 | 4 | [Thu 24 Sept](./24_September_Thursday/) | 14:00-17:00 | **[AI Applications 2](./24_September_Thursday/)** |
 |   |            | practical   | Team Challenge work |
 |   |            | excursion   | **Social activity: [Fort Boyard](https://en.wikipedia.org/wiki/Fort_Boyard_(fortification))** :boat: :arrow_right: :european_castle: |
