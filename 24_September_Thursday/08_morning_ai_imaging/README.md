@@ -148,9 +148,9 @@ This is an unsupervised method that does not require clean data.
 
 First, run the powder diffractometer model with varying `ncount` and `seed`:
 ```
-# Generate 100 noisy versions of SAMPLE=0 with varying NCOUNT and SEED
+# Generate 100 noisy versions with varying NCOUNT and SEED
 for i in {1..100}; do
-  NCOUNT=$((10000 + i * 100))  # Vary NCOUNT
+  NCOUNT=$((100000 + i * 1000))  # Vary NCOUNT
   SEED=$((1000 + i))           # Vary SEED
   mxrun --ncount $NCOUNT -s $SEED -d low-res/seed_${SEED}_ncount_${NCOUNT} --mpi=auto Test_PowderN.instr E0=15
 done
