@@ -29,7 +29,7 @@ See [`Data_Generation_Pipeline.md`](./Data_Generation_Pipeline.md) for how a sin
 |-----|------|---------|-------|
 | 1 | [Mon 21 Sept](./21_September_Monday) | 14:00-17:00 | **[Introduction](./21_September_Monday/)** |
 |   |            | lecture     | [21>01 Seeking for AI](./21_September_Monday/01_Seeking_for_AI) [(PDF slides)](./21_September_Monday/01_Seeking_for_AI/01_Seeking_for_AI.pdf) [(pptx)](./21_September_Monday/01_Seeking_for_AI/01_Seeking_for_AI.pptx) |
-|   |            | lecture     | [21>02 Intro and General Concepts (PDF slides)](./21_September_Monday/02_Intro_and_General_Concepts/02_McStas_McXtrace_Common_Introduction.pdf) [(pptx)](./21_September_Monday/02_Intro_and_General_Concepts/02_McStas_McXtrace_Common_Introduction.pptx) | 
+|   |            | lecture     | [21>02 Intro and General Concepts](./21_September_Monday/02_Intro_and_General_Concepts) [(PDF slides)](./21_September_Monday/02_Intro_and_General_Concepts/02_McStas_McXtrace_Common_Introduction.pdf) [(pptx)](./21_September_Monday/02_Intro_and_General_Concepts/02_McStas_McXtrace_Common_Introduction.pptx) | 
 |   |            |                 | [21>02.1 vibe-code examples (PDF)](21_September_Monday/02_Intro_and_General_Concepts/Vibe/Vibing.pdf) [(pptx)](21_September_Monday/02_Intro_and_General_Concepts/Vibe/Vibing.pptx)|
 |   |            | setting goals | [PaNRAID team challenge](21_September_Monday/challenge.pdf) |
 | 2 | [Tue 22 Sept](./22_September_Tuesday/)  | 09:00-12:00 | **[Sources, Detectors & Optics](./22_September_Tuesday/03_morning_sources_detectors/)** |
