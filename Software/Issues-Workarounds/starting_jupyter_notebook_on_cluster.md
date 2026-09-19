@@ -6,8 +6,7 @@ By using [Remote-SSH extension](https://marketplace.visualstudio.com/items?itemN
 
 1. Request a compute node through Slurm.
 2. Start Jupyter on that node.
-3. Forward a port from the login node to the compute node.
-4. Connect VS Code to that Jupyter server.
+3. Connect VS Code to that Jupyter server.
 
 Let's see them in more detail.
 
@@ -31,12 +30,13 @@ In the commands below, replace `8801` with your assigned port.
 
 ## 2. Request an interactive compute node
 
-Open a terminal in the Remote-SSH VS Code window and run:
+Open a terminal in the Remote-SSH VS Code window and run (choose the time you wish and partition):
 
 ```bash
 srun \
   --partition=mesonet \
   --account=m26216 \
+  --reservation=formation_panraid \
   --ntasks=1 \
   --gres=gpu:1 \
   --time=00:30:00 \
@@ -72,46 +72,33 @@ Use your assigned port:
 ```bash
 jupyter lab \
   --no-browser \
-  --ip=127.0.0.1 \
+  --ip=0.0.0.0 \
   --port=8801
 ```
 
 Jupyter will print a URL containing a security token, similar to:
 
 ```text
-http://localhost:8801/lab?token=abc123...
+Or copy and paste one of these URLs:
+        http://juliet2:8887/lab?token=abc123...
+        http://127.0.0.1:8887/lab?token=abc123...
 ```
+
+Remember, **use the first URL**, the one with the assigned node in it (juliet2 in this case). 
 
 Keep Jupyter running and do not close this terminal.
 
-## 5. Create the SSH tunnel
-
-Open a second terminal in the same VS Code Remote-SSH window. This terminal should start on the login node.
-
-Forward your assigned login-node port to the same port on your compute node:
-
-```bash
-ssh -N -L 8801:127.0.0.1:8801 juliet3
-```
-
-Replace:
-
-* `8801` with your assigned port.
-* `juliet3` with the hostname obtained in step 2.
-
-The command normally produces no output. Leave this terminal open while using the notebook.
-
-## 6. Connect VS Code to Jupyter
+## 5. Connect VS Code to Jupyter
 
 Open the notebook in VS Code and:
 
 1. Click the kernel selector in the upper-right corner.
 2. Select **Select Another Kernel**.
 3. Select **Existing Jupyter Server**.
-4. Enter the URL printed by Jupyter, replacing `localhost` with `127.0.0.1` if needed:
+4. Enter the URL printed by Jupyter 
 
 ```text
-http://127.0.0.1:8801/?token=abc123...
+http://juliet2:8887/lab?token=abc123...
 ```
 
 Use your own assigned port and actual token.
