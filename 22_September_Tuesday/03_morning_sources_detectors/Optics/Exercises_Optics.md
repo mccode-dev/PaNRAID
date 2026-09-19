@@ -4,7 +4,7 @@
 
 **Time note.** Optics shares the Tuesday-morning session with Sources & Monitors instead of an exercise session on its own, so this sheet has been trimmed to two core exercises (one per code) plus optional "if time allows" material. 
 
-Unlike the Sources & Monitors exercises, the two tracks below build genuinely different instruments — a neutron guide is not "the same component under a different name" as an X-ray monochromator. Do whichever matches the code you're working in; if you have both installed and time to spare, doing both is the best way to see where the shared physics (grazing-incidence reflection, Bragg's law) diverges in practice.
+Unlike the Sources & Monitors exercises, the two tracks below build genuinely different instruments built around a key optical component for each particle type: a Neutron instrument with a neutron guide, an X-ray instrument with an X-ray monochromator. Do whichever matches the code you're working in; you have both installed and if you have time to spare, doing both is the best way to see where the shared physics (grazing-incidence reflection, Bragg's law) diverges in practice.
 
 As before: look things up with `mcdoc <Component>`/`mxdoc <Component>` as you go, and plot with `mcplot*`/`mxplot-*`. To compare two runs, `mccoplot`/`mxcoplot` and `mcplotdiff`/`mxplotdiff` need **identically-named files from two different run directories** — they can't diff two differently-named monitors from a single run — so where an exercise below wants a comparison, give the two monitors you'd diff the same filename across the two runs.
 
