@@ -1,20 +1,24 @@
-# Day 2 — Tuesday 22 September: n/X Sources, Detectors, Optics
+# Day 2 — Tuesday 22 September: Simulation and Machine Learning
 
 ## Topic
 
-Modeling of neutron and X-ray sources, as well as detector simulation. Understanding how these elements influence the quality of experimental data and how to integrate them into virtual setups to generate realistic data. Add optics to shape the n/X beam.
+Model neutron and X-ray sources, detectors, and optics; learn the foundations of machine learning; and generate a reproducible SANS simulation dataset for AI.
 
 ## Content
 
-Sources & Monitors and Optics now share this single morning session (see
-[`04_morning_sources_detectors/README.md`](04_morning_sources_detectors/README.md)
-for the combined topic/content/learning-outcomes writeup)
+The three folders contain the day's progression:
+
+- [`03_morning_sources_detectors`](03_morning_sources_detectors): lectures and exercises on sources, monitors, detectors, and optics in McStas and McXtrace.
+- [`04_afternoon_deep_learning`](04_afternoon_deep_learning): an introduction to machine-learning workflows with scikit-learn and PyTorch.
+- [`05_afternoon_data_generation`](05_afternoon_data_generation): considerations when generating dataset: a SANS example.
 
 ## Sessions
 
-Talk | Description
------|-------------
-[04_morning_sources_detectors](04_morning_sources_detectors) | McStas_McXtrace Sources and Monitors/Detectors, and Optics
+Folder | Description
+-------|------------
+[03_morning_sources_detectors](03_morning_sources_detectors) | McStas/McXtrace sources, monitors, detectors, and optics
+[04_afternoon_deep_learning](04_afternoon_deep_learning) | Introductory scikit-learn and PyTorch material
+[05_afternoon_data_generation](05_afternoon_data_generation) | SANS simulation dataset generation and training material
 
 ## Key Tools
 
@@ -22,5 +26,4 @@ Talk | Description
 |------|-------------|------|
 | McStas | Monte Carlo neutron ray-tracing simulation package | https://mcstas.org/ |
 | McXtrace | Monte Carlo X-ray tracing simulation package | https://mcxtrace.org/ |
-
 
