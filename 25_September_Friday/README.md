@@ -2,10 +2,10 @@
 
 ## Topic
 
-CHALLENGE DAY: Train your models, build your slides, and present your results. You are welcome to use any AI. 
+CHALLENGE DAY: Present your results.
 
 ## Prepare
 
-- small presentation with some slides stating the selected problem, the approach towards dataset generation and training, and the achieved results. 
+- small presentation with some slides stating the selected problem, the approach towards dataset generation and training, and the achieved results. Approximate time: 20 minutes.
 
 - Comments on future perspectives, solutions and/or problems found, and questions are most welcome. 
