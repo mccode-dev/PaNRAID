@@ -61,7 +61,7 @@ Juliet documentation: https://www.mesonet.fr/documentation/user-documentation/co
 * Quick interactive session (1 GPU reserved for 30 minutes interactive)
 <br>`srun -p mesonet --account=m26216 --tasks=1 --gres=gpu:1 --exclusive --time=0:30:0 --pty /bin/bash`
 * Example slurm batch files: 
-<br>(`mctest`/`mxtest` is a tool that runs a series of `McStas`/`McXtrace` instruments from `${MCSTAS}/examples` / `${MCXTRACE}/examples`
+<br>(The `mctest`/`mxtest` used in the script are toolsthat runs a series of `McStas`/`McXtrace` instruments from `${MCSTAS}/examples` / `${MCXTRACE}/examples`. You should do some `mcrun/mxrun` instead)
 * [mcstas-GPU-test.sh](mcstas-GPU-test.sh)
 * [mcxtrace-GPU-test.sh](mcxtrace-GPU-test.sh)
 _______
