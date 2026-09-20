@@ -1,15 +1,16 @@
-# Day 3 — Wednesday 23 September (Morning - 1): Diffraction Samples
+# Day 3 — Wednesday 23 September (Morning): Diffraction, Imaging, and SANS Samples
 
 ## Topic
 
-Numerical modelling of material samples that diffract neutrons and X-rays.
+Numerical modelling of neutron and X-ray samples for diffraction, imaging, and small-angle scattering applications.
 
 ## Content
 
 - Introduction to numerical models of crystalline and polycrystalline samples
 - Incorporating physical properties of materials (crystal structure, texture, strain) into simulations
 - Simulation of diffraction experiments to generate realistic, labelled datasets
-- Connecting material models with full beamline digital twins
+- Neutron and X-ray radiography of a Li-ion battery model
+- Classification of simulated SANS form-factor data with a convolutional neural network
 
 ## Learning Outcomes
 
@@ -17,35 +18,14 @@ By the end of this session, participants should be able to:
 
 - Build a basic sample model for powder or single-crystal diffraction in McStas/McXtrace
 - Run a full virtual diffraction experiment from source to detector
-- Generate annotated diffraction datasets suitable for supervised AI training
+- Compare neutron and X-ray contrast in a virtual imaging experiment
+- Use generated NeXus data in a supervised-learning workflow
 
 ## Resources
 
 - [`../McStas_McXtrace_Sample_Components.pptx`](../McStas_McXtrace_Sample_Components.pptx) — lecture slides (shared with the afternoon session) [(PDF here)](../McStas_McXtrace_Sample_Components.pdf)
 - [`Exercises_PowderN.md`](./Exercises_PowderN.md) — McStas/McXtrace PowderN hands-on exercises (Debye-Scherrer rings, classic tables vs. NCrystal/CIF)
+- [`hints`](./hints) — optional starter instruments for the PowderN exercises
 - [`Batteries/README.md`](./Batteries/README.md) — McStas/McXtrace Li-ion battery imaging exercise (Union + NCrystal/xraylib, neutron vs. X-ray contrast, radiography and CT)
-
-# Day 3 — Thursday 23 September (Morning - 2 ): Imaging Samples
-
-## Topic
-
-Simulation of samples for imaging applications, including CT and radiography.
-
-## Content
-
-- Sample modelling for X-ray and neutron imaging (computed tomography, radiography)
-- Generation of virtual images incorporating realistic experimental artefacts (beam hardening, scatter, detector blur)
-- Creating varied and realistic imaging datasets for supervised learning
-- Strategies for dataset diversity: sample geometry, material contrast, acquisition geometry
-
-## Learning Outcomes
-
-By the end of this session, participants should be able to:
-
-- Construct a virtual imaging experiment end-to-end in McStas/McXtrace
-- Generate a set of synthetic projection or tomographic images with controlled artefacts
-- Organise and annotate imaging datasets ready for AI model training
-
-## Resources
-
-_Add slides, notebooks, or reference materials here._
+- [`SANS_inverse_problem/02_PyTorch_training.ipynb`](./SANS_inverse_problem/02_PyTorch_training.ipynb) — CNN classification of generated SANS form-factor NeXus data
+- [`Facilitator_Notes.md`](./Facilitator_Notes.md) — setup and delivery notes for instructors
