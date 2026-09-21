@@ -8,7 +8,6 @@ AI Processing: `Measurement` -> [ AI ] -> better `Measurement`
 
 We process the simulated images from a simple powder diffractometer model to:
 - deconvolve the instrument response by learning the difference between low and high resolution datasets.
-- denoise detector images by learning how the noise evolves.
 - segment areas in the detector image.
 
 ## Baseline
@@ -142,35 +141,11 @@ deconvolved = deconvolve_psd("new_low_res/Sphere.dat")
 This is also a way to retain small signals.
 To get a model less dependant on the beam-line parameters, an image in Q-space is preferred.
 
---------------------------------------------------------------------------------
-## B: Denoising (Noise2Noise)
-
-We may use the **noise2noise** method to train the same U-Net to remove simulation noise. 
-This is an unsupervised method that does not require clean data.
-
-First, run the powder diffractometer model with varying `ncount` and `seed`:
-```
-# Generate 100 noisy versions with varying NCOUNT and SEED
-for i in {1..100}; do
-  NCOUNT=$((100000 + i * 1000))  # Vary NCOUNT
-  SEED=$((1000 + i))           # Vary SEED
-  mxrun --ncount $NCOUNT -s $SEED -d low-res/seed_${SEED}_ncount_${NCOUNT} --mpi=auto Test_PowderN.instr E0=15
-done
-```
-
-The _noise2noise_ method requires to _pair_ `Sphere.dat` files from different NCOUNT/SEED dirs (noisy data) in order to infer the noise shape. 
-
-Request an AI to import `Sphere.dat` files from directory pairs (e.g. N and N+1), for all directories. 
-Convert to log-scale and normalize the data.
-Ask the AI to reuse the previous U-Net but train it to map moisy pairs.
-Then use it to denoise data.
-
-To get a model less dependant on the beam-line parameters, an image in Q-space is preferred.
-
-This methodology is less efficient that the supervised deconvolution seen in section A, but it works even when no reference/clean data is available.
+#### de-noising option
+You may as well produce a training data set with large statitics/ncount and low statitics, in order to train the same U-net to denoise image. For this, perform the training by setting input/output pairs as (X=noisy e.g. `ncount=1e5` ,Y=accurate `ncount=1e7`) images.
 
 --------------------------------------------------------------------------------
-## C: Segmentation
+## B: Segmentation
 
 Segmentation is a method which identifies some areas in an image or volume.
 OpenCV and Scikit-learn are two libraries of great use for this purpose.
