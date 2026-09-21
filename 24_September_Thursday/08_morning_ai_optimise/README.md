@@ -76,7 +76,7 @@ mxrun/mcrun Instr params={min,max|min,guess,max}...
 
 ## Step 1: Run a Baseline Simulation
 
-Load the McXtrace `SOLEIL_DIFFABS` simulation model from the File menu. 
+Load the McXtrace `SOLEIL/SOLEIL_DIFFABS` simulation model from the File menu. 
 On the neutron side, you may experiment with the `Templates/templateDIFF.instr` diffractometer model, and aim to optimize its monochromator vertical curvature `RV`.
 
 Edit the instrument file and identify its parts. You may as well run the simulation in _Trace_ mode to visualize its geometry.
@@ -92,7 +92,7 @@ Choose the `sample_stage` monitor in the **Inspect** drop-down list.
 Indicate the parameters to optimize by setting their variation range, e.g. `M1_radius=1000,1800` and `M2_radius=1000,1800`.
 Press 'Run' and wait for completion. 
 
-:warning: the MPI option seems broken with optimization, do *not* use parallel computing. This can be long, e.g. 10 steps/minute for a total of 180 steps, i.e. ~15 minutes. 
+You may as well use the command `mxrun --optimize --optimize-monitor=sample_stage ...`.
 
 You should get something like (here with `M1_radius` optimization only):
 ```
@@ -107,14 +107,13 @@ INFO: Parameter uncertainties:
 INFO: M1_radius = 1494.447391 ± 209.535869
 ```
 
-Plot results and estimate best parameters. Do you think this is satisfactory ? Why ?
+Plot results and estimate best parameters. Do you think this is satisfactory ? Why ? Check the `sample_stage` detector dimensions.
 
 ## Step 3: Advanced Optimization
 
-NOTE: this step can be started while the previous one is still running.
+The metric to optimize can be defined either directly as a raw monitor value in the model (and then we search for its maximum value), or can combine metadata from a specific monitor.
 
-The metric to optimize can be defined either directly as a monitor in the model (and then we search for its maximum value), or can combine metadata from specific monitor(s). 
-In our case, the `mxrun`/`mcrun` command allows to set the monitor and its value to maximize with the `--optimize-eval` option. 
+In our case, the `mxrun`/`mcrun` command allows to set the monitor (`--optimize-monitor=sample_stage`), in which case the monitor is then stored into a `dict` (structure) `d` which members can be used to maximize the `--optimize-eval` expression.
 At least one fixed parameter must be specified in the command line (here we use `E0`).
 
 Open a terminal from the File menu, and start the optimization:

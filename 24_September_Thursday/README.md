@@ -4,7 +4,7 @@
 
 The morning offers three practical ways to combine AI with McStas or McXtrace simulations:
 
-- [`08_morning_ai_imaging`](08_morning_ai_imaging): image deconvolution, denoising, and segmentation using simulated powder-diffraction data.
+- [`08_morning_ai_imaging`](08_morning_ai_imaging): image deconvolution/denoising, and segmentation using simulated powder-diffraction data.
 - [`08_morning_ai_optimise`](08_morning_ai_optimise): optimization of beamline parameters for improved flux and resolution.
 - [`08_morning_ai_surrogate`](08_morning_ai_surrogate): training a surrogate model to approximate simulated fluorescence spectra.
 

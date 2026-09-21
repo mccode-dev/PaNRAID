@@ -1,4 +1,4 @@
-# Day 3 — Thursday 24 September (Morning): AI Image processing
+# Day 4 — Thursday 24 September (Morning): AI Image processing
 
 *PaNRAID School, Day 4 morning — deconvolution, denoising, segmentation*
 
@@ -12,7 +12,7 @@ We process the simulated images from a simple powder diffractometer model to:
 
 ## Baseline
 
-We here use a simple powder diffractometer beam-line. the idea is to generate some detector images and learn some data processing methodologies. We use the McXtrace `Test_PowderN` model. A similar McStas neutron instrument exists. 
+We here use a simple powder diffractometer beam-line. the idea is to generate some detector images and learn some data processing methodologies. We use the McXtrace `Test_samples/Test_PowderN` model. A similar McStas neutron instrument exists. 
 
 Edit the instrument file and identify its parts.
 
@@ -97,17 +97,19 @@ data = load_psd_file("Sphere.dat")
 --------------------------------------------------------------------------------
 ## A: Deconvolution (Super-Resolution)
 
-**Aim**: Train a model to convert low-resolution SAXS images (default config) → high-resolution (improved config). We use a Supervised U-Net trained on pairs.
+**Aim**: Train a model to convert low-resolution diffraction images (default config) → high-resolution (improved config). We use a Supervised U-Net trained on pairs.
 
-In order to control the resolution, add an `dE` input parameter in the `DEFINE INSTRUMENT Test_PowderN(...)` line, with default value 1 keV.
+In order to control the resolution, add an `dE` input parameter in the `DEFINE INSTRUMENT Test_PowderN(...)` line, with default value 1 keV. Pass it to the `Source_flat` component (instead of fixed value 1, half-spread).
+
+Change the `Sph_mon/Sphere.dat` pixel size to 640x640 to comply with U-Net dimensions (multiple of 16) and resolve powder rings.
 
 First generate a low-resolution set of detector images, and a high resolution set with e.g.
 ```
 # Default config (low resolution)
-mxrun -d low-res --mpi=auto Test_PowderN.instr -N 11 E0=10,19
+mxrun -d low-res --mpi=auto Test_PowderN.instr -N 41 E0=10,19
 
 # Improved config (high resolution)
-mxrun -d high-res --mpi=auto Test_PowderN.instr -N 11 E0=10,19 dE=0.1
+mxrun -d high-res --mpi=auto Test_PowderN.instr -N 41 E0=10,19 dE=0.1
 ```
 
 Then we can grab the results and generate the `X`and `Y` AI datasets, e.g. 
@@ -123,7 +125,7 @@ X_train, y_train = load_paired_data()
 Then ask the AI to train a **U-Net** model with pytorch. 
 The U-Net Architecture is an Encoder-decoder with skip connections.
 It should define a class `class UNet(nn.Module)` with an `__init__` and `forward` methods. 
-The data should better be converted to log-scale and normalised to be properly handled.
+The data should better be converted to log-scale (setting a floor of e.g. 1e-6 instead of 0) and normalised to be properly handled.
 
 Train the U-Net, and save the model, e.g.
 ```
@@ -133,7 +135,7 @@ for epoch in range(100):
     ...
 ```
 
-Now generate a new data set, e.g. with a different incident energy and resolution... and deconvolve it with the model, e.g.:
+Now generate a new data set, e.g. with a different incident energy (e.g. 11.7 and 18.3 keV) and resolution... and deconvolve it with the model, e.g.:
 ```
 deconvolved = deconvolve_psd("new_low_res/Sphere.dat")
 ```
@@ -142,7 +144,7 @@ This is also a way to retain small signals.
 To get a model less dependant on the beam-line parameters, an image in Q-space is preferred.
 
 #### de-noising option
-You may as well produce a training data set with large statitics/ncount and low statitics, in order to train the same U-net to denoise image. For this, perform the training by setting input/output pairs as (X=noisy e.g. `ncount=1e5` ,Y=accurate `ncount=1e7`) images.
+You may as well produce a training data set with large statitics/ncount and low statitics, in order to train the same U-net to denoise image. For this, perform the training by setting input/output pairs as (X=noisy e.g. `--ncount 1e5` ,Y=accurate `--ncount 1e7`) images.
 
 --------------------------------------------------------------------------------
 ## B: Segmentation
@@ -150,7 +152,7 @@ You may as well produce a training data set with large statitics/ncount and low 
 Segmentation is a method which identifies some areas in an image or volume.
 OpenCV and Scikit-learn are two libraries of great use for this purpose.
 
-Request an AI to produce a segmentation algorithm using log-scale intensity, and the Otsu thresholding to remove the lower background.
+Request an AI to produce a segmentation algorithm using log-scale intensity, and the Otsu thresholding to remove the lower background (take care of zero values).
 
 The methodology is basically a Log-scale adaptive thresholding + morphology analysis:
 - Convert to log10 scale (compress dynamic range).
@@ -158,3 +160,4 @@ The methodology is basically a Log-scale adaptive thresholding + morphology anal
 - Clean with morphological operations (opening/closing shapes).
 - Optional: Refine edges with Canny or watershed.
 
+You may in the end compare the segmentation on low and high resolution data sets used above.
