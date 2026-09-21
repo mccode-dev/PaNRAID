@@ -2,6 +2,8 @@
 
 *PaNRAID School, Day 4 morning — surrogate/approximator*
 
+** :warning: Not finalized yet **
+
 For this exercise, we build a model approximator, called a _surrogate_ model.
 
 Surrogate: `Parameters` -> [ AI ] -> fast `Measurement`
@@ -27,3 +29,5 @@ In order to simplifiy the exercise, we shall use a reduced set of atoms to combi
 Select 5 different atoms with Z within 5 (B) and 55 (Cs), say Ti, Fe, Ge, Ru, Ag. 
 
 We need to start a large number of simulations with chemical formula using these atoms, e.g. `Ti0.1Fe0.5Ge0Ru0.3Ag0.9`.
+
+
