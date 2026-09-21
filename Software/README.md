@@ -21,9 +21,9 @@ _______
 
 -------
 ## Test run for McStas:
-mctest --ncount=1e6 --verbose --mpi=auto --compilemax=1200 --runmax=600 --instr=PSI_DMC
+`mctest --ncount=1e6 --verbose --mpi=auto --compilemax=1200 --runmax=600 --instr=PSI_DMC`
 ## Test run for McXtrace:
-mxtest --ncount=1e6 --verbose --mpi=auto --compilemax=1200 --runmax=600 --instr=SOLEIL_LUCIA
+`mxtest --ncount=1e6 --verbose --mpi=auto --compilemax=1200 --runmax=600 --instr=SOLEIL_LUCIA`
 _______
 ## Optional:
 #### Got an NVIDIA GPU (Linux or Windows only)?
