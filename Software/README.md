@@ -19,6 +19,11 @@ _______
 * `micromamba env create -f panraid.yml`
 * For those of you on Windows, please follow the steps to install MSVC compilers [outlined at McStas/McXtrace GitHub](https://github.com/mccode-dev/McCode/tree/main/INSTALL-McStas/conda#note-for-use-on-windows)
 
+-------
+## Test run for McStas:
+mctest --ncount=1e6 --verbose --mpi=auto --compilemax=1200 --runmax=600 --instr=PSI_DMC
+## Test run for McXtrace:
+mxtest --ncount=1e6 --verbose --mpi=auto --compilemax=1200 --runmax=600 --instr=SOLEIL_LUCIA
 _______
 ## Optional:
 #### Got an NVIDIA GPU (Linux or Windows only)?
