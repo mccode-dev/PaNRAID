@@ -10,7 +10,7 @@ A McXtrace run takes seconds to minutes and is noisy. A trained network returns 
 being differentiable, can also be run *backwards* to estimate a composition from a measured spectrum.
 
 We restrict ourselves to compounds built from **five elements: Ti, Fe, Ge, Ru, Ag**.
-The `Fluorescence`component can simulate KLM line for atoms within Z=5 (B) and 56 (Cs)
+The `Fluorescence`component can simulate KLM line for atoms within Z=5 (B) and 90 (Th)
 
 --------------------------------------------------------------------------------
 ## Baseline: the instrument
