@@ -54,22 +54,21 @@ Y = read_emon("runs/00012/emon.dat") # (2001,) output: the `I` column
 - **Target transform**: train on `sqrt(I)` rather than `I` — the noise is for Poissonian (but simulation provides a Gaussian noise), 
   so this keeps weak lines from being drowned out by strong ones. Invert with a square at the end.
 - **Baseline**: fit `spectrum ≈ sum_i w_i * S_i` by least squares (linear mixing of 5 effective pure-element spectra).
-- **Model**: a small MLP (5 -> 256 -> 256 -> 2001, GELU) trained to predict a *correction* to the linear baseline
-  (initialise its last layer to zero, so training starts from the baseline). You may as well use _only_ an MLP (no Baseline fit), so, that it learns the fluorescence lines.
+- **Model**: we wish to train a model to predict a *correction* to the linear baseline (e.g. mean signal). We recommend to use the simple XGBOOST library, which does _not_ require a GPU. We could also use a small MLP (5 -> 256 -> 256 -> 2001, GELU)for this step.
 
-Split the data into train (~75%), validation (10%, to pick the best epoch) and test (15%, touched once). Train with
-AdamW and a few hundred epochs (seconds to minutes on CPU). 
+Split the data into train (~75%), validation (10%, to pick the best epoch) and test (15%, touched once). 
+Train with a few hundred epochs (seconds to minutes on CPU). 
 
-:arrow_right: Ask an AI to write `class Surrogate(nn.Module)`.
+:arrow_right: Ask an AI to write an XBG training routine.
 
 --------------------------------------------------------------------------------
 ## C: Evaluation
 
 Report, on the **test** set, the relative L2 error `||pred - true|| / ||true||` for: the noise floor, the linear
-baseline, and the MLP. Plot a few predicted vs simulated spectra (log scale).
+baseline, and the XGB. Plot a few predicted vs simulated spectra (log scale).
 
 Then answer:
-1. How much better is the MLP than the linear baseline? How close is it to the noise floor?
+1. How much better is the model than the linear baseline? How close is it to the noise floor?
 2. Train only on compounds with at most 3 elements, and test on 4-5 element compounds. Does the MLP still beat the
    linear baseline on these unseen, more complex compositions?
 
@@ -77,7 +76,7 @@ Then answer:
 ## D: Using the surrogate
 
 1. **Speed**: time the prediction of 10 000 spectra and compare with one McXtrace run.
-2. **Inverse problem**: ask an AI to inverse the surrogate (because it is differentiable). 
+2. **Inverse problem**: ask an AI to inverse the model. 
    Given a spectrum, find the mass fractions that best reproduce it. Parametrise
    `w = softmax(theta)` and optimise `theta` by gradient descent against the surrogate's prediction (a few random
    starts). How well are the fractions recovered?
