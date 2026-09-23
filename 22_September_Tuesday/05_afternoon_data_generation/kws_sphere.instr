@@ -87,7 +87,7 @@ INITIALIZE
 %}
 TRACE
 
-/*********************************  Cold source  *****************************************/
+/*********************************  SOURCE *****************************************/
 
 COMPONENT a1 = Arm()
   AT (0, 0, 0) ABSOLUTE
@@ -101,10 +101,14 @@ COMPONENT ColdSource = Source_gen(
    T3=35.66,I3=6.435e13)
   AT (0, 0, 0)  RELATIVE a1
 
+/*********************************  FIRST GUIDE *****************************************/
+
 COMPONENT NL_3_part2 = Guide_gravity(w1=0.05, h1=0.05, w2=0.05, h2=0.05, l=8.0,
                                      R0=0.99, Qc=0.02174, alpha=4.25, W=0.001,
                                      mleft=2.0, mright=2.0, mtop=2.0, mbottom=2.0)
   AT (0, 0, 1.884) RELATIVE ColdSource
+
+/*********************************  VELOCITY SELECTOR *****************************************/
 
 COMPONENT vsel = Selector(xmin=-0.075, xmax=0.075, ymin=-0.03, ymax=0.03, length=slen,
                           nslit=numberslits, d=0.0004, radius=0.115, alpha=alph, nu=frecv)
@@ -112,11 +116,15 @@ COMPONENT vsel = Selector(xmin=-0.075, xmax=0.075, ymin=-0.03, ymax=0.03, length
   ROTATED (0, sel_ang, 0) RELATIVE NL_3_part2
 
 
+/*********************************  SECOND GUIDE *****************************************/
+
 COMPONENT Collimation = Guide_gravity(w1=0.0505, h1=0.0505, w2=0.050, h2=0.050, l=20.0-CLen,
                                       R0=0.99, Qc=0.02174, alpha=4.25, W=0.001,
                                       mleft=1.2, mright=1.2, mtop=1.2, mbottom=1.2)
   AT (0, 0, 0.03+slen) RELATIVE vsel
   ROTATED (0, 0, 0) RELATIVE NL_3_part2
+
+/*********************************  SLITS *****************************************/
 
 COMPONENT ApCollim = Slit(xwidth=0.05, yheight=0.05)
   AT (0, 0, 20.01-CLen) RELATIVE Collimation
@@ -124,12 +132,10 @@ COMPONENT ApCollim = Slit(xwidth=0.05, yheight=0.05)
 COMPONENT SamAp = Slit(xwidth=sslitw, yheight=sslith)
   AT (0, 0, 19.91) RELATIVE Collimation
 
-SPLIT 1000 COMPONENT Sholder1 = Guide_gravity(w1=0.014+4*incl, h1=0.014+4*incl, w2=0.014+3*incl, h2=0.014+3*incl, l=0.01,
-                                              R0=0.99, Qc=0.02174, alpha=4.25, W=0.001,
-                                              mleft=1.2, mright=1.2, mtop=1.2, mbottom=1.2)
-  AT (0, 0, 20.01) RELATIVE Collimation
 
-SPLIT COMPONENT sample = SasView_sphere(
+/*********************************  SAMPLE *****************************************/
+
+SPLIT 1000 COMPONENT sample = SasView_sphere(
         sld=sld, sld_solvent=sld_solvent, radius=radius, pd_radius=pd_radius,  
         model_scale=1, model_abs=model_abs,
         xwidth=xwidth, yheight=yheight, zdepth=zdepth, R=0, 
@@ -140,25 +146,24 @@ EXTEND %{
        if (!SCATTERED) ABSORB;
 %}
 
-COMPONENT void_ = Slit(xwidth=0.10, yheight=0.10)
-  AT (0, 0, 20.037) RELATIVE Collimation
-
-COMPONENT Sholder2 = Guide_gravity(w1=0.014+incl, h1=0.014+incl, w2=0.014, h2=0.014, l=0.01,
-                                   R0=0.99, Qc=0.02174, alpha=4.25, W=0.001,
-                                   mleft=1.2, mright=1.2, mtop=1.2, mbottom=1.2)
-  AT (0, 0, 20.04) RELATIVE Collimation
+/*********************************  BEAMSTOP *****************************************/
 
 COMPONENT STOP = TBeamstop(xmin=-0.035, xmax=0.035, ymin=-0.035, ymax=0.035, Attenuation=3e-5)
-  AT (0, 0, DLen) RELATIVE Sholder2
+  AT (0, 0, DLen + 0.01) RELATIVE sample
 
 COMPONENT frame = Tslit(x01=-0.60192, x02=0.60192, y01=-0.17974, y02=0.17974,
                         x11=-0.40546, x12=0.40546, y11=-0.39710, y12=0.39710,
                         x21=-0.20482, x22=0.20482, y21=-0.49742, y22=0.49742)
   AT (hwidth, vheight, 0.01+DLen) RELATIVE sample
 
+/*********************************  PSD MONITOR *****************************************/
+
+
 COMPONENT PSD_scattering = PSD_monitor(xmin=-0.60192, xmax=0.60192, ymin=-0.60192, ymax=0.60192,
                                   nx=144, ny=256, filename="PSD_scattering.psd")
   AT (hwidth, vheight, 0.02+DLen) RELATIVE sample
+
+/*********************************  RADIAL INTEGRATION *****************************************/
 
 COMPONENT detector2 = PSD_monitor_rad(rmax=0.6, nr=300, filename="PSDr.dat", filename_av="PSDr_av.dat")
   AT (0, 0, 0.001) RELATIVE PSD_scattering
