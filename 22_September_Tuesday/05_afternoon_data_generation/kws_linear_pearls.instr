@@ -124,12 +124,7 @@ COMPONENT ApCollim = Slit(xwidth=0.05, yheight=0.05)
 COMPONENT SamAp = Slit(xwidth=sslitw, yheight=sslith)
   AT (0, 0, 19.91) RELATIVE Collimation
 
-SPLIT 1000 COMPONENT Sholder1 = Guide_gravity(w1=0.014+4*incl, h1=0.014+4*incl, w2=0.014+3*incl, h2=0.014+3*incl, l=0.01,
-                                              R0=0.99, Qc=0.02174, alpha=4.25, W=0.001,
-                                              mleft=1.2, mright=1.2, mtop=1.2, mbottom=1.2)
-  AT (0, 0, 20.01) RELATIVE Collimation
-
-SPLIT COMPONENT sample = SasView_linear_pearls(
+SPLIT 1000 COMPONENT sample = SasView_linear_pearls(
         radius = radius, edge_sep = edge_sep, num_pearls = num_pearls, sld = sld,
         sld_solvent = sld_solvent, model_scale=1, model_abs=model_abs,
         xwidth=xwidth, yheight=yheight, zdepth=zdepth, R=0, 
@@ -140,16 +135,8 @@ EXTEND %{
        if (!SCATTERED) ABSORB;
 %}
 
-COMPONENT void_ = Slit(xwidth=0.10, yheight=0.10)
-  AT (0, 0, 20.037) RELATIVE Collimation
-
-COMPONENT Sholder2 = Guide_gravity(w1=0.014+incl, h1=0.014+incl, w2=0.014, h2=0.014, l=0.01,
-                                   R0=0.99, Qc=0.02174, alpha=4.25, W=0.001,
-                                   mleft=1.2, mright=1.2, mtop=1.2, mbottom=1.2)
-  AT (0, 0, 20.04) RELATIVE Collimation
-
 COMPONENT STOP = TBeamstop(xmin=-0.035, xmax=0.035, ymin=-0.035, ymax=0.035, Attenuation=3e-5)
-  AT (0, 0, DLen) RELATIVE Sholder2
+  AT (0, 0, DLen + 0.01) RELATIVE sample
 
 COMPONENT frame = Tslit(x01=-0.60192, x02=0.60192, y01=-0.17974, y02=0.17974,
                         x11=-0.40546, x12=0.40546, y11=-0.39710, y12=0.39710,
