@@ -69,6 +69,9 @@ Juliet documentation: https://www.mesonet.fr/documentation/user-documentation/co
 <br>(The `mctest`/`mxtest` used in the script are toolsthat runs a series of `McStas`/`McXtrace` instruments from `${MCSTAS}/examples` / `${MCXTRACE}/examples`. You should do some `mcrun/mxrun` instead)
 * [mcstas-GPU-test.sh](mcstas-GPU-test.sh)
 * [mcxtrace-GPU-test.sh](mcxtrace-GPU-test.sh)
+
+## Shared GROUP folders:
+* Located in `/projects/m26216/GROUPS`
 _______
 
 # C. Known issues + workarounds
